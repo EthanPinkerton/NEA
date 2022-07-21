@@ -3,6 +3,7 @@ package game;
 import java.awt.event.KeyEvent;
 
 public class KeyListener implements java.awt.event.KeyListener {
+
     protected boolean KeyW,KeyS,KeyA,KeyD;
 
     public boolean isKeyW() {

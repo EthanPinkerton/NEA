@@ -7,10 +7,11 @@ import java.awt.event.ActionListener;
 
 public class Contents extends JPanel implements ActionListener {
 
-    private Player player = new Player(100,100,"player.png");
-    private Timer t = new Timer(16,this);
-    private KeyListener kl = new KeyListener();
-    private Maze maze = new Maze(3,3);
+    private final Grid grid = new Grid(32);
+    private final Player player = new Player(0,0,"player.png");
+    private final Timer t = new Timer(17,this);
+    private final KeyListener kl = new KeyListener();
+    private final Maze maze = new Maze(3,3);
 
     public Contents(){
         super.setDoubleBuffered(true);
@@ -23,13 +24,13 @@ public class Contents extends JPanel implements ActionListener {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
-        maze.draw(g2d,this);
-        player.draw(g2d,this);
+        maze.draw(g2d,this,grid);
+        player.draw(g2d,this,grid);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        player.collide();
+        grid.update(player.getX(), player.getY());
         player.keyPress(kl);
         repaint();
     }
