@@ -11,7 +11,7 @@ public class Contents extends JPanel implements ActionListener {
     private final Player player = new Player(0,0,"player.png");
     private final Timer t = new Timer(17,this);
     private final KeyListener kl = new KeyListener();
-    private final Maze maze = new Maze(3,3);
+    private final Maze maze = new Maze(4,3);
 
     public Contents(){
         super.setDoubleBuffered(true);

@@ -21,10 +21,10 @@ public class Player{
     }
 
     public void keyPress(KeyListener kl){
-        if(kl.isKeyW()){addY(-0.2);}
-        if(kl.isKeyS()){addY(0.2);}
-        if(kl.isKeyA()){addX(-0.2);}
-        if(kl.isKeyD()){addX(0.2);}
+        if(kl.isKeyW()){addY(-0.1);}
+        if(kl.isKeyS()){addY(0.1);}
+        if(kl.isKeyA()){addX(-0.1);}
+        if(kl.isKeyD()){addX(0.1);}
     }
 
     public void addY(double y) {

@@ -18,7 +18,7 @@ public class Maze {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.maze[j][i] = new Chunk(j,i);
+                this.maze[j][i] = new Chunk(i,j);
             }
         }
     }
@@ -26,9 +26,9 @@ public class Maze {
     @Override
     public String toString(){
         String line = "";
-        for (int i = 0; i < (h*9); i++) {
-            for (int j = 0; j < (w*9); j++) {
-                line += maze[i%h][j%w].getCoord(i%9,j%9);
+        for (int i = 0; i < (h*10); i++) {
+            for (int j = 0; j < (w*10); j++) {
+                line += maze[i/10][j/10].getCoord(i%10,j%10);
             }
             line += "\n";
         }
@@ -37,8 +37,8 @@ public class Maze {
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
         String m = toString();
-        int x = 0;
-        int y = 0;
+        double x = -grid.getScale()/2+2.5;
+        double y = -grid.getScale()/2+2;
         for (int i = 0; i < m.length(); i++) {
             if(m.charAt(i) == 'x'){
                 g2d.drawImage(block,(int) grid.getX(x),(int) grid.getY(y),grid.getScale(),grid.getScale(),IO);
@@ -47,7 +47,7 @@ public class Maze {
                 g2d.drawImage(space,(int) grid.getX(x),(int) grid.getY(y),grid.getScale(),grid.getScale(),IO);
                 x += 1;
             }else{
-                x = 0;
+                x = -grid.getScale()/2+2.5;
                 y += 1;
             }
         }
