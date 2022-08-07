@@ -18,9 +18,13 @@ public class Maze {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.maze[j][i] = new Chunk(i,j);
+                this.maze[j][i] = new Chunk(i-1,j-1);
             }
         }
+    }
+
+    public String[][] getChunk(int x, int y){
+        return maze[y-maze[0][0].y][x-maze[0][0].x].getChunk();
     }
 
     @Override
@@ -37,17 +41,20 @@ public class Maze {
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
         String m = toString();
-        double x = -grid.getScale()/2+2.5;
-        double y = -grid.getScale()/2+2;
+        double x = 0;
+        double y = 0;
+//        double x = -grid.getScale()/4.0+1.25;
+//        double y = -grid.getScale()/4.0+1;
         for (int i = 0; i < m.length(); i++) {
             if(m.charAt(i) == 'x'){
-                g2d.drawImage(block,(int) grid.getX(x),(int) grid.getY(y),grid.getScale(),grid.getScale(),IO);
+                g2d.drawImage(block,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
                 x += 1;
             }else if(m.charAt(i) == 'o'){
-                g2d.drawImage(space,(int) grid.getX(x),(int) grid.getY(y),grid.getScale(),grid.getScale(),IO);
+                g2d.drawImage(space,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
                 x += 1;
             }else{
-                x = -grid.getScale()/2+2.5;
+//                x = -grid.getScale()/4.0+1.25;
+                x = 0;
                 y += 1;
             }
         }

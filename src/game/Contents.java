@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Contents extends JPanel implements ActionListener {
 
-    private final Grid grid = new Grid(32);
+    private final Grid grid = new Grid(64);
     private final Player player = new Player(0,0,"player.png");
     private final Timer t = new Timer(17,this);
     private final KeyListener kl = new KeyListener();
@@ -31,7 +31,7 @@ public class Contents extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         grid.update(player.getX(), player.getY());
-        player.keyPress(kl);
+        player.keyPress(kl,maze,grid.getScale());
         repaint();
     }
 }

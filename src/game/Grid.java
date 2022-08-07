@@ -14,14 +14,14 @@ public class Grid {
     }
 
     public void update(double x, double y){
-        camera.update(x,y);
+        camera.update(x,y,scale);
     }
 
-    public double getX(double x){
-        return 432+(x*scale)-(camera.getX()*scale);
+    public int getX(double x){
+        return (int) Math.round(432+(x*scale)-(camera.getX()*scale));
     }
 
-    public double getY(double y){
-        return 448+(y*scale)-(camera.getY()*scale);
+    public int getY(double y){
+        return (int) Math.round(448+(y*scale)-(camera.getY()*scale));
     }
 }
