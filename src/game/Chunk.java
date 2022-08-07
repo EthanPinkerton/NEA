@@ -1,5 +1,8 @@
 package game;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.ImageObserver;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -8,6 +11,8 @@ public class Chunk {
 
     protected String[][] chunk;
     protected int x,y;
+    private final Image block = new ImageIcon(this.getClass().getResource("placholder1.png")).getImage();
+    private final Image space = new ImageIcon(this.getClass().getResource("placholder2.png")).getImage();
 
     public Chunk(int x, int y) {
         this.x = x;
@@ -19,10 +24,22 @@ public class Chunk {
         }
     }
 
+    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid, int mX, int mY){
+        int offset = 10;
+        for (int i = 0; i < chunk.length; i++) {
+            for (int j = 0; j < chunk.length; j++) {
+                if(chunk[i][j].equals("x")){
+                    g2d.drawImage(block,grid.getX(mX*10+j-offset), grid.getY(mY*10+i-offset),grid.getScale(), grid.getScale(), IO);
+                }else if(chunk[i][j].equals("o")){
+                    g2d.drawImage(space,grid.getX(mX*10+j-offset), grid.getY(mY*10+i-offset),grid.getScale(), grid.getScale(), IO);
+                }
+            }
+        }
+    }
+
     private String[][] first(){
-        String[] e = {"x","x","x","x","o","x","x","x","x","x"}; //columns
-        String[] m = {"o","o","o","o","o","o","o","o","o","x"};
-        return new String[][]{m,m,m,m,m,m,m,m,m,e};
+        String[] m = {"o","o","o","o","o","o","o","o","o"}; //columns <-- this is a lie they're rows now
+        return addSides(new String[][]{m,m,m,m,m,m,m,m,m});
     }
 
     private String[][] generate(){

@@ -6,8 +6,6 @@ import java.awt.image.ImageObserver;
 
 public class Maze {
 
-    private final Image block = new ImageIcon(this.getClass().getResource("placholder1.png")).getImage();
-    private final Image space = new ImageIcon(this.getClass().getResource("placholder2.png")).getImage();
     protected int h,w;
     protected Chunk[][] maze;
 
@@ -39,24 +37,32 @@ public class Maze {
         return line;
     }
 
-    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
-        String m = toString();
-        double x = 0;
-        double y = 0;
-//        double x = -grid.getScale()/4.0+1.25;
-//        double y = -grid.getScale()/4.0+1;
-        for (int i = 0; i < m.length(); i++) {
-            if(m.charAt(i) == 'x'){
-                g2d.drawImage(block,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
-                x += 1;
-            }else if(m.charAt(i) == 'o'){
-                g2d.drawImage(space,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
-                x += 1;
-            }else{
-//                x = -grid.getScale()/4.0+1.25;
-                x = 0;
-                y += 1;
+    public void draw(Graphics2D g2d,ImageObserver IO, Grid grid){
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                maze[i][j].draw(g2d,IO,grid,j,i);
             }
         }
     }
+
+//    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
+//        String m = toString();
+//        double x = 0;
+//        double y = 0;
+////        double x = -grid.getScale()/4.0+1.25;
+////        double y = -grid.getScale()/4.0+1;
+//        for (int i = 0; i < m.length(); i++) {
+//            if(m.charAt(i) == 'x'){
+//                g2d.drawImage(block,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
+//                x += 1;
+//            }else if(m.charAt(i) == 'o'){
+//                g2d.drawImage(space,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
+//                x += 1;
+//            }else{
+////                x = -grid.getScale()/4.0+1.25;
+//                x = 0;
+//                y += 1;
+//            }
+//        }
+//    }
 }

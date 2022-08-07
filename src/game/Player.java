@@ -21,6 +21,10 @@ public class Player{
     }
 
     public void keyPress(KeyListener kl, Maze maze,int scale){
+//        if(kl.isKeyW()){addY(-0.1);}
+//        if(kl.isKeyS()){addY(0.1);}
+//        if(kl.isKeyA()){addX(-0.1);}
+//        if(kl.isKeyD()){addX(0.1);}
         if(kl.isKeyW() && !collision(maze,'w',scale)){addY(-0.1);}
         if(kl.isKeyS() && !collision(maze,'s',scale)){addY(0.1);}
         if(kl.isKeyA() && !collision(maze,'a',scale)){addX(-0.1);}
@@ -33,23 +37,23 @@ public class Player{
         String[][] chunk;
         switch (key){
             case 'w':
-                chunk = maze.getChunk((int) x/9,(int) (y-1)/9);
-                if(y%1 == 0 && chunk[(int) ((y-1)%9)][(int) x%9].equals("x")){
+                chunk = maze.getChunk((int) x/10,(int) (y-1)/10);
+                if(y%1 == 0 && chunk[(int) (Math.abs(y-1)%10)][(int) Math.abs(x)%10].equals("x")){
                     return true;
                 }else{return false;}
             case 's':
-                chunk = maze.getChunk((int) x/9,(int) (y+1)/9);
-                if(y%1 == 0 && chunk[(int) (y+1+scale/2)%9][(int) x%9].equals("x")){
+                chunk = maze.getChunk((int) x/10,(int) (y+1)/10);
+                if(y%1 == 0 && chunk[(int) (y+1+scale/2)%10][(int) x%10].equals("x")){
                     return true;
                 }else{return false;}
             case 'a':
-                chunk = maze.getChunk((int) (x-1)/9,(int) y/9);
-                if(x%1 == 0 && chunk[(int) y%9][(int) (x-1)%9].equals("x")){
+                chunk = maze.getChunk((int) (x-1)/10,(int) y/10);
+                if(x%1 == 0 && chunk[(int) Math.abs(y)%10][(int) Math.abs(x-1)%10].equals("x")){
                     return true;
                 }else{return false;}
             case 'd':
-                chunk = maze.getChunk((int) (x+1)/9,(int) y/9);
-                if(x%1 == 0 && chunk[(int) y%9][(int) (x+1+scale/2)%9].equals("x")){
+                chunk = maze.getChunk((int) (x+1)/10,(int) y/10);
+                if(x%1 == 0 && chunk[(int) y%10][(int) (x+1+scale/2)%10].equals("x")){
                     return true;
                 }else{return false;}
         }
