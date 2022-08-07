@@ -41,8 +41,8 @@ public class Chunk {
 
         int x = random.nextInt(4)*2;
         int y = random.nextInt(4)*2;
-        int orgx = x;
-        int orgy = y;
+        int orgX = x;
+        int orgY = y;
         maze[y][x] = "e";
         boolean[] da = {false,false,false,false};
         int d;
@@ -116,38 +116,38 @@ public class Chunk {
                     da = new boolean[]{false, false, false, false};
                 }
             }
-            if (orgx == x && orgy == y && Objects.equals(maze[0][0], "o")) {
+            if (orgX == x && orgY == y && Objects.equals(maze[0][0], "o")) {
                 maze[y][x] = "o";
                 break;
             }
 
         }
 
-        return addsides(maze);
+        return addSides(maze);
     }
 
-    private String[][] addsides(String[][] maze){
+    private String[][] addSides(String[][] maze){
         Random random = new Random();
-        String[][] newarr = new String[10][10];
+        String[][] newArr = new String[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 try{
-                    newarr[i][j] = maze[i][j];
+                    newArr[i][j] = maze[i][j];
                 }catch (ArrayIndexOutOfBoundsException e){
-                    newarr[i][j] = "x";
+                    newArr[i][j] = "x";
                 }
             }
         }
 
         for (int i = 0; i < 4; i++) {
             if(random.nextBoolean()){
-                newarr[random.nextInt(9)][9] = "o";
+                newArr[random.nextInt(4)*2][9] = "o";
             }else {
-                newarr[9][random.nextInt(9)] = "o";
+                newArr[9][random.nextInt(4)*2] = "o";
             }
         }
 
-        return newarr;
+        return newArr;
     }
 
     public String[][] getChunk(){
