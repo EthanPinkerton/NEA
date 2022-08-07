@@ -17,14 +17,43 @@ public class Player{
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
-        g2d.drawImage(image,(int) grid.getX(x),(int) grid.getY(y),grid.getScale(),grid.getScale(),IO);
+        g2d.drawImage(image,grid.getX(x),grid.getY(y),grid.getScale()/2,grid.getScale()/2,IO);
     }
 
-    public void keyPress(KeyListener kl){
-        if(kl.isKeyW()){addY(-0.1);}
-        if(kl.isKeyS()){addY(0.1);}
-        if(kl.isKeyA()){addX(-0.1);}
-        if(kl.isKeyD()){addX(0.1);}
+    public void keyPress(KeyListener kl, Maze maze,int scale){
+        if(kl.isKeyW() && !collision(maze,'w',scale)){addY(-0.1);}
+        if(kl.isKeyS() && !collision(maze,'s',scale)){addY(0.1);}
+        if(kl.isKeyA() && !collision(maze,'a',scale)){addX(-0.1);}
+        if(kl.isKeyD() && !collision(maze,'d',scale)){addX(0.1);}
+    }
+
+    private boolean collision(Maze maze,char key,int scale){
+        x = Math.round(x*10)/10.0;
+        y = Math.round(y*10)/10.0;
+        String[][] chunk;
+        switch (key){
+            case 'w':
+                chunk = maze.getChunk((int) x/9,(int) (y-1)/9);
+                if(y%1 == 0 && chunk[(int) ((y-1)%9)][(int) x%9].equals("x")){
+                    return true;
+                }else{return false;}
+            case 's':
+                chunk = maze.getChunk((int) x/9,(int) (y+1)/9);
+                if(y%1 == 0 && chunk[(int) (y+1+scale/2)%9][(int) x%9].equals("x")){
+                    return true;
+                }else{return false;}
+            case 'a':
+                chunk = maze.getChunk((int) (x-1)/9,(int) y/9);
+                if(x%1 == 0 && chunk[(int) y%9][(int) (x-1)%9].equals("x")){
+                    return true;
+                }else{return false;}
+            case 'd':
+                chunk = maze.getChunk((int) (x+1)/9,(int) y/9);
+                if(x%1 == 0 && chunk[(int) y%9][(int) (x+1+scale/2)%9].equals("x")){
+                    return true;
+                }else{return false;}
+        }
+        return false;
     }
 
     public void addY(double y) {
