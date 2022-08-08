@@ -17,11 +17,7 @@ public class Chunk {
     public Chunk(int x, int y) {
         this.x = x;
         this.y = y;
-        if(x == 0 && y == 0){
-            this.chunk = first();
-        }else {
-            this.chunk = generate();
-        }
+        this.chunk = generate();
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid, int mX, int mY){
@@ -37,10 +33,10 @@ public class Chunk {
         }
     }
 
-    private String[][] first(){
-        String[] m = {"o","o","o","o","o","o","o","o","o"}; //columns <-- this is a lie they're rows now
-        return addSides(new String[][]{m,m,m,m,m,m,m,m,m});
-    }
+//    private String[][] first(){
+//        String[] m = {"o","o","o","o","o","o","o","o","o"}; //columns <-- this is a lie they're rows now
+//        return addSides(new String[][]{m,m,m,m,m,m,m,m,m});
+//    }
 
     private String[][] generate(){
         Random random = new Random();
