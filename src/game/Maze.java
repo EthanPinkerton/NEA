@@ -45,24 +45,29 @@ public class Maze {
         }
     }
 
-//    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
-//        String m = toString();
-//        double x = 0;
-//        double y = 0;
-////        double x = -grid.getScale()/4.0+1.25;
-////        double y = -grid.getScale()/4.0+1;
-//        for (int i = 0; i < m.length(); i++) {
-//            if(m.charAt(i) == 'x'){
-//                g2d.drawImage(block,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
-//                x += 1;
-//            }else if(m.charAt(i) == 'o'){
-//                g2d.drawImage(space,grid.getX(x),grid.getY(y),grid.getScale(),grid.getScale(),IO);
-//                x += 1;
-//            }else{
-////                x = -grid.getScale()/4.0+1.25;
-//                x = 0;
-//                y += 1;
-//            }
-//        }
-//    }
+    public void chunkLoader(double playerX, double playerY){
+        double x = (playerX/10)-maze[0][0].y;
+        double y = (playerY/10)-maze[0][0].x;
+        if(x < 1.5){
+            for (int i = h-1; i >= 0; i--) {
+                if(i == 0){
+                    for (int j = 0; j < w; j++) {
+                        maze[i][j] = new Chunk(maze[i+1][j].getX(),maze[i+1][j].getY()-1);
+                    }
+                }else {
+                    maze[i] = maze[i-1];
+                }
+            }
+        }else if(x > 3.5){
+            for (int i = 0; i < h; i++) {
+                if(i == h-1){
+                    for (int j = 0; j < w; j++) {
+                        maze[i][j] = new Chunk(maze[i-1][j].getX(),maze[i-1][j].getY()-1);
+                    }
+                }else {
+                    maze[i] = maze[i+1];
+                }
+            }
+        }
+    }
 }
