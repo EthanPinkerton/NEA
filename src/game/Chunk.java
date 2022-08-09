@@ -52,8 +52,8 @@ public class Chunk {
             }
         }
 
-        int x = random.nextInt(4)*2;
-        int y = random.nextInt(4)*2;
+        int x = random.nextInt(3)*2 + 2;
+        int y = random.nextInt(3)*2 + 2;
         int orgX = x;
         int orgY = y;
         maze[y][x] = "e";
