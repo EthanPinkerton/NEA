@@ -22,8 +22,6 @@ public class Maze {
     }
 
     public String[][] getChunk(int x, int y){
-        if(x < 0){x -= 1;}
-        if(y < 0){y -= 1;}
         return maze[y-maze[0][0].y][x-maze[0][0].x].getChunk();
     }
 
@@ -42,7 +40,7 @@ public class Maze {
     public void draw(Graphics2D g2d,ImageObserver IO, Grid grid){
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                maze[i][j].draw(g2d,IO,grid,j,i);
+                maze[i][j].draw(g2d,IO,grid,j-1,i-1);
             }
         }
     }

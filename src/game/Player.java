@@ -38,31 +38,31 @@ public class Player{
         String[][] chunk;
         switch (key){
             case 'w':
-                chunk = maze.getChunk((int) x/10,(int) (y-1)/10);
-                if(y%1 == 0 && chunk[Math.floorMod((int) y-1,10)][Math.floorMod((int) x,10)].equals("x")){
+                chunk = maze.getChunk((int) Math.floor(x/10),(int) Math.floor((y-1)/10));
+                if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
-                }else if(y%1 == 0 && chunk[Math.floorMod((int) y-1,10)][Math.floorMod((int) (x+0.4),10)].equals("x")){
+                }else if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 's':
-                chunk = maze.getChunk((int) x/10,(int) (y+1)/10);
-                if(y%1 == 0.5 && chunk[Math.floorMod((int) (y+1),10)][Math.floorMod((int) x,10)].equals("x")){
+                chunk = maze.getChunk((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
+                if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
-                }else if(y%1 == 0.5 && chunk[Math.floorMod((int) (y+1),10)][Math.floorMod((int) (x+0.4),10)].equals("x")){
+                }else if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 'a':
-                chunk = maze.getChunk((int) (x-1)/10,(int) y/10);
-                if(x%1 == 0 && chunk[Math.floorMod((int) y,10)][Math.floorMod((int) x-1,10)].equals("x")){
+                chunk = maze.getChunk((int) Math.floor((x-1)/10),(int) Math.floor(y/10));
+                if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
                     return true;
-                }else if(x%1 == 0 && chunk[Math.floorMod((int) (y+0.4),10)][Math.floorMod((int) x-1,10)].equals("x")){
+                }else if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 'd':
-                chunk = maze.getChunk((int) (x+1)/10,(int) y/10);
-                if(x%1 == 0.5 && chunk[Math.floorMod((int) y,10)][Math.floorMod((int) (x+1),10)].equals("x")){
+                chunk = maze.getChunk((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
+                if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
-                }else if(x%1 == 0.5 && chunk[Math.floorMod((int) (y+0.4),10)][Math.floorMod((int) (x+1),10)].equals("x")){
+                }else if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
                 }else{return false;}
         }
