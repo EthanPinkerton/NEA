@@ -16,12 +16,14 @@ public class Maze {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.maze[j][i] = new Chunk(i-1,j-1);
+                this.maze[j][i] = new Chunk(i-2,j-2);
             }
         }
     }
 
     public String[][] getChunk(int x, int y){
+        if(x < 0){x -= 1;}
+        if(y < 0){y -= 1;}
         return maze[y-maze[0][0].y][x-maze[0][0].x].getChunk();
     }
 

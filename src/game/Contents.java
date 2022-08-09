@@ -11,7 +11,7 @@ public class Contents extends JPanel implements ActionListener {
     private final Player player = new Player(0,0,"player.png");
     private final Timer t = new Timer(17,this);
     private final KeyListener kl = new KeyListener();
-    private final Maze maze = new Maze(4,3);
+    private final Maze maze = new Maze(5,5);
 
     public Contents(){
         super.setDoubleBuffered(true);
@@ -31,7 +31,7 @@ public class Contents extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         grid.update(player.getX(), player.getY());
-        player.keyPress(kl,maze,grid.getScale());
+        player.keyPress(kl,maze);
         repaint();
     }
 }
