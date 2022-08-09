@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class Contents extends JPanel implements ActionListener {
 
     private final Grid grid = new Grid(64);
-    private final Player player = new Player(0,0,"player.png");
+    private final Player player = new Player(4.2,4.2,"player.png");
     private final Timer t = new Timer(17,this);
     private final KeyListener kl = new KeyListener();
     private final Maze maze = new Maze(5,5);
