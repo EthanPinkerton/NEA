@@ -33,11 +33,6 @@ public class Chunk {
         }
     }
 
-//    private String[][] first(){
-//        String[] m = {"o","o","o","o","o","o","o","o","o"}; //columns <-- this is a lie they're rows now
-//        return addSides(new String[][]{m,m,m,m,m,m,m,m,m});
-//    }
-
     private String[][] generate(){
         Random random = new Random();
 
@@ -154,9 +149,9 @@ public class Chunk {
 
         for (int i = 0; i < 4; i++) {
             if(random.nextBoolean()){
-                newArr[random.nextInt(4)*2][9] = "o";
+                newArr[random.nextInt(5)*2][9] = "o";
             }else {
-                newArr[9][random.nextInt(4)*2] = "o";
+                newArr[9][random.nextInt(5)*2] = "o";
             }
         }
 
@@ -169,5 +164,13 @@ public class Chunk {
 
     public String getCoord(int x,int y){
         return chunk[y][x];
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
     }
 }
