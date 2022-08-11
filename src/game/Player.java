@@ -3,7 +3,6 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.util.Arrays;
 
 public class Player{
 

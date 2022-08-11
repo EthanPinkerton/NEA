@@ -162,10 +162,6 @@ public class Chunk {
         return chunk;
     }
 
-    public String getCoord(int x,int y){
-        return chunk[y][x];
-    }
-
     public int getX(){
         return x;
     }
