@@ -3,12 +3,14 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 public class Player{
 
     protected double x;
     protected double y;
     protected Image image;
+    private ArrayList<Projectile> Projectiles = new ArrayList<>();
 
     public Player(double x, double y, String file) {
         this.x = x;

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 public class KeyListener implements java.awt.event.KeyListener {
 
-    protected boolean KeyW,KeyS,KeyA,KeyD;
+    protected boolean KeyW,KeyS,KeyA,KeyD,KeyE;
 
     public boolean isKeyW() {
         return KeyW;
@@ -20,6 +20,10 @@ public class KeyListener implements java.awt.event.KeyListener {
 
     public boolean isKeyD() {
         return KeyD;
+    }
+
+    public boolean isKeyE() {
+        return KeyE;
     }
 
     @Override
@@ -45,6 +49,10 @@ public class KeyListener implements java.awt.event.KeyListener {
             KeyD = true;
             return;
         }
+        if(e.getKeyCode() == KeyEvent.VK_E){
+            KeyE = true;
+            return;
+        }
     }
 
     @Override
@@ -63,6 +71,10 @@ public class KeyListener implements java.awt.event.KeyListener {
         }
         if(e.getKeyCode() == KeyEvent.VK_D){
             KeyD = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_E){
+            KeyE = false;
             return;
         }
     }
