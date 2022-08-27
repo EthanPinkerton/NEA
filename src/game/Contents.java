@@ -32,7 +32,7 @@ public class Contents extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         maze.chunkLoader(player.getX(), player.getY());
         grid.update(player.getX(), player.getY());
-        player.keyPress(kl,maze);
+        player.update(kl,maze);
         repaint();
     }
 }

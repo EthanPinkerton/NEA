@@ -7,19 +7,38 @@ import java.util.ArrayList;
 
 public class Player{
 
-    protected double x;
-    protected double y;
-    protected Image image;
-    private ArrayList<Projectile> Projectiles = new ArrayList<>();
+    protected double x,y;
+    private char direction;
+    private final Image image;
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private int keyPress;
 
     public Player(double x, double y, String file) {
         this.x = x;
         this.y = y;
+        this.direction = 'd';
+        this.keyPress = 0;
         this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
         g2d.drawImage(image,grid.getX(x),grid.getY(y),grid.getScale()/2,grid.getScale()/2,IO);
+        for (int i = 0; i < projectiles.size(); i++) {
+            projectiles.get(i).draw(g2d, IO, grid);
+        }
+    }
+
+    public void update(KeyListener kl, Maze maze){
+        if(keyPress > 0){keyPress -= 1;}
+        int i = 0;
+        while(i < projectiles.size()){
+            if(projectiles.get(i).collision(maze)){
+                projectiles.remove(i);
+                i--;
+            }
+            i++;
+        }
+        keyPress(kl, maze);
     }
 
     public void keyPress(KeyListener kl, Maze maze){
@@ -27,10 +46,11 @@ public class Player{
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}
 //        if(kl.isKeyD()){addX(0.1);}
-        if(kl.isKeyW() && !collision(maze,'w')){addY(-0.1);}
-        if(kl.isKeyS() && !collision(maze,'s')){addY(0.1);}
-        if(kl.isKeyA() && !collision(maze,'a')){addX(-0.1);}
-        if(kl.isKeyD() && !collision(maze,'d')){addX(0.1);}
+        if(kl.isKeyW() && !collision(maze,'w')){addY(-0.1); direction = 'w';}
+        if(kl.isKeyS() && !collision(maze,'s')){addY(0.1); direction = 's';}
+        if(kl.isKeyA() && !collision(maze,'a')){addX(-0.1); direction = 'a';}
+        if(kl.isKeyD() && !collision(maze,'d')){addX(0.1); direction = 'd';}
+        if(kl.isKeyE() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction)); keyPress = 10;}
     }
 
     private boolean collision(Maze maze,char key){
