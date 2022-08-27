@@ -23,12 +23,13 @@ public class Player{
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
         g2d.drawImage(image,grid.getX(x),grid.getY(y),grid.getScale()/2,grid.getScale()/2,IO);
-        for (int i = 0; i < projectiles.size(); i++) {
-            projectiles.get(i).draw(g2d, IO, grid);
+        for (Projectile projectile : projectiles) {
+            projectile.draw(g2d, IO, grid);
         }
     }
 
     public void update(KeyListener kl, Maze maze){
+        keyPress(kl, maze);
         if(keyPress > 0){keyPress -= 1;}
         int i = 0;
         while(i < projectiles.size()){
@@ -38,7 +39,6 @@ public class Player{
             }
             i++;
         }
-        keyPress(kl, maze);
     }
 
     public void keyPress(KeyListener kl, Maze maze){
@@ -50,7 +50,7 @@ public class Player{
         if(kl.isKeyS() && !collision(maze,'s')){addY(0.1); direction = 's';}
         if(kl.isKeyA() && !collision(maze,'a')){addX(-0.1); direction = 'a';}
         if(kl.isKeyD() && !collision(maze,'d')){addX(0.1); direction = 'd';}
-        if(kl.isKeyE() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction)); keyPress = 10;}
+        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction)); keyPress = 10;}
     }
 
     private boolean collision(Maze maze,char key){

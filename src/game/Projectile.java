@@ -20,24 +20,24 @@ public class Projectile {
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
         switch(direction){
             case 'w':
-                y -= 0.1;
+                y -= 0.15;
                 break;
             case 's':
-                y += 0.1;
+                y += 0.15;
                 break;
             case 'a':
-                x -= 0.1;
+                x -= 0.15;
                 break;
             case 'd':
-                x += 0.1;
+                x += 0.15;
                 break;
         }
         g2d.drawImage(bullet,grid.getX(x),grid.getY(y),grid.getScale()/2,grid.getScale()/2,IO);
     }
 
     public boolean collision(Maze maze){
-        x = Math.round(x*10)/10.0;
-        y = Math.round(y*10)/10.0;
+        x = Math.round(x*100)/100.0;
+        y = Math.round(y*100)/100.0;
         String[][] chunk;
         switch (direction){
             case 'w':

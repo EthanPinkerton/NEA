@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 public class KeyListener implements java.awt.event.KeyListener {
 
-    protected boolean KeyW,KeyS,KeyA,KeyD,KeyE;
+    protected boolean KeyW,KeyS,KeyA,KeyD,KeySpace;
 
     public boolean isKeyW() {
         return KeyW;
@@ -22,8 +22,8 @@ public class KeyListener implements java.awt.event.KeyListener {
         return KeyD;
     }
 
-    public boolean isKeyE() {
-        return KeyE;
+    public boolean isKeySpace() {
+        return KeySpace;
     }
 
     @Override
@@ -49,8 +49,8 @@ public class KeyListener implements java.awt.event.KeyListener {
             KeyD = true;
             return;
         }
-        if(e.getKeyCode() == KeyEvent.VK_E){
-            KeyE = true;
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            KeySpace = true;
             return;
         }
     }
@@ -73,8 +73,8 @@ public class KeyListener implements java.awt.event.KeyListener {
             KeyD = false;
             return;
         }
-        if(e.getKeyCode() == KeyEvent.VK_E){
-            KeyE = false;
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            KeySpace = false;
             return;
         }
     }
