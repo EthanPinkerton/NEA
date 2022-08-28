@@ -46,16 +46,16 @@ public class Player{
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}
 //        if(kl.isKeyD()){addX(0.1);}
-        if(kl.isKeyW() && !collision(maze,'w')){addY(-0.1); direction = 'w';}
-        if(kl.isKeyS() && !collision(maze,'s')){addY(0.1); direction = 's';}
-        if(kl.isKeyA() && !collision(maze,'a')){addX(-0.1); direction = 'a';}
-        if(kl.isKeyD() && !collision(maze,'d')){addX(0.1); direction = 'd';}
-        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction)); keyPress = 10;}
+        if(kl.isKeyW() && !collision(maze,'w')){addY(-0.05); direction = 'w';}
+        if(kl.isKeyS() && !collision(maze,'s')){addY(0.05); direction = 's';}
+        if(kl.isKeyA() && !collision(maze,'a')){addX(-0.05); direction = 'a';}
+        if(kl.isKeyD() && !collision(maze,'d')){addX(0.05); direction = 'd';}
+        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction)); keyPress = 20;}
     }
 
     private boolean collision(Maze maze,char key){
-        x = Math.round(x*10)/10.0;
-        y = Math.round(y*10)/10.0;
+        x = Math.round(x*100)/100.0;
+        y = Math.round(y*100)/100.0;
         String[][] chunk;
         switch (key){
             case 'w':
