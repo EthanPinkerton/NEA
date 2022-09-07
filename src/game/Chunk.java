@@ -162,6 +162,10 @@ public class Chunk {
         return chunk;
     }
 
+    public String getTile(int x, int y){
+        return chunk[y][x];
+    }
+
     public int getX(){
         return x;
     }

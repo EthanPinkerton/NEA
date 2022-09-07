@@ -8,6 +8,7 @@ public class Maze {
     protected int h,w;
     protected int xOffset, yOffset;
     protected Chunk[][] maze;
+    protected Enemies enemies = new Enemies();
 
     public Maze(int height, int width) {
         this.h = height;
@@ -19,12 +20,54 @@ public class Maze {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 this.maze[j][i] = new Chunk(i-2,j-2);
+                enemies.fillChunk(i-2,j-2);
             }
         }
     }
 
     public String[][] getChunk(int x, int y){
         return maze[y-maze[0][0].getY()][x-maze[0][0].getX()].getChunk();
+    }
+
+    public String getTile(int x, int y){
+        return maze[y/10 - maze[0][0].getY()][x/10 - maze[0][0].getX()].getTile(Math.floorMod(x,10),Math.floorMod(y,10));
+    }
+
+    public boolean collision(char direction, double x, double y){
+        x = Math.round(x*10)/10.0;
+        y = Math.round(y*10)/10.0;
+        String[][] chunk;
+        switch (direction){
+            case 'w':
+                chunk = getChunk((int) Math.floor(x/10),(int) Math.floor((y-1)/10));
+                if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
+                    return true;
+                }else if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
+                    return true;
+                }else{y -= 0.1; return false;}
+            case 's':
+                chunk = getChunk((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
+                if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
+                    return true;
+                }else if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
+                    return true;
+                }else{y += 0.1; return false;}
+            case 'a':
+                chunk = getChunk((int) Math.floor((x-1)/10),(int) Math.floor(y/10));
+                if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
+                    return true;
+                }else if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
+                    return true;
+                }else{x -= 0.1; return false;}
+            case 'd':
+                chunk = getChunk((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
+                if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                    return true;
+                }else if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                    return true;
+                }else{x += 0.1; return false;}
+        }
+        return false;
     }
 
 //    @Override
@@ -45,6 +88,12 @@ public class Maze {
                 maze[i][j].draw(g2d,IO,grid,j+xOffset+1,i+yOffset+1);
             }
         }
+        enemies.draw(g2d, IO, grid);
+    }
+
+    public void update(double playerX, double playerY, Maze maze){
+        chunkLoader(playerX, playerY);
+        enemies.update((int) playerX, (int) playerY, maze);
     }
 
     public void chunkLoader(double playerX, double playerY){
