@@ -12,6 +12,7 @@ public class Player{
     private final Image image;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private int keyPress;
+    private final double scale = 0.25;
 
     public Player(double x, double y, String file) {
         this.x = x;
@@ -22,7 +23,7 @@ public class Player{
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
-        g2d.drawImage(image,grid.getX(x),grid.getY(y),grid.getScale()/2,grid.getScale()/2,IO);
+        g2d.drawImage(image,grid.getX(x),grid.getY(y), (int) (grid.getScale()*scale),(int) (grid.getScale()*scale),IO);
         for (Projectile projectile : projectiles) {
             projectile.draw(g2d, IO, grid);
         }
@@ -50,7 +51,7 @@ public class Player{
         if(kl.isKeyS() && !collision(maze,'s')){addY(0.05); direction = 's';}
         if(kl.isKeyA() && !collision(maze,'a')){addX(-0.05); direction = 'a';}
         if(kl.isKeyD() && !collision(maze,'d')){addX(0.05); direction = 'd';}
-        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction)); keyPress = 20;}
+        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = 20;}
     }
 
     private boolean collision(Maze maze,char key){
@@ -62,28 +63,28 @@ public class Player{
                 chunk = maze.getChunk((int) Math.floor(x/10),(int) Math.floor((y-1)/10));
                 if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
-                }else if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
+                }else if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x+scale-0.01),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 's':
                 chunk = maze.getChunk((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
-                if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
+                if(Math.abs(y%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
-                }else if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
+                }else if(Math.abs(y%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+scale-0.01),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 'a':
                 chunk = maze.getChunk((int) Math.floor((x-1)/10),(int) Math.floor(y/10));
                 if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
                     return true;
-                }else if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
+                }else if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y+scale-0.01),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 'd':
                 chunk = maze.getChunk((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
-                if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                if(Math.abs(x%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
-                }else if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                }else if(Math.abs(x%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y+scale-0.01),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
                 }else{return false;}
         }

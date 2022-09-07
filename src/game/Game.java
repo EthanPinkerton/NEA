@@ -10,7 +10,7 @@ public class Game extends JFrame{
     public Game(){
         super.setTitle("Game");
         super.setSize(width,height);
-        super.setLocation(100,100);
+        super.setLocation(400,100);
         super.add(new Contents());
         //super.setResizable(false);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
