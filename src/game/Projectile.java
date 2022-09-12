@@ -12,8 +12,8 @@ public class Projectile {
     private double scale;
 
     public Projectile(double x, double y, String file, char direction, double scale) {
-        this.x = x;
-        this.y = y;
+        this.x = Math.round(x*10)/10.0;
+        this.y = Math.round(y*10)/10.0;
         this.bullet = new ImageIcon(this.getClass().getResource(file)).getImage();
         this.direction = direction;
         this.scale = scale;
@@ -24,8 +24,8 @@ public class Projectile {
     }
 
     public boolean collision(Maze maze){
-        x = Math.round(x*100)/100.0;
-        y = Math.round(y*100)/100.0;
+        x = Math.round(x*10)/10.0;
+        y = Math.round(y*10)/10.0;
         String[][] chunk;
         switch (direction){
             case 'w':
@@ -37,9 +37,9 @@ public class Projectile {
                 }else{y -= 0.1; return false;}
             case 's':
                 chunk = maze.getChunk((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
-                if(Math.abs(y%1) == Math.round(1-scale*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
+                if(Math.round(Math.abs(y%1)*10)/10.0 == Math.round((1-scale)*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
-                }else if(Math.abs(y%1) == Math.round(1-scale*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+scale-0.05),10)].equals("x")){
+                }else if(Math.round(Math.abs(y%1)*10)/10.0 == Math.round((1-scale)*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+scale-0.05),10)].equals("x")){
                     return true;
                 }else{y += 0.1; return false;}
             case 'a':
@@ -51,9 +51,9 @@ public class Projectile {
                 }else{x -= 0.1; return false;}
             case 'd':
                 chunk = maze.getChunk((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
-                if(Math.abs(x%1) == Math.round(1-scale*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                if(Math.round(Math.abs(x%1)*10)/10.0 == Math.round((1-scale)*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
-                }else if(Math.abs(x%1) == Math.round(1-scale*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y+scale-0.05),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                }else if(Math.round(Math.abs(x%1)*10)/10.0 == Math.round((1-scale)*10)/10.0 && chunk[Math.floorMod((int) Math.floor(y+scale-0.05),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
                 }else{x += 0.1; return false;}
         }

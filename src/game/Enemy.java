@@ -22,33 +22,33 @@ public class Enemy {
     }
 
     public void update(double pX, double pY, Maze maze){
-        if((int) x == (int) pX){
-            if((int) y < (int) pY) {
-                for (int i = 0; i < 4; i++) {
-                    if (maze.getTile((int) x,(int) y+i*2+1).equals("x") && (int) y+i*2+1 < (int) pY){
+        if(Math.round(x) == Math.round(pX)){
+            if(Math.round(y) < Math.round(pY)) {
+                for (int i = 0; i < 3; i++) {
+                    if (maze.getTile((int)Math.round(x),(int)Math.round(y+i*2+1)).equals("x") && Math.round(y+i*2+1) < Math.round(pY)){
                         return;
                     }
                 }
                 y += 0.05;
-            }else if((int) y > (int) pY){
-                for (int i = 0; i < 4; i++) {
-                    if (maze.getTile((int) x, (int) y-i*2-1).equals("x") && (int) y-i*2-1 > (int) pY){
+            }else if(Math.round(y) > Math.round(pY)){
+                for (int i = 0; i < 3; i++) {
+                    if (maze.getTile((int)Math.round(x), (int)Math.round(y-i*2-1)).equals("x") && Math.round(y-i*2-1) > Math.round(pY)){
                         return;
                     }
                 }
                 y -= 0.05;
             }
-        }else if((int) y == (int) pY){
+        }else if(Math.round(y) == Math.round(pY)){
             if((int) x < (int) pX) {
-                for (int i = 0; i < 4; i++) {
-                    if (maze.getTile((int) x+i*2+1,(int) y).equals("x") && (int) x+i*2+1 < (int) pX){
+                for (int i = 0; i < 3; i++) {
+                    if (maze.getTile((int)Math.round(x+i*2+1),(int)Math.round(y)).equals("x") && Math.round(x+i*2+1) < Math.round(pX)){
                         return;
                     }
                 }
                 x += 0.05;
-            }else if((int) x > (int) pX){
-                for (int i = 0; i < 4; i++) {
-                    if (maze.getTile((int) x-i*2-1, (int) y).equals("x") && (int) x-i*2-1 > (int) pX){
+            }else if(Math.round(x) > Math.round(pX)){
+                for (int i = 0; i < 3; i++) {
+                    if (maze.getTile((int)Math.round(x-i*2-1), (int)Math.round(y)).equals("x") && Math.round(x-i*2-1) > Math.round(pX)){
                         return;
                     }
                 }
