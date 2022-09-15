@@ -68,9 +68,9 @@ public class Player{
                 }else{return false;}
             case 's':
                 chunk = maze.getChunk((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
-                if(Math.abs(y%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
+                if((y%1 == 1-scale || y%1 == -scale) && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
-                }else if(Math.abs(y%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+scale-0.01),10)].equals("x")){
+                }else if((y%1 == 1-scale || y%1 == -scale) && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+scale-0.01),10)].equals("x")){
                     return true;
                 }else{return false;}
             case 'a':
@@ -82,9 +82,9 @@ public class Player{
                 }else{return false;}
             case 'd':
                 chunk = maze.getChunk((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
-                if(Math.abs(x%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                if((x%1 == 1-scale || x%1 == -scale) && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
-                }else if(Math.abs(x%1) == 1-scale && chunk[Math.floorMod((int) Math.floor(y+scale-0.01),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
+                }else if((x%1 == 1-scale || x%1 == -scale) && chunk[Math.floorMod((int) Math.floor(y+scale-0.01),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
                 }else{return false;}
         }

@@ -29,8 +29,12 @@ public class Maze {
         return maze[y-maze[0][0].getY()][x-maze[0][0].getX()].getChunk();
     }
 
-    public String getTile(int x, int y){
-        return maze[y/10 - maze[0][0].getY()][x/10 - maze[0][0].getX()].getTile(Math.floorMod(x,10),Math.floorMod(y,10));
+    public String getTile(double x, double y){
+        try{
+            return maze[(int)Math.floor(y/10) - maze[0][0].getY()][(int)Math.floor(x/10) - maze[0][0].getX()].getTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
+        }catch (ArrayIndexOutOfBoundsException e){
+            return "o";
+        }
     }
 
     public boolean collision(char direction, double x, double y){
@@ -104,6 +108,7 @@ public class Maze {
                 if(i == 0){
                     for (int j = 0; j < h; j++) {
                         maze[j][i] = new Chunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
+                        enemies.fillChunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
                     }
                 }else {
                     for (int j = 0; j < h; j++) {
@@ -117,6 +122,7 @@ public class Maze {
                 if(i == w-1){
                     for (int j = 0; j < h; j++) {
                         maze[j][i] = new Chunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
+                        enemies.fillChunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
                     }
                 }else {
                     for (int j = 0; j < h; j++) {
@@ -133,6 +139,7 @@ public class Maze {
                     Chunk[] temp = new Chunk[w];
                     for (int j = 0; j < w; j++) {
                         temp[j] = new Chunk(maze[i][j].getX(),maze[i][j].getY()-1);
+                        enemies.fillChunk(maze[i][j].getX(),maze[i][j].getY()-1);
                     }
                     maze[i] = temp;
                 }else {
@@ -146,6 +153,7 @@ public class Maze {
                     Chunk[] temp = new Chunk[w];
                     for (int j = 0; j < w; j++) {
                         temp[j] = new Chunk(maze[i][j].getX(),maze[i][j].getY()+1);
+                        enemies.fillChunk(maze[i][j].getX(),maze[i][j].getY()+1);
                     }
                     maze[i] = temp;
                 }else {
