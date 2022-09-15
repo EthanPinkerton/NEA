@@ -30,7 +30,7 @@ public class Enemies {
         }
     }
 
-    public void update(int pX, int pY, Maze maze){
+    public void update(double pX, double pY, Maze maze){
         for (Enemy enemy : enemies) {
             enemy.update(pX,pY,maze);
         }

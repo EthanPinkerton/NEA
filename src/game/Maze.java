@@ -93,7 +93,7 @@ public class Maze {
 
     public void update(double playerX, double playerY, Maze maze){
         chunkLoader(playerX, playerY);
-        enemies.update((int) playerX, (int) playerY, maze);
+        enemies.update(playerX, playerY, maze);
     }
 
     public void chunkLoader(double playerX, double playerY){
