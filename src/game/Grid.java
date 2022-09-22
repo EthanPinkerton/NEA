@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.*;
+
 public class Grid {
 
     protected int scale;
@@ -18,10 +20,10 @@ public class Grid {
     }
 
     public int getX(double x){
-        return (int) Math.round(432+(x*scale)-(camera.getX()*scale));
+        return (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().width/2.0+(x*scale)-(camera.getX()*scale));
     }
 
     public int getY(double y){
-        return (int) Math.round(448+(y*scale)-(camera.getY()*scale));
+        return (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().height/2.0+(y*scale)-(camera.getY()*scale));
     }
 }
