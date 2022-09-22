@@ -20,7 +20,9 @@ public class Maze {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 this.maze[j][i] = new Chunk(i-2,j-2);
-                enemies.fillChunk(i-2,j-2);
+                if(!(i-2==0 && j-2==0)){
+                    enemies.fillChunk(i-2,j-2);
+                }
             }
         }
     }
