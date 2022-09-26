@@ -14,13 +14,13 @@ public class Enemies {
 
     public void newEnemy(int chunkX, int chunkY){
         Random random = new Random();
-        enemies.add(new Enemy(chunkX*10 + random.nextInt(5)*2,chunkY*10 + random.nextInt(5)*2,10,"enemy.png"));
+        enemies.add(new Enemy(chunkX*10 + random.nextInt(5)*2 + 0.3,chunkY*10 + random.nextInt(5)*2 + 0.3,10,"enemy.png"));
     }
 
     public void fillChunk(int chunkX, int chunkY){
         Random random = new Random();
         for (int i = 0; i < random.nextInt(5)+2; i++) {
-            enemies.add(new Enemy(chunkX*10 + random.nextInt(5)*2, chunkY*10 + random.nextInt(5)*2,10,"enemy.png"));
+            enemies.add(new Enemy(chunkX*10 + random.nextInt(5)*2 + 0.3, chunkY*10 + random.nextInt(5)*2 + 0.3,10,"enemy.png"));
         }
     }
 

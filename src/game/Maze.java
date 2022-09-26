@@ -33,7 +33,7 @@ public class Maze {
 
     public String getTile(double x, double y){
         try{
-            return maze[(int)Math.floor(y/10) - maze[0][0].getY()][(int)Math.floor(x/10) - maze[0][0].getX()].getTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
+            return maze[(int)Math.floor(y/10.0) - maze[0][0].getY()][(int)Math.floor(x/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
         }catch (ArrayIndexOutOfBoundsException e){
             return "o";
         }

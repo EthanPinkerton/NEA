@@ -39,16 +39,16 @@ public class Enemy {
 
     public boolean moveY(double pX, double pY, Maze maze) {
         if (Math.floor(x) == Math.floor(pX)) {
-            if (y < pY) {
+            if (y < pY && y+7 > pY) {
                 for (int i = 0; i < 6; i++) {
-                    if (maze.getTile(x, y + i + 1).equals("x") && y + i + 1 < pY) {
+                    if (maze.getTile(x, y+i+1).equals("x") && y+i+1 < pY) {
                         return false;
                     }
                 }
                 y += 0.04;
-            } else if (y > pY) {
+            } else if (y > pY && y-7 < pY) {
                 for (int i = 0; i < 6; i++) {
-                    if (maze.getTile(x, y - i - 1).equals("x") && y - i - 1 > pY) {
+                    if (maze.getTile(x, y-i-1).equals("x") && y-i-1 > pY) {
                         return false;
                     }
                 }
@@ -60,14 +60,15 @@ public class Enemy {
 
     public boolean moveX(double pX, double pY, Maze maze){
         if(Math.floor(y) == Math.floor(pY)){
-            if(x < pX){
+            if(x < pX && x+7 > pX){
                 for (int i = 0; i < 6; i++) {
+                    System.out.println(x+i+1 + " " + y);
                     if(maze.getTile(x+i+1,y).equals("x") && x+i+1 < pX){
                         return false;
                     }
                 }
                 x += 0.04;
-            }else if(x > pX){
+            }else if(x > pX && x-7 < pX){
                 for (int i = 0; i < 6; i++) {
                     if(maze.getTile(x-i-1,y).equals("x") && x-i-1 > pX){
                         return false;
@@ -80,6 +81,8 @@ public class Enemy {
     }
 
     public void update(double pX, double pY, Maze maze){
+        x = Math.round(x*100.0)/100.0;
+        y = Math.round(y*100.0)/100.0;
         boolean yTrue = moveY(pX,pY,maze);
         boolean xTrue = moveX(pX,pY,maze);
         if(!yTrue && !xTrue){
