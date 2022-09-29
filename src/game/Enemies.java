@@ -30,9 +30,15 @@ public class Enemies {
         }
     }
 
-    public void update(double pX, double pY, Maze maze){
-        for (Enemy enemy : enemies) {
-            enemy.update(pX,pY,maze);
+    public void update(Player player,Maze maze){
+        int i = 0;
+        while(i < enemies.size()){
+            enemies.get(i).update(player, maze);
+            if(enemies.get(i).getHealth() <= 0){
+                enemies.remove(i);
+                i--;
+            }
+            i++;
         }
     }
 }

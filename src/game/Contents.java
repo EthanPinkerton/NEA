@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class Contents extends JPanel implements ActionListener {
 
     private final Grid grid = new Grid(96);
-    private final Player player = new Player(4.2,4.2,"player.png");
+    private final Player player = new Player(4.2,4.2,10,"player.png");
     private final Timer t = new Timer(17,this);
     private final KeyListener kl = new KeyListener();
     private final Maze maze = new Maze(5,5);
@@ -30,7 +30,7 @@ public class Contents extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        maze.update(player.getX(), player.getY(),maze);
+        maze.update(player, maze);
         grid.update(player.getX(), player.getY());
         player.update(kl,maze);
         repaint();

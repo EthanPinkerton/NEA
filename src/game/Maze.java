@@ -2,6 +2,7 @@ package game;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 public class Maze {
 
@@ -97,9 +98,9 @@ public class Maze {
         enemies.draw(g2d, IO, grid);
     }
 
-    public void update(double playerX, double playerY, Maze maze){
-        chunkLoader(playerX, playerY);
-        enemies.update(playerX, playerY, maze);
+    public void update(Player player, Maze maze){
+        chunkLoader(player.getX(), player.getY());
+        enemies.update(player,maze);
     }
 
     public void chunkLoader(double playerX, double playerY){

@@ -3,18 +3,19 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Enemy {
 
     protected double x,y;
     protected Image image;
-    protected int health;
+    protected double health;
     private final double scale = 0.4;
     protected boolean playerVisible;
     private char direction;
 
-    public Enemy(double x, double y, int health, String file) {
+    public Enemy(double x, double y, double health, String file) {
         this.x = x;
         this.y = y;
         this.health = health;
@@ -29,8 +30,16 @@ public class Enemy {
         return chars[random.nextInt(4)];
     }
 
+    public double getHealth() {
+        return health;
+    }
+
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
         g2d.drawImage(image,grid.getX(x-0.05),grid.getY(y-0.1),(int) (grid.getScale()*scale),(int) (grid.getScale()*scale),IO);
+        g2d.setColor(Color.RED);
+        g2d.fillRect(grid.getX(x-0.05), grid.getY(y-0.1),(int) (grid.getScale()*scale*(health/10.0)), (int) (grid.getScale()*scale/8.0));
+        g2d.setColor(Color.BLACK);
+        g2d.drawRect(grid.getX(x-0.05), grid.getY(y-0.1),(int) (grid.getScale()*scale),(int) (grid.getScale()*scale/8.0));
     }
 
     public double r1dp(double x){
@@ -80,13 +89,37 @@ public class Enemy {
         return true;
     }
 
-    public void update(double pX, double pY, Maze maze){
+    private void checkProjectiles(Player player){
+        Rectangle rec = new Rectangle((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100));
+
+        if(Math.abs(x - player.getX()) < 3 || Math.abs(y - player.getY()) < 3){
+            int i = 0;
+            while(i < player.projectilesSize()){
+                    if(player.getProjectile(i).intersect(rec)){
+                        health -= 2;
+                        player.removeProjectile(i);
+                        i--;
+                    }
+                i++;
+            }
+        }
+    }
+
+    private void checkPlayer(Player player){
+        Rectangle rec = new Rectangle((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100));
+
+        player.intersect(rec);
+    }
+
+    public void update(Player player, Maze maze){
         x = Math.round(x*100.0)/100.0;
         y = Math.round(y*100.0)/100.0;
-        boolean yTrue = moveY(pX,pY,maze);
-        boolean xTrue = moveX(pX,pY,maze);
-        if(!yTrue && !xTrue){
-
-        }
+        boolean yTrue = moveY(player.getX(), player.getY(), maze);
+        boolean xTrue = moveX(player.getX(), player.getY(), maze);
+        checkProjectiles(player);
+        checkPlayer(player);
+//        if(!yTrue && !xTrue){
+//
+//        }
     }
 }

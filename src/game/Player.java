@@ -13,10 +13,12 @@ public class Player{
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private int keyPress;
     private final double scale = 0.25;
+    private HealthBar healthBar;
 
-    public Player(double x, double y, String file) {
+    public Player(double x, double y, double health, String file) {
         this.x = x;
         this.y = y;
+        this.healthBar = new HealthBar(health);
         this.direction = 'd';
         this.keyPress = 0;
         this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
@@ -24,6 +26,7 @@ public class Player{
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
         g2d.drawImage(image,grid.getX(x),grid.getY(y), (int) (grid.getScale()*scale),(int) (grid.getScale()*scale),IO);
+        healthBar.draw(g2d);
         for (Projectile projectile : projectiles) {
             projectile.draw(g2d, IO, grid);
         }
@@ -34,7 +37,12 @@ public class Player{
         if(keyPress > 0){keyPress -= 1;}
         int i = 0;
         while(i < projectiles.size()){
-            if(projectiles.get(i).collision(maze)){
+            try{
+                if(projectiles.get(i).collision(maze)){
+                    projectiles.remove(i);
+                    i--;
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
                 projectiles.remove(i);
                 i--;
             }
@@ -43,15 +51,40 @@ public class Player{
     }
 
     public void keyPress(KeyListener kl, Maze maze){
-        if(kl.isKeyW() && !collision(maze,'w')){addY(-0.05); direction = 'w';}
-        if(kl.isKeyS() && !collision(maze,'s')){addY(0.05); direction = 's';}
-        if(kl.isKeyA() && !collision(maze,'a')){addX(-0.05); direction = 'a';}
-        if(kl.isKeyD() && !collision(maze,'d')){addX(0.05); direction = 'd';}
+        if(kl.isKeyW() && !collision(maze,'w')){
+            addY(-0.05);
+            if(changeDirection(kl)){direction = 'w';}
+        }
+        if(kl.isKeyS() && !collision(maze,'s')){
+            addY(0.05);
+            if(changeDirection(kl)){direction = 's';}
+        }
+        if(kl.isKeyA() && !collision(maze,'a')){
+            addX(-0.05);
+            if(changeDirection(kl)){direction = 'a';}
+        }
+        if(kl.isKeyD() && !collision(maze,'d')) {
+            addX(0.05);
+            if (changeDirection(kl)) {direction = 'd';}
+        }
         if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = 10;}
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}
 //        if(kl.isKeyD()){addX(0.1);}
+    }
+
+    private boolean changeDirection(KeyListener kl){
+        if(direction == 'w' && kl.isKeyW()){
+            return false;
+        }else if(direction == 's' && kl.isKeyS()){
+            return false;
+        }else if(direction == 'a' && kl.isKeyA()){
+            return false;
+        }else if(direction == 'd' && kl.isKeyD()){
+            return false;
+        }
+        return true;
     }
 
     private boolean collision(Maze maze,char key){
@@ -97,6 +130,28 @@ public class Player{
 
     public void addX(double x) {
         this.x += x;
+    }
+
+    public void intersect(Rectangle rec){
+        if(rec.intersects((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100))){
+            healthBar.damage(0.05);
+        }
+    }
+
+    public void removeProjectile(int i){
+        projectiles.remove(i);
+    }
+
+    public int projectilesSize(){
+        return projectiles.size();
+    }
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    public Projectile getProjectile(int i){
+        return projectiles.get(i);
     }
 
     public double getX() {
