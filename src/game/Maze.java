@@ -9,7 +9,8 @@ public class Maze {
     protected int h,w;
     protected int xOffset, yOffset;
     protected Chunk[][] maze;
-    protected Enemies enemies = new Enemies();
+    protected Enemies enemies;
+    protected Items items;
 
     public Maze(int height, int width) {
         this.h = height;
@@ -17,12 +18,15 @@ public class Maze {
         this.xOffset = -2;
         this.yOffset = -2;
         this.maze = new Chunk[h][w];
+        this.enemies = new Enemies();
+        this.items = new Items();
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 this.maze[j][i] = new Chunk(i-2,j-2);
                 if(!(i-2==0 && j-2==0)){
                     enemies.fillChunk(i-2,j-2);
+                    items.fillChunk(i-2,j-2);
                 }
             }
         }
@@ -96,11 +100,13 @@ public class Maze {
             }
         }
         enemies.draw(g2d, IO, grid);
+        items.draw(g2d, IO, grid);
     }
 
     public void update(Player player, Maze maze){
         chunkLoader(player.getX(), player.getY());
         enemies.update(player,maze);
+        items.update(player);
     }
 
     public void chunkLoader(double playerX, double playerY){
@@ -112,6 +118,7 @@ public class Maze {
                     for (int j = 0; j < h; j++) {
                         maze[j][i] = new Chunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
                         enemies.fillChunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
+                        items.fillChunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
                     }
                 }else {
                     for (int j = 0; j < h; j++) {
@@ -126,6 +133,7 @@ public class Maze {
                     for (int j = 0; j < h; j++) {
                         maze[j][i] = new Chunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
                         enemies.fillChunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
+                        items.fillChunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
                     }
                 }else {
                     for (int j = 0; j < h; j++) {
