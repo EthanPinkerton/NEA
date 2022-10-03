@@ -4,26 +4,42 @@ import java.awt.event.KeyEvent;
 
 public class KeyListener implements java.awt.event.KeyListener {
 
-    protected boolean KeyW,KeyS,KeyA,KeyD,KeySpace;
+    protected boolean keyW,keyS,keyA,keyD,keyUp,keyDown,keyLeft,keyRight,keySpace;
 
     public boolean isKeyW() {
-        return KeyW;
+        return keyW;
     }
 
     public boolean isKeyS() {
-        return KeyS;
+        return keyS;
     }
 
     public boolean isKeyA() {
-        return KeyA;
+        return keyA;
     }
 
     public boolean isKeyD() {
-        return KeyD;
+        return keyD;
+    }
+
+    public boolean isKeyUp(){
+        return keyUp;
+    }
+
+    public boolean isKeyDown(){
+        return keyDown;
+    }
+
+    public boolean isKeyLeft(){
+        return keyLeft;
+    }
+
+    public boolean isKeyRight(){
+        return keyRight;
     }
 
     public boolean isKeySpace() {
-        return KeySpace;
+        return keySpace;
     }
 
     @Override
@@ -34,23 +50,39 @@ public class KeyListener implements java.awt.event.KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_W){
-            KeyW = true;
+            keyW = true;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_S){
-            KeyS = true;
+            keyS = true;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_A){
-            KeyA = true;
+            keyA = true;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_D){
-            KeyD = true;
+            keyD = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_UP){
+            keyUp = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){
+            keyDown = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_LEFT){
+            keyLeft = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            keyRight = true;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            KeySpace = true;
+            keySpace = true;
             return;
         }
     }
@@ -58,23 +90,39 @@ public class KeyListener implements java.awt.event.KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_W){
-            KeyW = false;
+            keyW = false;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_S){
-            KeyS = false;
+            keyS = false;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_A){
-            KeyA = false;
+            keyA = false;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_D){
-            KeyD = false;
+            keyD = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_UP){
+            keyUp = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN){
+            keyDown = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_LEFT){
+            keyLeft = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            keyRight = false;
             return;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            KeySpace = false;
+            keySpace = false;
             return;
         }
     }

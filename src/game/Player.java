@@ -67,6 +67,10 @@ public class Player{
             addX(0.05);
             if (changeDirection(kl)) {direction = 'd';}
         }
+        if(kl.isKeyUp() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'w',scale)); keyPress = 10;}
+        if(kl.isKeyDown() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'s',scale)); keyPress = 10;}
+        if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = 10;}
+        if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = 10;}
         if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = 10;}
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
@@ -132,10 +136,16 @@ public class Player{
         this.x += x;
     }
 
-    public void intersect(Rectangle rec){
+    public double getHealth(){
+        return healthBar.getHealth();
+    }
+
+    public boolean intersect(Rectangle rec){
         if(rec.intersects((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100))){
             healthBar.damage(0.05);
+            return true;
         }
+        return false;
     }
 
     public void removeProjectile(int i){

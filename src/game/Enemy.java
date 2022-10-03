@@ -105,19 +105,20 @@ public class Enemy {
         }
     }
 
-    private void checkPlayer(Player player){
+    private boolean checkPlayer(Player player){
         Rectangle rec = new Rectangle((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100));
-
-        player.intersect(rec);
+        return player.intersect(rec);
     }
 
     public void update(Player player, Maze maze){
         x = Math.round(x*100.0)/100.0;
         y = Math.round(y*100.0)/100.0;
+        checkProjectiles(player);
+        if(checkPlayer(player)){
+            return;
+        }
         boolean yTrue = moveY(player.getX(), player.getY(), maze);
         boolean xTrue = moveX(player.getX(), player.getY(), maze);
-        checkProjectiles(player);
-        checkPlayer(player);
 //        if(!yTrue && !xTrue){
 //
 //        }
