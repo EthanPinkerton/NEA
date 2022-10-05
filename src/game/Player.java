@@ -143,11 +143,11 @@ public class Player{
     }
 
     public boolean intersect(Rectangle rec){
-        if(rec.intersects((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100))){
-            healthBar.damage(0.05);
-            return true;
-        }
-        return false;
+        return rec.intersects((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100));
+    }
+
+    public void damage(double damage){
+        healthBar.damage(damage);
     }
 
     public void removeProjectile(int i){
@@ -158,7 +158,7 @@ public class Player{
         return projectiles.size();
     }
 
-    public ArrayList<Projectile> getProjectiles() {
+    public ArrayList<Projectile> getProjectiles(){
         return projectiles;
     }
 
@@ -170,7 +170,7 @@ public class Player{
         return x;
     }
 
-    public double getY() {
+    public double getY(){
         return y;
     }
 }

@@ -25,7 +25,8 @@ public class Contents extends JPanel implements ActionListener {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         if(player.getHealth() <= 0){
-            g2d.drawImage(new ImageIcon(this.getClass().getResource("Message.png")).getImage(),900,500,this);
+            g2d.drawImage(new ImageIcon(this.getClass().getResource("Message.png")).getImage(),700,500,this);
+            t.stop();
             return;
         }
         maze.draw(g2d,this,grid);

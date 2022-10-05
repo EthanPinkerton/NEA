@@ -73,7 +73,6 @@ public class Enemy {
         if(Math.floor(y) == Math.floor(pY)){
             if(x < pX && x+7 > pX){
                 for (int i = 0; i < 6; i++) {
-                    System.out.println(x+i+1 + " " + y);
                     if(maze.getTile(x+i+1,y).equals("x") && x+i+1 < pX){
                         return false;
                     }
@@ -117,6 +116,7 @@ public class Enemy {
         y = Math.round(y*100.0)/100.0;
         checkProjectiles(player);
         if(checkPlayer(player)){
+            player.damage(0.5);
             return;
         }
         boolean yTrue = moveY(player.getX(), player.getY(), maze);
