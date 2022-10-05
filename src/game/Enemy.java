@@ -35,11 +35,13 @@ public class Enemy {
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
-        g2d.drawImage(image,grid.getX(x-0.05),grid.getY(y-0.1),(int) (grid.getScale()*scale),(int) (grid.getScale()*scale),IO);
-        g2d.setColor(Color.RED);
-        g2d.fillRect(grid.getX(x-0.05), grid.getY(y-0.1),(int) (grid.getScale()*scale*(health/10.0)), (int) (grid.getScale()*scale/8.0));
-        g2d.setColor(Color.BLACK);
-        g2d.drawRect(grid.getX(x-0.05), grid.getY(y-0.1),(int) (grid.getScale()*scale),(int) (grid.getScale()*scale/8.0));
+        if(grid.onScreen(x-0.05,y-0.1)) {
+            g2d.drawImage(image, grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+            g2d.setColor(Color.RED);
+            g2d.fillRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale * (health / 10.0)), (int) (grid.getScale() * scale / 8.0));
+            g2d.setColor(Color.BLACK);
+            g2d.drawRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
+        }
     }
 
     public double r1dp(double x){

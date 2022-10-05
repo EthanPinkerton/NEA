@@ -10,9 +10,9 @@ public class Player{
     protected double x,y;
     private char direction;
     private final Image image;
-    private ArrayList<Projectile> projectiles = new ArrayList<>();
+    private ArrayList<Projectile> projectiles;
     private int keyPress;
-    private final double scale = 0.25;
+    private final double scale;
     private HealthBar healthBar;
 
     public Player(double x, double y, double health, String file) {
@@ -22,6 +22,8 @@ public class Player{
         this.direction = 'd';
         this.keyPress = 0;
         this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
+        projectiles = new ArrayList<>();
+        scale = 0.25;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){

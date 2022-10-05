@@ -19,7 +19,9 @@ public class Item {
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
-        g2d.drawImage(image,grid.getX(x-0.05),grid.getY(y-0.1),(int) (grid.getScale()*scale),(int) (grid.getScale()*scale),IO);
+        if(grid.onScreen(x,y)){
+            g2d.drawImage(image, grid.getX(x), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+        }
     }
 
     public void update(Player player){
