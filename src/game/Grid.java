@@ -19,6 +19,16 @@ public class Grid {
         camera.update(x,y,scale);
     }
 
+    public boolean onScreen(double x, double y){
+        if(getX(x) < -scale || getX(x) > Toolkit.getDefaultToolkit().getScreenSize().width){
+            return false;
+        }else if(getY(y) < -scale || getY(y) > Toolkit.getDefaultToolkit().getScreenSize().height){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public int getX(double x){
         return (int) Math.round(Toolkit.getDefaultToolkit().getScreenSize().width/2.0+(x*scale)-(camera.getX()*scale));
     }

@@ -24,10 +24,12 @@ public class Chunk {
         int offset = 10;
         for (int i = 0; i < chunk.length; i++) {
             for (int j = 0; j < chunk.length; j++) {
-                if(chunk[i][j].equals("x")){
-                    g2d.drawImage(block,grid.getX(mX*10+j-offset), grid.getY(mY*10+i-offset),grid.getScale(), grid.getScale(), IO);
-                }else if(chunk[i][j].equals("o")){
-                    g2d.drawImage(space,grid.getX(mX*10+j-offset), grid.getY(mY*10+i-offset),grid.getScale(), grid.getScale(), IO);
+                if(grid.onScreen(mX*10+j-offset,mY*10+i-offset)) {
+                    if (chunk[i][j].equals("x")) {
+                        g2d.drawImage(block, grid.getX(mX * 10 + j - offset), grid.getY(mY * 10 + i - offset), grid.getScale(), grid.getScale(), IO);
+                    } else if (chunk[i][j].equals("o")) {
+                        g2d.drawImage(space, grid.getX(mX * 10 + j - offset), grid.getY(mY * 10 + i - offset), grid.getScale(), grid.getScale(), IO);
+                    }
                 }
             }
         }
