@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Inventory {
 
-    protected int bombs;
+    protected int bombs,teleport,speed,bullets;
     private Image image;
 
     public Inventory(){
@@ -26,7 +26,20 @@ public class Inventory {
         g2d.drawString(Integer.toString(bombs),10,160);
     }
 
-    public void addItem(String type){
-
+    public void addItem(char type){
+        switch (type){
+            case 'b':
+                bombs ++;
+                break;
+            case 't':
+                teleport ++;
+                break;
+            case 's':
+                speed ++;
+                break;
+            case 'p':
+                bullets ++;
+                break;
+        }
     }
 }

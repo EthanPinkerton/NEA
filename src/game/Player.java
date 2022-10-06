@@ -134,6 +134,10 @@ public class Player{
         return false;
     }
 
+    public void addItem(char type){
+        inventory.addItem(type);
+    }
+
     public void addY(double y) {
         this.y += y;
     }
