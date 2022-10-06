@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 public class KeyListener implements java.awt.event.KeyListener {
 
-    protected boolean keyW,keyS,keyA,keyD,keyUp,keyDown,keyLeft,keyRight,keySpace;
+    protected boolean keyW,keyS,keyA,keyD,keyUp,keyDown,keyLeft,keyRight,keySpace,Key1,Key2,Key3,Key4;
 
     public boolean isKeyW() {
         return keyW;
@@ -40,6 +40,22 @@ public class KeyListener implements java.awt.event.KeyListener {
 
     public boolean isKeySpace() {
         return keySpace;
+    }
+
+    public boolean isKey1(){
+        return Key1;
+    }
+
+    public boolean isKey2(){
+        return Key2;
+    }
+
+    public boolean isKey3(){
+        return Key3;
+    }
+
+    public boolean isKey4(){
+        return Key4;
     }
 
     @Override
@@ -85,6 +101,22 @@ public class KeyListener implements java.awt.event.KeyListener {
             keySpace = true;
             return;
         }
+        if(e.getKeyCode() == KeyEvent.VK_1){
+            Key1 = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_2){
+            Key2 = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_3){
+            Key3 = true;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_4){
+            Key4 = true;
+            return;
+        }
     }
 
     @Override
@@ -123,6 +155,22 @@ public class KeyListener implements java.awt.event.KeyListener {
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             keySpace = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_1){
+            Key1 = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_2){
+            Key2 = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_3){
+            Key3 = false;
+            return;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_4){
+            Key4 = false;
             return;
         }
     }

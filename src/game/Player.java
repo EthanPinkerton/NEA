@@ -14,6 +14,7 @@ public class Player{
     private int keyPress;
     private final double scale;
     private HealthBar healthBar;
+    private Inventory inventory;
 
     public Player(double x, double y, double health, String file) {
         this.x = x;
@@ -23,15 +24,17 @@ public class Player{
         this.keyPress = 0;
         this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
         projectiles = new ArrayList<>();
+        inventory = new Inventory();
         scale = 0.25;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
         g2d.drawImage(image,grid.getX(x),grid.getY(y), (int) (grid.getScale()*scale),(int) (grid.getScale()*scale),IO);
-        healthBar.draw(g2d);
         for (Projectile projectile : projectiles) {
             projectile.draw(g2d, IO, grid);
         }
+        healthBar.draw(g2d);
+        inventory.draw(g2d,IO);
     }
 
     public void update(KeyListener kl, Maze maze){
@@ -74,6 +77,7 @@ public class Player{
         if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = 10;}
         if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = 10;}
         if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = 10;}
+        inventory.keyPress(kl);
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}
