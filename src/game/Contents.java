@@ -22,7 +22,7 @@ public class Contents extends JPanel implements ActionListener {
 
     @Override
     public void paint(Graphics g){
-        super.paint(g);
+        //super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         if(player.getHealth() <= 0){
             g2d.drawImage(new ImageIcon(this.getClass().getResource("Message.png")).getImage(),700,500,this);
