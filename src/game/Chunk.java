@@ -149,7 +149,7 @@ public class Chunk {
             }
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < random.nextInt(2)+4; i++) {
             if(random.nextBoolean()){
                 newArr[random.nextInt(5)*2][9] = "o";
             }else {
