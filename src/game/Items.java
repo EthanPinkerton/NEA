@@ -15,8 +15,29 @@ public class Items {
     public void fillChunk(int chunkX, int chunkY){
         Random random = new Random();
         for (int i = 0; i < random.nextInt(3)+1; i++) {
-            items.add(new Item(chunkX*10 + random.nextInt(5)*2 + 0.3, chunkY*10 + random.nextInt(5)*2 + 0.3,'b',"bomb.jpg"));
+            char type = randType();
+            items.add(new Item(chunkX*10 + random.nextInt(5)*2 + 0.3, chunkY*10 + random.nextInt(5)*2 + 0.3,type,getFile(type)));
         }
+    }
+
+    private char randType(){
+        char[] chars = new char[] {'b','t','s','p'};
+        Random random = new Random();
+        return chars[random.nextInt(3)];
+    }
+
+    private String getFile(char ch){
+        switch (ch){
+            case 'b':
+                return "bomb.jpg";
+            case 't':
+                return "teleport.jpeg";
+            case 's':
+                return "speed.jpg";
+            case 'p':
+                return "bullet.jpg";
+        }
+        return "bomb.jpg";
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){

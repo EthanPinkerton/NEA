@@ -6,7 +6,7 @@ import java.awt.image.ImageObserver;
 
 public class Item {
 
-    protected char type = 'b';
+    protected char type;
     protected double x,y;
     protected Image image;
     protected double scale;

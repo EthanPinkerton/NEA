@@ -3,14 +3,18 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.util.ArrayList;
 
 public class Inventory {
 
+    private boolean bInUse,tInUse,sInUse,pInUse;
     protected int bombs,teleport,speed,bullets;
     private final Image imageB,imageT,imageS,imageP;
 
     public Inventory(){
+        bInUse = false;
+        tInUse = false;
+        sInUse = false;
+        pInUse = false;
         bombs = 1;
         teleport = 1;
         speed = 1;
@@ -22,17 +26,21 @@ public class Inventory {
     }
 
     public void keyPress(KeyListener kl){
-        if(kl.isKey1() && bombs > 0){
+        if(kl.isKey1() && bombs > 0 && !bInUse){
             bombs -= 1;
+            bInUse = true;
         }
-        if(kl.isKey2() && teleport > 0){
+        if(kl.isKey2() && teleport > 0 && !tInUse){
             teleport -= 1;
+            tInUse = true;
         }
-        if(kl.isKey3() && speed > 0){
+        if(kl.isKey3() && speed > 0 && !sInUse){
             speed -= 1;
+            sInUse = true;
         }
-        if(kl.isKey4() && bullets > 0){
+        if(kl.isKey4() && bullets > 0 && !pInUse){
             bullets -= 1;
+            pInUse = true;
         }
     }
 
