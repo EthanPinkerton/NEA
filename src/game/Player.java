@@ -22,7 +22,7 @@ public class Player{
         this.healthBar = new HealthBar(health);
         this.direction = 'd';
         this.keyPress = 0;
-        this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
+        this.image = GetImage.get("player.png");
         projectiles = new ArrayList<>();
         inventory = new Inventory();
         scale = 0.25;
