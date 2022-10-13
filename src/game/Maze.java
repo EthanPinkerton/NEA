@@ -39,8 +39,12 @@ public class Maze {
         try{
             return maze[(int)Math.floor(y/10.0) - maze[0][0].getY()][(int)Math.floor(x/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
         }catch (ArrayIndexOutOfBoundsException e){
-            return "o";
+            return "x";
         }
+    }
+
+    public void removeTile(double x, double y){
+        maze[(int)Math.floor(y/10.0) - maze[0][0].getY()][(int)Math.floor(x/10.0) - maze[0][0].getX()].removeTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
     }
 
     public boolean collision(char direction, double x, double y){

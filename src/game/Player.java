@@ -76,7 +76,7 @@ public class Player{
         if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = 10;}
         if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = 10;}
         if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = 10;}
-        inventory.keyPress(kl);
+        inventory.keyPress(kl,maze,this);
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}
@@ -147,6 +147,10 @@ public class Player{
 
     public double getHealth(){
         return healthBar.getHealth();
+    }
+
+    public char getDirection(){
+        return direction;
     }
 
     public boolean intersect(Rectangle rec){

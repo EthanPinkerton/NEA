@@ -168,6 +168,10 @@ public class Chunk {
         return chunk[y][x];
     }
 
+    public void removeTile(int x, int y){
+        chunk[y][x] = "o";
+    }
+
     public int getX(){
         return x;
     }

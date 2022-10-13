@@ -5,15 +5,11 @@ import java.awt.image.ImageObserver;
 
 public class Inventory {
 
-    private boolean bInUse,tInUse,sInUse,pInUse;
+    private byte keyPress;
     protected int bombs,teleport,speed,bullets;
     private final Image imageB,imageT,imageS,imageP;
 
     public Inventory(){
-        bInUse = false;
-        tInUse = false;
-        sInUse = false;
-        pInUse = false;
         bombs = 1;
         teleport = 1;
         speed = 1;
@@ -22,24 +18,29 @@ public class Inventory {
         imageT = GetImage.get("teleport.jpeg");
         imageS = GetImage.get("speed.jpg");
         imageP = GetImage.get("bullet.jpg");
+        keyPress = 0;
     }
 
-    public void keyPress(KeyListener kl){
-        if(kl.isKey1() && bombs > 0 && !bInUse){
+    public void keyPress(KeyListener kl, Maze maze, Player player){
+        if(keyPress > 0) {
+            keyPress -= 1;
+        }
+        if(kl.isKey1() && bombs > 0 && keyPress == 0){
             bombs -= 1;
-            bInUse = true;
+            Bomb.use(player, maze);
+            keyPress = 10;
         }
-        if(kl.isKey2() && teleport > 0 && !tInUse){
+        if(kl.isKey2() && teleport > 0 && keyPress == 0){
             teleport -= 1;
-            tInUse = true;
+            keyPress = 10;
         }
-        if(kl.isKey3() && speed > 0 && !sInUse){
+        if(kl.isKey3() && speed > 0 && keyPress == 0){
             speed -= 1;
-            sInUse = true;
+            keyPress = 10;
         }
-        if(kl.isKey4() && bullets > 0 && !pInUse){
+        if(kl.isKey4() && bullets > 0 && keyPress == 0){
             bullets -= 1;
-            pInUse = true;
+            keyPress = 10;
         }
     }
 
