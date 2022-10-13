@@ -1,6 +1,5 @@
 package game;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -10,11 +9,11 @@ public class Player{
     protected double x,y;
     private char direction;
     private final Image image;
-    private ArrayList<Projectile> projectiles;
+    private final ArrayList<Projectile> projectiles;
     private int keyPress;
     private final double scale;
-    private HealthBar healthBar;
-    private Inventory inventory;
+    private final HealthBar healthBar;
+    private final Inventory inventory;
 
     public Player(double x, double y, double health, String file) {
         this.x = x;
@@ -22,7 +21,7 @@ public class Player{
         this.healthBar = new HealthBar(health);
         this.direction = 'd';
         this.keyPress = 0;
-        this.image = GetImage.get("player.png");
+        this.image = GetImage.get(file);
         projectiles = new ArrayList<>();
         inventory = new Inventory();
         scale = 0.25;

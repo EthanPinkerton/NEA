@@ -1,9 +1,7 @@
 package game;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.util.Objects;
 
 public class Inventory {
 
@@ -21,9 +19,9 @@ public class Inventory {
         speed = 1;
         bullets = 1;
         imageB = GetImage.get("bomb.jpg");
-        imageT = new ImageIcon(this.getClass().getResource("teleport.jpeg")).getImage();
-        imageS = new ImageIcon(this.getClass().getResource("speed.jpg")).getImage();
-        imageP = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("bullet.jpg"))).getImage();
+        imageT = GetImage.get("teleport.jpeg");
+        imageS = GetImage.get("speed.jpg");
+        imageP = GetImage.get("bullet.jpg");
     }
 
     public void keyPress(KeyListener kl){

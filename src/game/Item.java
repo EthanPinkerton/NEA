@@ -1,6 +1,5 @@
 package game;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
@@ -17,7 +16,7 @@ public class Item {
         this.y = y;
         this.scale = 0.25;
         this.type = type;
-        this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
+        this.image = GetImage.get(file);
         collected = false;
     }
 

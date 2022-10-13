@@ -11,8 +11,8 @@ public class Chunk {
 
     protected String[][] chunk;
     protected int x,y;
-    private final Image block = new ImageIcon(this.getClass().getResource("placholder1.png")).getImage();
-    private final Image space = new ImageIcon(this.getClass().getResource("placholder2.png")).getImage();
+    private final Image block = GetImage.get("placeholder1.png");
+    private final Image space = GetImage.get("placeholder2.png");
 
     public Chunk(int x, int y) {
         this.x = x;

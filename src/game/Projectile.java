@@ -1,6 +1,5 @@
 package game;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
@@ -9,12 +8,12 @@ public class Projectile {
     protected double x,y;
     protected char direction;
     protected Image bullet;
-    private double scale;
+    private final double scale;
 
     public Projectile(double x, double y, String file, char direction, double scale) {
         this.x = Math.round(x*10)/10.0;
         this.y = Math.round(y*10)/10.0;
-        this.bullet = new ImageIcon(this.getClass().getResource(file)).getImage();
+        this.bullet = GetImage.get(file);
         this.direction = direction;
         this.scale = scale;
     }

@@ -1,9 +1,7 @@
 package game;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Enemy {
@@ -19,7 +17,7 @@ public class Enemy {
         this.x = x;
         this.y = y;
         this.health = health;
-        this.image = new ImageIcon(this.getClass().getResource(file)).getImage();
+        this.image = GetImage.get(file);
         playerVisible = false;
         direction = rChar();
     }
@@ -42,10 +40,6 @@ public class Enemy {
             g2d.setColor(Color.BLACK);
             g2d.drawRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
         }
-    }
-
-    public double r1dp(double x){
-        return Math.round(x*10)/10.0;
     }
 
     public boolean moveY(double pX, double pY, Maze maze) {
