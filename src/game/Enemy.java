@@ -91,7 +91,7 @@ public class Enemy {
             int i = 0;
             while(i < player.projectilesSize()){
                     if(player.getProjectile(i).intersect(rec)){
-                        health -= 2;
+                        health -= 1;
                         player.removeProjectile(i);
                         i--;
                     }

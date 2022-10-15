@@ -21,22 +21,22 @@ public class UseItem {
     public static void teleport(Player player, Maze maze){
         switch(player.getDirection()){
             case 'w':
-                if(maze.getTile(player.getX(), player.getY()-2).equals("x")){
+                if(!maze.getTile(player.getX(), player.getY()-2).equals("x")){
                     player.addY(-2);
                 }
                 break;
             case 's':
-                if(maze.getTile(player.getX(), player.getY()+2).equals("x")){
+                if(!maze.getTile(player.getX(), player.getY()+2).equals("x")){
                     player.addY(2);
                 }
                 break;
             case 'a':
-                if(maze.getTile(player.getX()-2, player.getY()).equals("x")){
+                if(!maze.getTile(player.getX()-2, player.getY()).equals("x")){
                     player.addX(-2);
                 }
                 break;
             case 'd':
-                if(maze.getTile(player.getX()+2, player.getY()).equals("x")){
+                if(!maze.getTile(player.getX()+2, player.getY()).equals("x")){
                     player.addX(2);
                 }
                 break;

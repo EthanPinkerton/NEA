@@ -55,12 +55,12 @@ public class Inventory {
         if(kl.isKey3() && speed > 0 && sCount == 0){
             speed -= 1;
             UseItem.speed(player);
-            sCount  = 50;
+            sCount  = 100;
         }
         if(kl.isKey4() && bullets > 0 && bCount == 0){
             bullets -= 1;
             UseItem.projectile(player);
-            bCount = 50;
+            bCount = 100;
         }
     }
 

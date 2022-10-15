@@ -24,15 +24,15 @@ public class Camera {
         return y;
     }
 
-    public void update(double x, double y, double speed, int scale){
-        if(x*scale > getX()*scale+scale*2){
+    public void update(double x, double y, double speed, int scale, int width, int height){
+        if(x*scale > getX()*scale+width/8.0){
             moveX(speed);
-        }else if(x*scale < getX()*scale-scale*2){
+        }else if(x*scale < getX()*scale-width/8.0){
             moveX(-speed);
         }
-        if(y*scale > getY()*scale+scale*2){
+        if(y*scale > getY()*scale+height/8.0){
             moveY(speed);
-        }else if(y*scale < getY()*scale-scale*2){
+        }else if(y*scale < getY()*scale-height/8.0){
             moveY(-speed);
         }
     }

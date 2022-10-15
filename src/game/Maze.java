@@ -106,9 +106,9 @@ public class Maze {
         items.draw(g2d, IO, grid);
     }
 
-    public void update(Player player, Maze maze){
+    public void update(Player player){
         chunkLoader(player.getX(), player.getY());
-        enemies.update(player,maze);
+        enemies.update(player,this);
         items.update(player);
     }
 
