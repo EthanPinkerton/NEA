@@ -14,6 +14,8 @@ public class Player{
     private final double scale;
     private final HealthBar healthBar;
     private final Inventory inventory;
+    protected double speed;
+    protected int pDelay;
 
     public Player(double x, double y, double health, String file) {
         this.x = x;
@@ -25,6 +27,8 @@ public class Player{
         projectiles = new ArrayList<>();
         inventory = new Inventory();
         scale = 0.25;
+        speed = 0.05;
+        pDelay = 10;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
@@ -56,26 +60,26 @@ public class Player{
 
     public void keyPress(KeyListener kl, Maze maze){
         if(kl.isKeyW() && !collision(maze,'w')){
-            addY(-0.05);
+            addY(-speed);
             if(changeDirection(kl)){direction = 'w';}
         }
         if(kl.isKeyS() && !collision(maze,'s')){
-            addY(0.05);
+            addY(speed);
             if(changeDirection(kl)){direction = 's';}
         }
         if(kl.isKeyA() && !collision(maze,'a')){
-            addX(-0.05);
+            addX(-speed);
             if(changeDirection(kl)){direction = 'a';}
         }
         if(kl.isKeyD() && !collision(maze,'d')) {
-            addX(0.05);
+            addX(speed);
             if (changeDirection(kl)) {direction = 'd';}
         }
-        if(kl.isKeyUp() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'w',scale)); keyPress = 10;}
-        if(kl.isKeyDown() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'s',scale)); keyPress = 10;}
-        if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = 10;}
-        if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = 10;}
-        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = 10;}
+        if(kl.isKeyUp() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'w',scale)); keyPress = pDelay;}
+        if(kl.isKeyDown() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'s',scale)); keyPress = pDelay;}
+        if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = pDelay;}
+        if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = pDelay;}
+        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = pDelay;}
         inventory.keyPress(kl,maze,this);
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
@@ -183,5 +187,16 @@ public class Player{
 
     public double getY(){
         return y;
+    }
+
+    public double getSpeed(){
+        return speed;
+    }
+
+    public void setSpeed(double speed){
+        this.speed = speed;
+    }
+    public void setPDelay(int newDelay){
+        pDelay = newDelay;
     }
 }

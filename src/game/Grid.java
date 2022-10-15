@@ -15,8 +15,8 @@ public class Grid {
         return scale;
     }
 
-    public void update(double x, double y){
-        camera.update(x,y,scale);
+    public void update(double x, double y, double speed){
+        camera.update(x,y,speed,scale);
     }
 
     public boolean onScreen(double x, double y){

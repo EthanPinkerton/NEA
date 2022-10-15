@@ -36,7 +36,7 @@ public class Contents extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         maze.update(player, maze);
-        grid.update(player.getX(), player.getY());
+        grid.update(player.getX(), player.getY(), player.getSpeed());
         player.update(kl,maze);
         repaint();
     }

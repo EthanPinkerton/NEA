@@ -27,11 +27,12 @@ public class Inventory {
         }
         if(kl.isKey1() && bombs > 0 && keyPress == 0){
             bombs -= 1;
-            Bomb.use(player, maze);
+            UseItem.bomb(player, maze);
             keyPress = 10;
         }
         if(kl.isKey2() && teleport > 0 && keyPress == 0){
             teleport -= 1;
+            UseItem.teleport(player, maze);
             keyPress = 10;
         }
         if(kl.isKey3() && speed > 0 && keyPress == 0){
