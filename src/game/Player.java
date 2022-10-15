@@ -56,6 +56,7 @@ public class Player{
             }
             i++;
         }
+        inventory.update(kl,maze,this);
     }
 
     public void keyPress(KeyListener kl, Maze maze){
@@ -80,7 +81,6 @@ public class Player{
         if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = pDelay;}
         if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = pDelay;}
         if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = pDelay;}
-        inventory.keyPress(kl,maze,this);
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}

@@ -46,8 +46,14 @@ public class UseItem {
     public static void speed(Player player){
         player.setSpeed(0.1);
     }
+    public static void sReturn(Player player){
+        player.setSpeed(0.05);
+    }
 
     public static void projectile(Player player){
         player.setPDelay(5);
+    }
+    public static void pReturn(Player player){
+        player.setPDelay(10);
     }
 }

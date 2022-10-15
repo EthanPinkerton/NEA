@@ -7,6 +7,7 @@ public class Inventory {
 
     private byte keyPress;
     protected int bombs,teleport,speed,bullets;
+    private int sCount, bCount;
     private final Image imageB,imageT,imageS,imageP;
 
     public Inventory(){
@@ -21,10 +22,26 @@ public class Inventory {
         keyPress = 0;
     }
 
-    public void keyPress(KeyListener kl, Maze maze, Player player){
+    public void update(KeyListener kl, Maze maze, Player player){
         if(keyPress > 0) {
             keyPress -= 1;
         }
+        if(sCount > 0){
+            sCount -= 1;
+            if(sCount == 0){
+                UseItem.sReturn(player);
+            }
+        }
+        if(bCount > 0){
+            bCount -= 1;
+            if(bCount == 0){
+                UseItem.pReturn(player);
+            }
+        }
+        keyPress(kl,maze,player);
+    }
+
+    public void keyPress(KeyListener kl, Maze maze, Player player){
         if(kl.isKey1() && bombs > 0 && keyPress == 0){
             bombs -= 1;
             UseItem.bomb(player, maze);
@@ -35,13 +52,15 @@ public class Inventory {
             UseItem.teleport(player, maze);
             keyPress = 10;
         }
-        if(kl.isKey3() && speed > 0 && keyPress == 0){
+        if(kl.isKey3() && speed > 0 && sCount == 0){
             speed -= 1;
-            keyPress = 10;
+            UseItem.speed(player);
+            sCount  = 50;
         }
-        if(kl.isKey4() && bullets > 0 && keyPress == 0){
+        if(kl.isKey4() && bullets > 0 && bCount == 0){
             bullets -= 1;
-            keyPress = 10;
+            UseItem.projectile(player);
+            bCount = 50;
         }
     }
 
