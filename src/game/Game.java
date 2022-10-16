@@ -22,11 +22,12 @@ public class Game extends JFrame{
         super.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
         super.setLocation(0,0);
         super.setMinimumSize(new Dimension(500,500));
-        super.add(contents);
+        //super.add(contents);
         //super.setResizable(false);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setVisible(true);
-        t.start();
+        MainMenu mainMenu = new MainMenu(this);
+        //t.start();
 //        draw();
     }
 
