@@ -2,7 +2,6 @@ package game;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class Login {
     protected JTextField username = new JTextField();
@@ -13,6 +12,7 @@ public class Login {
     protected JLabel PLabel = new JLabel("Enter Password:");
 
     public Login(JFrame jFrame, ActionListener lAl, ActionListener rAl){
+        jFrame.setTitle("Login");
         jFrame.add(username);
         jFrame.add(login);
         jFrame.add(ULabel);

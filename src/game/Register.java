@@ -13,6 +13,7 @@ public class Register {
     protected JLabel PLabel = new JLabel("Enter Password:");
 
     public Register(JFrame jFrame, ActionListener bAl, ActionListener rAl){
+        jFrame.setTitle("Register");
         jFrame.add(username);
         jFrame.add(back);
         jFrame.add(ULabel);
