@@ -19,23 +19,19 @@ public class Game extends JFrame{
 
     public Game(){
         super.setTitle("Game");
-        super.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
-        super.setLocation(0,0);
+        super.setLayout(null);
+        super.setSize(500,500);
+        super.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2 -250,Toolkit.getDefaultToolkit().getScreenSize().height/2 - 250);
         super.setMinimumSize(new Dimension(500,500));
-        //super.add(contents);
-        //super.setResizable(false);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setVisible(true);
         MainMenu mainMenu = new MainMenu(this);
-        //t.start();
-//        draw();
-    }
 
-//    public void draw(){
-//        while(true) {
-//            contents.repaint();
-//        }
-//    }
+        //super.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
+        //super.add(contents);
+        //super.setLocation(0,0);
+        //t.start();
+    }
 
     public static void main(String[] args){
         new Game();
