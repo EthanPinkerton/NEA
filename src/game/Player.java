@@ -16,6 +16,7 @@ public class Player{
     private final Inventory inventory;
     protected double speed;
     protected int pDelay;
+    protected int score;
 
     public Player(double x, double y, double health, String file) {
         this.x = x;
@@ -38,6 +39,7 @@ public class Player{
         }
         healthBar.draw(g2d);
         inventory.draw(g2d,IO);
+        g2d.drawString(Integer.toString(score),500,10);
     }
 
     public void update(KeyListener kl, Maze maze){
@@ -139,6 +141,7 @@ public class Player{
 
     public void addItem(char type){
         inventory.addItem(type);
+        score += 5;
     }
 
     public void addY(double y) {
@@ -198,5 +201,9 @@ public class Player{
     }
     public void setPDelay(int newDelay){
         pDelay = newDelay;
+    }
+
+    public void addScore(int score){
+        this.score += score;
     }
 }

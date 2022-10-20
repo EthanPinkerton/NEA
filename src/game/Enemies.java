@@ -35,6 +35,7 @@ public class Enemies {
         while(i < enemies.size()){
             enemies.get(i).update(player, maze);
             if(enemies.get(i).getHealth() <= 0){
+                player.addScore(10);
                 enemies.remove(i);
                 i--;
             }
