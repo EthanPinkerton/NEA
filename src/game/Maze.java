@@ -47,6 +47,22 @@ public class Maze {
         maze[(int)Math.floor(y/10.0) - maze[0][0].getY()][(int)Math.floor(x/10.0) - maze[0][0].getX()].removeTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
     }
 
+    public boolean collision(Rectangle rectangle){
+        for (int i = 0; i < rectangle.getHeight(); i++) {
+            if(maze[(int)Math.floor(rectangle.getY()/10.0) - maze[0][0].getY()][(int)Math.floor(rectangle.getX()/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY(),10)).equals("x")){
+                return true;
+            }
+        }
+
+        for (int i = 1; i < rectangle.getWidth(); i++) {
+            if(maze[(int)Math.floor(rectangle.getY()/10.0) - maze[0][0].getY()][(int)Math.floor(rectangle.getX()/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY(),10)).equals("x")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean collision(char direction, double x, double y){
         x = Math.round(x*10)/10.0;
         y = Math.round(y*10)/10.0;

@@ -11,7 +11,9 @@ public class Enemy {
     protected double health;
     private final double scale = 0.4;
     protected boolean playerVisible;
+    protected Vector vector = new Vector(0,0);
     private char direction;
+    private boolean following = false;
 
     public Enemy(double x, double y, double health, String file) {
         this.x = x;
@@ -63,25 +65,27 @@ public class Enemy {
         return true;
     }
 
-    public boolean moveX(double pX, double pY, Maze maze){
+    public void moveX(double pX, double pY, Maze maze){
         if(Math.floor(y) == Math.floor(pY)){
             if(x < pX && x+7 > pX){
                 for (int i = 0; i < 6; i++) {
                     if(maze.getTile(x+i+1,y).equals("x") && x+i+1 < pX){
-                        return false;
+                        following = false;
+                        return;
                     }
                 }
                 x += 0.04;
             }else if(x > pX && x-7 < pX){
                 for (int i = 0; i < 6; i++) {
                     if(maze.getTile(x-i-1,y).equals("x") && x-i-1 > pX){
-                        return false;
+                        following = false;
+                        return;
                     }
                 }
                 x -= 0.04;
             }
         }
-        return true;
+        following = true;
     }
 
     private void checkProjectiles(Player player){
@@ -105,6 +109,64 @@ public class Enemy {
         return player.intersect(rec);
     }
 
+    private void seePlayer(double pX, double pY, Maze maze){
+        if (Math.floor(x) == Math.floor(pX)) {
+            if (y < pY && y + 5 > pY) {
+                if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (pY-y)))){
+                    following = true;
+                }
+            } else if (y > pY && y-7 < pY) {
+                if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (y-pY)))){
+                    following = true;
+                }
+            }
+        }
+        if (Math.floor(y) == Math.floor(pY)) {
+            if (x < pX && x + 5 > pX) {
+                if (!maze.collision(new Rectangle((int) x,(int) y,(int) (pX-x),1))){
+                    following = true;
+                }
+            } else if (y > pY && y-7 < pY) {
+                if (!maze.collision(new Rectangle((int) x, (int) y,(int) (x-pX),1))){
+                    following = true;
+                }
+            }
+        }
+    }
+
+    private void move(double pX, double pY,Maze maze){
+        if(following) {
+            vector.setI(pX - x);
+            vector.setJ(pY - y);
+            if (vector.getMod() < 5) {
+                if(!maze.collision(new Rectangle((int) (x+0.04*vector.iDirection()),(int)y,1,1))) {
+                    x += 0.04 * vector.iDirection();
+                }
+                if(!maze.collision(new Rectangle((int)x,(int) (y+0.04*vector.iDirection()),1,1))) {
+                    y += 0.04 * vector.jDirection();
+                }
+            }else {
+                following = false;
+            }
+        }
+//        else {
+//            switch (direction){
+//                case 'w':
+//                    y -= 0.04;
+//                    break;
+//                case 's':
+//                    y += 0.04;
+//                    break;
+//                case 'a':
+//                    x -= 0.04;
+//                    break;
+//                case 'd':
+//                    x += 0.04;
+//                    break;
+//            }
+//        }
+    }
+
     public void update(Player player, Maze maze){
         x = Math.round(x*100.0)/100.0;
         y = Math.round(y*100.0)/100.0;
@@ -113,10 +175,7 @@ public class Enemy {
             player.damage(0.5);
             return;
         }
-        boolean yTrue = moveY(player.getX(), player.getY(), maze);
-        boolean xTrue = moveX(player.getX(), player.getY(), maze);
-//        if(!yTrue && !xTrue){
-//
-//        }
+        seePlayer(player.getX(), player.getY(), maze);
+        move(player.getX(), player.getY(), maze);
     }
 }
