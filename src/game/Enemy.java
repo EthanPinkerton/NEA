@@ -111,26 +111,32 @@ public class Enemy {
 
     private void seePlayer(double pX, double pY, Maze maze){
         if (Math.floor(x) == Math.floor(pX)) {
-            if (y < pY && y + 5 > pY) {
-                if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (pY-y)))){
-                    following = true;
-                }
-            } else if (y > pY && y-7 < pY) {
-                if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (y-pY)))){
-                    following = true;
-                }
+            if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (pY-y)))){
+                following = true;
             }
+//            if (y < pY && y + 5 > pY) {
+//                if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (pY-y)))){
+//                    following = true;
+//                }
+//            } else if (y > pY && y - 5 < pY) {
+//                if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (y-pY)))){
+//                    following = true;
+//                }
+//            }
         }
         if (Math.floor(y) == Math.floor(pY)) {
-            if (x < pX && x + 5 > pX) {
-                if (!maze.collision(new Rectangle((int) x,(int) y,(int) (pX-x),1))){
-                    following = true;
-                }
-            } else if (y > pY && y-7 < pY) {
-                if (!maze.collision(new Rectangle((int) x, (int) y,(int) (x-pX),1))){
-                    following = true;
-                }
+            if (!maze.collision(new Rectangle((int) x,(int) y,(int) (pX-x),1))){
+                following = true;
             }
+//            if (x < pX && x + 5 > pX) {
+//                if (!maze.collision(new Rectangle((int) x,(int) y,(int) (pX-x),1))){
+//                    following = true;
+//                }
+//            } else if (x > pY && x - 5 < pY) {
+//                if (!maze.collision(new Rectangle((int) x, (int) y,(int) (x-pX),1))){
+//                    following = true;
+//                }
+//            }
         }
     }
 

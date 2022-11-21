@@ -27,7 +27,7 @@ public class Player{
         this.image = GetImage.get(file);
         projectiles = new ArrayList<>();
         inventory = new Inventory();
-        scale = 0.25;
+        scale = 0.75;
         speed = 0.05;
         pDelay = 10;
     }

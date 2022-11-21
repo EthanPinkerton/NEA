@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Contents extends JPanel{
 
-    private final Grid grid = new Grid(96);
+    private final Grid grid = new Grid(128);
     private final Player player = new Player(4.2,4.2,10,"player.png");
     private final KeyListener kl = new KeyListener();
     private final Maze maze = new Maze(5,5);

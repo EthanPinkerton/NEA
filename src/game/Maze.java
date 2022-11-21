@@ -49,13 +49,13 @@ public class Maze {
 
     public boolean collision(Rectangle rectangle){
         for (int i = 0; i < rectangle.getHeight(); i++) {
-            if(maze[(int)Math.floor(rectangle.getY()/10.0) - maze[0][0].getY()][(int)Math.floor(rectangle.getX()/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY(),10)).equals("x")){
+            if(maze[(int)Math.floor((rectangle.getY()+i)/10.0) - maze[0][0].getY()][(int)Math.floor(rectangle.getX()/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
                 return true;
             }
         }
 
         for (int i = 1; i < rectangle.getWidth(); i++) {
-            if(maze[(int)Math.floor(rectangle.getY()/10.0) - maze[0][0].getY()][(int)Math.floor(rectangle.getX()/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY(),10)).equals("x")){
+            if(maze[(int)Math.floor(rectangle.getY()/10.0) - maze[0][0].getY()][(int)Math.floor((rectangle.getX()+i)/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)(rectangle.getX()+i),10),Math.floorMod((int)rectangle.getY(),10)).equals("x")){
                 return true;
             }
         }
