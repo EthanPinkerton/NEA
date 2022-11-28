@@ -21,7 +21,7 @@ public class Contents extends JPanel{
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         if(player.getHealth() <= 0){
-            g2d.drawImage(GetImage.get("Message.png"),700,500,this);
+            g2d.drawImage(GetResource.get("Message.png"),700,500,this);
             return;
         }
         maze.draw(g2d,this,grid);

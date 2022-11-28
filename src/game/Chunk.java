@@ -1,6 +1,5 @@
 package game;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Arrays;
@@ -11,8 +10,8 @@ public class Chunk {
 
     protected String[][] chunk;
     protected int x,y;
-    private final Image block = GetImage.get("placeholder1.png");
-    private final Image space = GetImage.get("placeholder2.png");
+    private final Image block = GetResource.get("placeholder1.png");
+    private final Image space = GetResource.get("placeholder2.png");
 
     public Chunk(int x, int y) {
         this.x = x;
