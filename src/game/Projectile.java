@@ -13,7 +13,7 @@ public class Projectile {
     public Projectile(double x, double y, String file, char direction, double scale) {
         this.x = Math.round(x*10)/10.0;
         this.y = Math.round(y*10)/10.0;
-        this.bullet = GetImage.get(file);
+        this.bullet = GetResource.get(file);
         this.direction = direction;
         this.scale = scale;
     }

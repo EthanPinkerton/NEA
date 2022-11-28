@@ -1,7 +1,5 @@
 package game;
 
-import net.ucanaccess.jdbc.UcanaccessSQLException;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +12,7 @@ public class MainMenu {
     protected Register register;
     protected Menu menu;
     protected Game game;
+    protected JDialog displayError;
 
     protected ActionListener newGameListener = new ActionListener() {
         @Override
@@ -42,21 +41,35 @@ public class MainMenu {
     protected ActionListener loginListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            login.removeComponents(jFrame);
-            jFrame.repaint();
-            menu = new Menu(jFrame,newGameListener,loadGameListener,leaderboardListener);
+            switch(Database.loginUser(login.getUsername(),login.getPassword())){
+                case 0:
+                    displayError("Username not found");
+                    break;
+                case 1:
+                    displayError("Password doesn't match");
+                    break;
+                case 2:
+                    login.removeComponents(jFrame);
+                    jFrame.repaint();
+                    menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);
+                    break;
+            }
         }
     };
 
     protected ActionListener registerListener2 = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(Database.addUser(register.getUsername(), register.getPassword()) == 1) {
+            if(register.getUsername().length() < 3){
+                displayError("Username must be more\n than 2 characters");
+            }else if(register.getPassword().length() < 5){
+                displayError("Password must be longer\n than 5 characters");
+            }else if (Database.addUser(register.getUsername(), register.getPassword()) == 1) {
                 register.removeComponents(jFrame);
                 jFrame.repaint();
                 menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);
-            } else{
-                register.displayError("username is not unique");
+            } else {
+                displayError("Username is not unique");
             }
         }
     };
@@ -76,6 +89,31 @@ public class MainMenu {
             login = new Login(jFrame,loginListener,registerListener);
         }
     };
+
+    public void displayError(String error){
+        displayError = new JDialog();
+        displayError.setTitle("Error");
+        displayError.setLayout(null);
+        displayError.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/2,300,150);
+
+        JLabel label = new JLabel(error);
+        label.setBounds(50,0,200,50);
+
+        JButton jbutton = new JButton("Ok");
+        jbutton.setBounds(110,80,70,30);
+
+        ActionListener al = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayError.setVisible(false);
+            }
+        };
+
+        jbutton.addActionListener(al);
+        displayError.add(label);
+        displayError.add(jbutton);
+        displayError.setVisible(true);
+    }
 
     public MainMenu(){
         jFrame = new JFrame();
