@@ -1,5 +1,7 @@
 package game;
 
+import net.ucanaccess.jdbc.UcanaccessSQLException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,9 +51,13 @@ public class MainMenu {
     protected ActionListener registerListener2 = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            register.removeComponents(jFrame);
-            jFrame.repaint();
-            menu = new Menu(jFrame,newGameListener,loadGameListener,leaderboardListener);
+            if(Database.addUser(register.getUsername(), register.getPassword()) == 1) {
+                register.removeComponents(jFrame);
+                jFrame.repaint();
+                menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);
+            } else{
+                register.displayError("username is not unique");
+            }
         }
     };
 

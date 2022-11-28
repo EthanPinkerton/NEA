@@ -1,6 +1,8 @@
 package game;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class Register {
@@ -41,6 +43,20 @@ public class Register {
         jFrame.remove(register);
         jFrame.remove(ULabel);
         jFrame.remove(PLabel);
+    }
+
+    public void displayError(String error){
+        JDialog dialog = new JDialog();
+        dialog.setTitle(error);
+        dialog.setLayout(null);
+        dialog.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width/2,Toolkit.getDefaultToolkit().getScreenSize().height/2,300,150);
+        JLabel label = new JLabel(error);
+        label.setBounds(0,0,300,100);
+        JButton jbutton = new JButton("Ok");
+        jbutton.setBounds(120,80,50,20);
+        dialog.add(label);
+        dialog.add(jbutton);
+        dialog.setVisible(true);
     }
 
     public String getUsername(){
