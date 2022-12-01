@@ -15,7 +15,7 @@ public class GetResource {
 
     public static String getFile(String file){
         try{
-            return Objects.requireNonNull(GetResource.class.getResource(file)).getPath();
+            return Objects.requireNonNull(GetResource.class.getResource(file)).getPath().replaceAll("%20"," ");
         } catch (NullPointerException e){
             return "";
         }

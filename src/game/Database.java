@@ -5,7 +5,6 @@ import java.sql.*;
 public class Database {
     public static void main(String[] args){
         printDatabase();
-        loginUser("POOPY","1234567");
     }
 
     public static int addUser(String username, String password){
