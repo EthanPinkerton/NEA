@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class MainMenu {
 
+    protected String username;
     protected JFrame jFrame;
     protected Login login;
     protected Register register;
@@ -19,8 +20,7 @@ public class MainMenu {
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
             jFrame.repaint();
-            game = new Game(jFrame);
-
+            game = new Game(jFrame,username);
         }
     };
 
@@ -49,6 +49,7 @@ public class MainMenu {
                     displayError("Password doesn't match");
                     break;
                 case 2:
+                    username = login.getUsername();
                     login.removeComponents(jFrame);
                     jFrame.repaint();
                     menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);
@@ -65,6 +66,7 @@ public class MainMenu {
             }else if(register.getPassword().length() < 5){
                 displayError("Password must be longer\n than 5 characters");
             }else if (Database.addUser(register.getUsername(), register.getPassword()) == 1) {
+                username = register.getUsername();
                 register.removeComponents(jFrame);
                 jFrame.repaint();
                 menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);

@@ -18,7 +18,7 @@ public class Game{
     };
     private final Timer t = new Timer(33,actionListener);
 
-    public Game(JFrame jFrame){
+    public Game(JFrame jFrame, String user){
         this.jFrame = jFrame;
 
 //        jFrame.setLayout(null);
@@ -36,10 +36,11 @@ public class Game{
         jFrame.add(contents);
         contents.setBounds(0,0,Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
         jFrame.setVisible(true);
+        Database.newGame(user,contents.getSeed());
         t.start();
     }
 
     public static void main(String[] args){
-        new Game(new JFrame());
+        new Game(new JFrame(),"test");
     }
 }
