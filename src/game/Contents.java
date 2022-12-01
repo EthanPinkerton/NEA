@@ -16,6 +16,10 @@ public class Contents extends JPanel{
         super.setFocusable(true);
     }
 
+    public String getSeed(){
+        return maze.getSeed();
+    }
+
     @Override
     public void paint(Graphics g){
         super.paint(g);

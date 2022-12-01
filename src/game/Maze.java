@@ -2,9 +2,11 @@ package game;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.Random;
 
 public class Maze {
 
+    private final Seeder seed;
     protected int h,w;
     protected int xOffset, yOffset;
     protected Chunk[][] maze;
@@ -12,6 +14,7 @@ public class Maze {
     protected Items items;
 
     public Maze(int height, int width) {
+        this.seed = new Seeder();
         this.h = height;
         this.w = width;
         this.xOffset = -2;
@@ -22,13 +25,18 @@ public class Maze {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.maze[j][i] = new Chunk(i-2,j-2);
+                this.maze[j][i] = new Chunk(seed,i-2,j-2);
                 if(!(i-2==0 && j-2==0)){
                     enemies.fillChunk(i-2,j-2);
                     items.fillChunk(i-2,j-2);
                 }
             }
         }
+        seed.printStats();
+    }
+
+    public String getSeed(){
+        return seed.getSeed();
     }
 
     public String[][] getChunk(int x, int y){
@@ -135,7 +143,7 @@ public class Maze {
             for (int i = w-1; i >= 0; i--) {
                 if(i == 0){
                     for (int j = 0; j < h; j++) {
-                        maze[j][i] = new Chunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
+                        maze[j][i] = new Chunk(seed,maze[j][i+1].getX()-1,maze[j][i+1].getY());
                         enemies.fillChunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
                         items.fillChunk(maze[j][i+1].getX()-1,maze[j][i+1].getY());
                     }
@@ -150,7 +158,7 @@ public class Maze {
             for (int i = 0; i < w; i++) {
                 if(i == w-1){
                     for (int j = 0; j < h; j++) {
-                        maze[j][i] = new Chunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
+                        maze[j][i] = new Chunk(seed,maze[j][i-1].getX()+1,maze[j][i-1].getY());
                         enemies.fillChunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
                         items.fillChunk(maze[j][i-1].getX()+1,maze[j][i-1].getY());
                     }
@@ -168,7 +176,7 @@ public class Maze {
                 if(i == 0){
                     Chunk[] temp = new Chunk[w];
                     for (int j = 0; j < w; j++) {
-                        temp[j] = new Chunk(maze[i][j].getX(),maze[i][j].getY()-1);
+                        temp[j] = new Chunk(seed,maze[i][j].getX(),maze[i][j].getY()-1);
                         enemies.fillChunk(maze[i][j].getX(),maze[i][j].getY()-1);
                     }
                     maze[i] = temp;
@@ -182,7 +190,7 @@ public class Maze {
                 if(i == h-1){
                     Chunk[] temp = new Chunk[w];
                     for (int j = 0; j < w; j++) {
-                        temp[j] = new Chunk(maze[i][j].getX(),maze[i][j].getY()+1);
+                        temp[j] = new Chunk(seed,maze[i][j].getX(),maze[i][j].getY()+1);
                         enemies.fillChunk(maze[i][j].getX(),maze[i][j].getY()+1);
                     }
                     maze[i] = temp;

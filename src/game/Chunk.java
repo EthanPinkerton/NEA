@@ -1,5 +1,7 @@
 package game;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Arrays;
@@ -13,10 +15,11 @@ public class Chunk {
     private final Image block = GetResource.get("placeholder1.png");
     private final Image space = GetResource.get("placeholder2.png");
 
-    public Chunk(int x, int y) {
+    public Chunk(Seeder seed, int x, int y) {
         this.x = x;
         this.y = y;
-        this.chunk = generate();
+        seed.reset();
+        this.chunk = generate(seed);
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid, int mX, int mY){
@@ -34,9 +37,7 @@ public class Chunk {
         }
     }
 
-    private String[][] generate(){
-        Random random = new Random();
-
+    private String[][] generate(Seeder seed){
         String[][] maze = new String[9][9];
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze.length; j++) {
@@ -48,8 +49,8 @@ public class Chunk {
             }
         }
 
-        int x = random.nextInt(3)*2 + 2;
-        int y = random.nextInt(3)*2 + 2;
+        int x = seed.three(getX())*2 + 2;
+        int y = seed.three(getY())*2 + 2;
         int orgX = x;
         int orgY = y;
         maze[y][x] = "e";
@@ -58,7 +59,7 @@ public class Chunk {
 
         while(true) {
             do {
-                d = random.nextInt(4);
+                d = seed.four(getX()*getY());
             } while (da[d] && Arrays.equals(da, new boolean[]{true, true, true, true}));
             switch (d) {
                 case 0:
@@ -129,14 +130,12 @@ public class Chunk {
                 maze[y][x] = "o";
                 break;
             }
-
         }
 
-        return addSides(maze);
+        return addSides(maze,seed);
     }
 
-    private String[][] addSides(String[][] maze){
-        Random random = new Random();
+    private String[][] addSides(String[][] maze, Seeder seed){
         String[][] newArr = new String[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -148,11 +147,11 @@ public class Chunk {
             }
         }
 
-        for (int i = 0; i < random.nextInt(2)+4; i++) {
-            if(random.nextBoolean()){
-                newArr[random.nextInt(5)*2][9] = "o";
+        for (int i = 0; i < seed.two(getX()-getY())+4; i++) {
+            if(seed.two(getX()+getY()) == 1){
+                newArr[seed.five(getX()*getY()+getY())*2][9] = "o";
             }else {
-                newArr[9][random.nextInt(5)*2] = "o";
+                newArr[9][seed.five(getX()*getY()+getX())*2] = "o";
             }
         }
 
