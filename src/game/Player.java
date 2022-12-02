@@ -30,6 +30,7 @@ public class Player{
         scale = 0.75;
         speed = 0.05;
         pDelay = 10;
+        score = 0;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO,Grid grid){
@@ -39,7 +40,9 @@ public class Player{
         }
         healthBar.draw(g2d);
         inventory.draw(g2d,IO);
-        g2d.drawString(Integer.toString(score),500,10);
+        g2d.scale(2,2);
+        g2d.setColor(Color.BLUE);
+        g2d.drawString(Integer.toString(score),5,40);
     }
 
     public void update(KeyListener kl, Maze maze){
@@ -78,11 +81,11 @@ public class Player{
             addX(speed);
             if (changeDirection(kl)) {direction = 'd';}
         }
-        if(kl.isKeyUp() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'w',scale)); keyPress = pDelay;}
-        if(kl.isKeyDown() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'s',scale)); keyPress = pDelay;}
-        if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'a',scale)); keyPress = pDelay;}
-        if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",'d',scale)); keyPress = pDelay;}
-        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x,y,"bullet.png",direction,scale)); keyPress = pDelay;}
+        if(kl.isKeyUp() && keyPress == 0){projectiles.add(new Projectile(x+scale/4,y+scale/4,"bullet.png",'w',scale/2)); keyPress = pDelay;}
+        if(kl.isKeyDown() && keyPress == 0){projectiles.add(new Projectile(x+scale/4,y+scale/4,"bullet.png",'s',scale/2)); keyPress = pDelay;}
+        if(kl.isKeyLeft() && keyPress == 0){projectiles.add(new Projectile(x+scale/4,y+scale/4,"bullet.png",'a',scale/2)); keyPress = pDelay;}
+        if(kl.isKeyRight() && keyPress == 0){projectiles.add(new Projectile(x+scale/4,y+scale/4,"bullet.png",'d',scale/2)); keyPress = pDelay;}
+        if(kl.isKeySpace() && keyPress == 0){projectiles.add(new Projectile(x+scale/4,y+scale/4,"bullet.png",direction,scale/2)); keyPress = pDelay;}
 //        if(kl.isKeyW()){addY(-0.1);}
 //        if(kl.isKeyS()){addY(0.1);}
 //        if(kl.isKeyA()){addX(-0.1);}

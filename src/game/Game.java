@@ -16,7 +16,7 @@ public class Game{
             contents.repaint();
         }
     };
-    private final Timer t = new Timer(33,actionListener);
+    private final Timer t = new Timer(17,actionListener);
 
     public Game(JFrame jFrame, String user){
         this.jFrame = jFrame;

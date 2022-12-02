@@ -65,13 +65,13 @@ public class Inventory {
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO){
-        g2d.drawImage(imageB,10,80,80,80,IO);
+        g2d.drawImage(imageB,10,90,80,80,IO);
         g2d.drawString(Integer.toString(bombs),10,160);
-        g2d.drawImage(imageT,10,160,80,80,IO);
+        g2d.drawImage(imageT,10,170,80,80,IO);
         g2d.drawString(Integer.toString(teleport),10,240);
-        g2d.drawImage(imageS,10,240,80,80,IO);
+        g2d.drawImage(imageS,10,250,80,80,IO);
         g2d.drawString(Integer.toString(speed),10,320);
-        g2d.drawImage(imageP,10,320,80,80,IO);
+        g2d.drawImage(imageP,10,330,80,80,IO);
         g2d.drawString(Integer.toString(bullets),10,400);
     }
 
