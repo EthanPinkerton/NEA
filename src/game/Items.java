@@ -12,22 +12,22 @@ public class Items {
         this.items = new ArrayList<>();
     }
 
-    public void fillChunk(int chunkX, int chunkY){
+    public void fillChunk(int chunkX, int chunkY) {
         Random random = new Random();
-        for (int i = 0; i < random.nextInt(3)+1; i++) {
+        for (int i = 0; i < random.nextInt(3) + 1; i++) {
             char type = randType();
-            items.add(new Item(chunkX*10 + random.nextInt(5)*2 + 0.3, chunkY*10 + random.nextInt(5)*2 + 0.3,type,getFile(type)));
+            items.add(new Item(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, type, getFile(type)));
         }
     }
 
-    private char randType(){
-        char[] chars = new char[] {'b','t','s','p'};
+    private char randType() {
+        char[] chars = new char[]{'b', 't', 's', 'p'};
         Random random = new Random();
         return chars[random.nextInt(3)];
     }
 
-    private String getFile(char ch){
-        switch (ch){
+    private String getFile(char ch) {
+        switch (ch) {
             case 'b':
                 return "bomb.jpg";
             case 't':
@@ -40,17 +40,17 @@ public class Items {
         return "bomb.jpg";
     }
 
-    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
+    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
         for (Item item : items) {
             item.draw(g2d, IO, grid);
         }
     }
 
-    public void update(Player player){
+    public void update(Player player) {
         int i = 0;
-        while(i < items.size()){
+        while (i < items.size()) {
             items.get(i).update(player);
-            if(items.get(i).isCollected()){
+            if (items.get(i).isCollected()) {
                 items.remove(i);
                 i--;
             }

@@ -8,35 +8,30 @@ import java.util.Random;
 public class Enemies {
     protected ArrayList<Enemy> enemies;
 
-    public Enemies(){
+    public Enemies() {
         enemies = new ArrayList<>();
     }
 
-    public void newEnemy(int chunkX, int chunkY){
+    public void fillChunk(int chunkX, int chunkY) {
         Random random = new Random();
-        enemies.add(new Enemy(chunkX*10 + random.nextInt(5)*2 + 0.3,chunkY*10 + random.nextInt(5)*2 + 0.3,10,"enemy.png"));
-    }
-
-    public void fillChunk(int chunkX, int chunkY){
-        Random random = new Random();
-        for (int i = 0; i < random.nextInt(5)+2; i++) {
-            enemies.add(new Enemy(chunkX*10 + random.nextInt(5)*2 + 0.3, chunkY*10 + random.nextInt(5)*2 + 0.3,10,"enemy.png"));
+        for (int i = 0; i < random.nextInt(5) + 2; i++) {
+            enemies.add(new Enemy(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "enemy.png"));
         }
     }
 
-    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
+    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
         for (Enemy enemy : enemies) {
             enemy.draw(g2d, IO, grid);
         }
     }
 
-    public void update(Player player,Maze maze){
+    public void update(Player player, Maze maze) {
         int i = 0;
-        while(i < enemies.size()){
-            if(enemies.get(i).inView(maze)){
+        while (i < enemies.size()) {
+            if (enemies.get(i).inView(maze)) {
                 enemies.remove(i);
                 i--;
-            }else {
+            } else {
                 enemies.get(i).update(player, maze);
                 if (enemies.get(i).getHealth() <= 0) {
                     player.addScore(10);

@@ -5,31 +5,31 @@ public class Vector {
     protected double i;
     protected double j;
 
-    public Vector(double i, double j){
+    public Vector(double i, double j) {
         this.i = i;
         this.j = j;
     }
 
-    public double getMod(){
-        return Math.sqrt(i*i + j*j);
+    public double getMod() {
+        return Math.sqrt(i * i + j * j);
     }
 
-    public double iDirection(){
-        if(i > 0){
+    public double iDirection() {
+        if (i > 0) {
             return 1;
-        }else if(i == 0){
+        } else if (i == 0) {
             return 0;
-        }else {
+        } else {
             return -1;
         }
     }
 
-    public double jDirection(){
-        if(j > 0){
+    public double jDirection() {
+        if (j > 0) {
             return 1;
-        }else if(j == 0){
+        } else if (j == 0) {
             return 0;
-        }else {
+        } else {
             return -1;
         }
     }

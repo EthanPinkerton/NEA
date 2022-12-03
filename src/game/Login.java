@@ -11,7 +11,7 @@ public class Login {
     protected JLabel ULabel = new JLabel("Enter Username:");
     protected JLabel PLabel = new JLabel("Enter Password:");
 
-    public Login(JFrame jFrame, ActionListener lAl, ActionListener rAl){
+    public Login(JFrame jFrame, ActionListener lAl, ActionListener rAl) {
         jFrame.setTitle("Login");
         jFrame.add(username);
         jFrame.add(login);
@@ -24,16 +24,16 @@ public class Login {
         register.addActionListener(rAl);
     }
 
-    private void format(JFrame jFrame){
-        username.setBounds(jFrame.getWidth()/2 - 100,jFrame.getHeight()/2 - 30,200,30);
-        password.setBounds(jFrame.getWidth()/2 - 100,jFrame.getHeight()/2,200,30);
-        login.setBounds(jFrame.getWidth()/2 + 5,jFrame.getHeight()/2 + 40,90,20);
-        register.setBounds(jFrame.getWidth()/2 - 95,jFrame.getHeight()/2 + 40,90,20);
-        ULabel.setBounds(jFrame.getWidth()/2 - 200,jFrame.getHeight()/2 - 30,100,30);
-        PLabel.setBounds(jFrame.getWidth()/2 - 200,jFrame.getHeight()/2,100,30);
+    private void format(JFrame jFrame) {
+        username.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 30, 200, 30);
+        password.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2, 200, 30);
+        login.setBounds(jFrame.getWidth() / 2 + 5, jFrame.getHeight() / 2 + 40, 90, 20);
+        register.setBounds(jFrame.getWidth() / 2 - 95, jFrame.getHeight() / 2 + 40, 90, 20);
+        ULabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2 - 30, 100, 30);
+        PLabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2, 100, 30);
     }
 
-    public void removeComponents(JFrame jFrame){
+    public void removeComponents(JFrame jFrame) {
         jFrame.remove(username);
         jFrame.remove(password);
         jFrame.remove(login);
@@ -42,11 +42,11 @@ public class Login {
         jFrame.remove(PLabel);
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username.getText();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return String.valueOf(password.getPassword());
     }
 }

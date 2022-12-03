@@ -1,17 +1,14 @@
 package game;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Random;
 
 public class Chunk {
 
     protected String[][] chunk;
-    protected int x,y;
+    protected int x, y;
     private final Image block = GetResource.get("placeholder1.png");
     private final Image space = GetResource.get("placeholder2.png");
 
@@ -22,11 +19,11 @@ public class Chunk {
         this.chunk = generate(seed);
     }
 
-    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid, int mX, int mY){
+    public void draw(Graphics2D g2d, ImageObserver IO, Grid grid, int mX, int mY) {
         int offset = 10;
         for (int i = 0; i < chunk.length; i++) {
             for (int j = 0; j < chunk.length; j++) {
-                if(grid.onScreen(mX*10+j-offset,mY*10+i-offset)) {
+                if (grid.onScreen(mX * 10 + j - offset, mY * 10 + i - offset)) {
                     if (chunk[i][j].equals("x")) {
                         g2d.drawImage(block, grid.getX(mX * 10 + j - offset), grid.getY(mY * 10 + i - offset), grid.getScale(), grid.getScale(), IO);
                     } else if (chunk[i][j].equals("o")) {
@@ -37,29 +34,29 @@ public class Chunk {
         }
     }
 
-    private String[][] generate(Seeder seed){
+    private String[][] generate(Seeder seed) {
         String[][] maze = new String[9][9];
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze.length; j++) {
-                if(i%2 == 0 && j%2 == 0){
+                if (i % 2 == 0 && j % 2 == 0) {
                     maze[i][j] = "z";
-                }else {
+                } else {
                     maze[i][j] = "x";
                 }
             }
         }
 
-        int x = seed.three(getX())*2 + 2;
-        int y = seed.three(getY())*2 + 2;
+        int x = seed.three(getX()) * 2 + 2;
+        int y = seed.three(getY()) * 2 + 2;
         int orgX = x;
         int orgY = y;
         maze[y][x] = "e";
-        boolean[] da = {false,false,false,false};
+        boolean[] da = {false, false, false, false};
         int d;
 
-        while(true) {
+        while (true) {
             do {
-                d = seed.four(getX()*getY());
+                d = seed.four(getX() * getY());
             } while (da[d] && Arrays.equals(da, new boolean[]{true, true, true, true}));
             switch (d) {
                 case 0:
@@ -132,49 +129,49 @@ public class Chunk {
             }
         }
 
-        return addSides(maze,seed);
+        return addSides(maze, seed);
     }
 
-    private String[][] addSides(String[][] maze, Seeder seed){
+    private String[][] addSides(String[][] maze, Seeder seed) {
         String[][] newArr = new String[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                try{
+                try {
                     newArr[i][j] = maze[i][j];
-                }catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     newArr[i][j] = "x";
                 }
             }
         }
 
-        for (int i = 0; i < seed.two(getX()-getY())+4; i++) {
-            if(seed.two(getX()+getY()) == 1){
-                newArr[seed.five(getX()*getY()+getY())*2][9] = "o";
-            }else {
-                newArr[9][seed.five(getX()*getY()+getX())*2] = "o";
+        for (int i = 0; i < seed.two(getX() - getY()) + 4; i++) {
+            if (seed.two(getX() + getY()) == 1) {
+                newArr[seed.five(getX() * getY() + getY()) * 2][9] = "o";
+            } else {
+                newArr[9][seed.five(getX() * getY() + getX()) * 2] = "o";
             }
         }
 
         return newArr;
     }
 
-    public String[][] getChunk(){
+    public String[][] getChunk() {
         return chunk;
     }
 
-    public String getTile(int x, int y){
+    public String getTile(int x, int y) {
         return chunk[y][x];
     }
 
-    public void removeTile(int x, int y){
+    public void removeTile(int x, int y) {
         chunk[y][x] = "o";
     }
 
-    public int getX(){
+    public int getX() {
         return x;
     }
 
-    public int getY(){
+    public int getY() {
         return y;
     }
 }

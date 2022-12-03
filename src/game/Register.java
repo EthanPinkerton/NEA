@@ -1,8 +1,6 @@
 package game;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Register {
@@ -14,7 +12,7 @@ public class Register {
     protected JLabel ULabel = new JLabel("Enter Username:");
     protected JLabel PLabel = new JLabel("Enter Password:");
 
-    public Register(JFrame jFrame, ActionListener bAl, ActionListener rAl){
+    public Register(JFrame jFrame, ActionListener bAl, ActionListener rAl) {
         jFrame.setTitle("Register");
         jFrame.add(username);
         jFrame.add(back);
@@ -27,16 +25,16 @@ public class Register {
         register.addActionListener(rAl);
     }
 
-    private void format(JFrame jFrame){
-        username.setBounds(jFrame.getWidth()/2 - 100,jFrame.getHeight()/2 - 30,200,30);
-        password.setBounds(jFrame.getWidth()/2 - 100,jFrame.getHeight()/2,200,30);
-        back.setBounds(jFrame.getWidth()/2 - 95,jFrame.getHeight()/2 + 40,90,20);
-        register.setBounds(jFrame.getWidth()/2 + 5,jFrame.getHeight()/2 + 40,90,20);
-        ULabel.setBounds(jFrame.getWidth()/2 - 200,jFrame.getHeight()/2 - 30,100,30);
-        PLabel.setBounds(jFrame.getWidth()/2 - 200,jFrame.getHeight()/2,100,30);
+    private void format(JFrame jFrame) {
+        username.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 30, 200, 30);
+        password.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2, 200, 30);
+        back.setBounds(jFrame.getWidth() / 2 - 95, jFrame.getHeight() / 2 + 40, 90, 20);
+        register.setBounds(jFrame.getWidth() / 2 + 5, jFrame.getHeight() / 2 + 40, 90, 20);
+        ULabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2 - 30, 100, 30);
+        PLabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2, 100, 30);
     }
 
-    public void removeComponents(JFrame jFrame){
+    public void removeComponents(JFrame jFrame) {
         jFrame.remove(username);
         jFrame.remove(password);
         jFrame.remove(back);
@@ -45,11 +43,11 @@ public class Register {
         jFrame.remove(PLabel);
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username.getText();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return String.valueOf(password.getPassword());
     }
 
