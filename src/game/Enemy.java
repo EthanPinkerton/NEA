@@ -14,6 +14,7 @@ public class Enemy {
     protected Vector vector = new Vector(0,0);
     private char direction;
     private boolean following = false;
+    private boolean onScreen;
 
     public Enemy(double x, double y, double health, String file) {
         this.x = x;
@@ -22,6 +23,7 @@ public class Enemy {
         this.image = GetResource.get(file);
         playerVisible = false;
         direction = rChar();
+        onScreen = false;
     }
 
     private char rChar(){
@@ -36,11 +38,14 @@ public class Enemy {
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid){
         if(grid.onScreen(x-0.05,y-0.1)) {
+            onScreen = true;
             g2d.drawImage(image, grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
             g2d.setColor(Color.RED);
             g2d.fillRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale * (health / 10.0)), (int) (grid.getScale() * scale / 8.0));
             g2d.setColor(Color.BLACK);
             g2d.drawRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
+        }else {
+            onScreen = false;
         }
     }
 
@@ -157,6 +162,37 @@ public class Enemy {
                 }
             }else {
                 following = false;
+            }
+        }else if(onScreen){
+            switch (direction){
+                case 'w':
+                    if(!maze.collision((int)x,(int)(y-0.02),(int)(x+scale),(int)(y+scale-0.02))){
+                        y -= 0.02;
+                    }else {
+                        direction = rChar();
+                    }
+                    break;
+                case 's':
+                    if(!maze.collision((int)x,(int)(y+0.02),(int)(x+scale),(int)(y+scale+0.02))){
+                        y += 0.02;
+                    }else {
+                        direction = rChar();
+                    }
+                    break;
+                case 'a':
+                    if(!maze.collision((int)(x-0.02),(int)y,(int)(x+scale-0.02),(int)(y+scale))){
+                        x -= 0.02;
+                    }else {
+                        direction = rChar();
+                    }
+                    break;
+                case 'd':
+                    if(!maze.collision((int)(x+0.02),(int)y,(int)(x+scale+0.02),(int)(y+scale))){
+                        x += 0.02;
+                    }else {
+                        direction = rChar();
+                    }
+                    break;
             }
         }
 //        else {
