@@ -55,9 +55,33 @@ public class Maze {
         maze[(int)Math.floor(y/10.0) - maze[0][0].getY()][(int)Math.floor(x/10.0) - maze[0][0].getX()].removeTile(Math.floorMod((int)x,10),Math.floorMod((int)y,10));
     }
 
+    public void test(int tx, int ty){
+        Chunk ch = getChunk2(tx,ty);
+        System.out.println(ch.getX()+" = "+tx/10+"\n"+ch.getY()+" = "+ty/10);
+    }
+
+    public Chunk getChunk2(int x, int y){
+        return maze[(y/10)-maze[0][0].getY()][(x/10)-maze[0][0].getX()];
+    }
+
+    public boolean inBounds(int x, int y){
+        try{
+            getChunk2(x,y);
+            return true;
+        }catch (IndexOutOfBoundsException e){
+            return false;
+        }
+    }
+
     public boolean collision(Rectangle rectangle){
         for (int i = 0; i < rectangle.getHeight(); i++) {
-            if(maze[(int)Math.floor((rectangle.getY()+i)/10.0) - maze[0][0].getY()][(int)Math.floor(rectangle.getX()/10.0) - maze[0][0].getX()].getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
+            if(getChunk2(rectangle.x,rectangle.y).getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
+                return true;
+            }
+        }
+
+        for (int i = rectangle.height; i < 0; i++){
+            if(getChunk2(rectangle.x,rectangle.y).getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
                 return true;
             }
         }

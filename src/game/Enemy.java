@@ -14,6 +14,7 @@ public class Enemy {
     protected Vector vector = new Vector(0,0);
     private char direction;
     private boolean following = false;
+    private Rectangle rect = new Rectangle(0,0,0,0);
 
     public Enemy(double x, double y, double health, String file) {
         this.x = x;
@@ -39,6 +40,7 @@ public class Enemy {
             g2d.drawImage(image, grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
             g2d.setColor(Color.RED);
             g2d.fillRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale * (health / 10.0)), (int) (grid.getScale() * scale / 8.0));
+            g2d.fillRect(grid.getX(rect.x),grid.getY(rect.y),grid.getScale()*rect.width,grid.getScale()*rect.height);
             g2d.setColor(Color.BLACK);
             g2d.drawRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
         }
@@ -88,6 +90,10 @@ public class Enemy {
         following = true;
     }
 
+    public boolean inView(Maze maze){
+        return !maze.inBounds((int)x,(int)y);
+    }
+
     private void checkProjectiles(Player player){
         Rectangle rec = new Rectangle((int) (x*100),(int) (y*100),(int) (scale*100),(int) (scale*100));
 
@@ -111,6 +117,7 @@ public class Enemy {
 
     private void seePlayer(double pX, double pY, Maze maze){
         if (Math.floor(x) == Math.floor(pX)) {
+            rect = new Rectangle((int) x, (int) y, 1,-2);
             if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (pY-y)))){
                 following = true;
             }
@@ -125,6 +132,7 @@ public class Enemy {
 //            }
         }
         if (Math.floor(y) == Math.floor(pY)) {
+            rect = new Rectangle((int) x,(int) y,(int) (pX-x),1);
             if (!maze.collision(new Rectangle((int) x,(int) y,(int) (pX-x),1))){
                 following = true;
             }
@@ -178,7 +186,7 @@ public class Enemy {
         y = Math.round(y*100.0)/100.0;
         checkProjectiles(player);
         if(checkPlayer(player)){
-            player.damage(0.5);
+            player.damage(0.1);
             return;
         }
         seePlayer(player.getX(), player.getY(), maze);

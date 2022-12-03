@@ -33,6 +33,10 @@ public class Enemies {
     public void update(Player player,Maze maze){
         int i = 0;
         while(i < enemies.size()){
+            if(enemies.get(i).inView(maze)){
+                enemies.remove(i);
+                i--;
+            }
             enemies.get(i).update(player, maze);
             if(enemies.get(i).getHealth() <= 0){
                 player.addScore(10);
