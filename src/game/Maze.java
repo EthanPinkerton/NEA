@@ -2,7 +2,6 @@ package game;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.util.Random;
 
 public class Maze {
 
@@ -39,7 +38,7 @@ public class Maze {
         return seed.getSeed();
     }
 
-    public String[][] getChunk(int x, int y){
+    public String[][] getChunkArr(int x, int y){
         return maze[y-maze[0][0].getY()][x-maze[0][0].getX()].getChunk();
     }
 
@@ -56,32 +55,74 @@ public class Maze {
     }
 
     public void test(int tx, int ty){
-        Chunk ch = getChunk2(tx,ty);
+        Chunk ch = getChunk(tx,ty);
         System.out.println(ch.getX()+" = "+tx/10+"\n"+ch.getY()+" = "+ty/10);
     }
 
-    public Chunk getChunk2(int x, int y){
+    public Chunk getChunk(int x, int y){
         return maze[(y/10)-maze[0][0].getY()][(x/10)-maze[0][0].getX()];
     }
 
     public boolean inBounds(int x, int y){
         try{
-            getChunk2(x,y);
+            getChunk(x,y);
             return true;
         }catch (IndexOutOfBoundsException e){
             return false;
         }
     }
 
+    public boolean collision(int x, int y, int length, boolean ud){
+        if(ud && length < 0){
+            for(int i = 0; i > length; i--){
+                if(getChunk(x,(y+i)).getTile(Math.floorMod(x,10),Math.floorMod(y+i,10)).equals("x")){
+                    return true;
+                }
+            }
+        }else if(ud && length > 0){
+            for (int i = 0; i < length; i++) {
+                if(getChunk(x,(y+i)).getTile(Math.floorMod(x,10),Math.floorMod(y+i,10)).equals("x")){
+                    return true;
+                }
+            }
+        }else if(!ud && length < 0){
+            for(int i = 0; i > length; i--){
+                if(getChunk((x+i),y).getTile(Math.floorMod(x+i,10),Math.floorMod(y,10)).equals("x")){
+                    return true;
+                }
+            }
+        }else if(!ud && length > 0){
+            for (int i = 0; i < length; i++) {
+                if(getChunk((x+i),y).getTile(Math.floorMod(x+i,10),Math.floorMod(y,10)).equals("x")){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean collision(int x, int y, int width, int height){
+        if(getChunk(x,y).getTile(Math.floorMod(x,10),Math.floorMod(y,10)).equals("x")){
+            return true;
+        }if(getChunk(x,height).getTile(Math.floorMod(x,10),Math.floorMod(height,10)).equals("x")){
+            return true;
+        }if(getChunk(width,y).getTile(Math.floorMod(width,10),Math.floorMod(y,10)).equals("x")){
+            return true;
+        }if(getChunk(width,height).getTile(Math.floorMod(width,10),Math.floorMod(height,10)).equals("x")){
+            return true;
+        }
+        return false;
+    }
+
     public boolean collision(Rectangle rectangle){
         for (int i = 0; i < rectangle.getHeight(); i++) {
-            if(getChunk2(rectangle.x,rectangle.y).getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
+            if(getChunk(rectangle.x,rectangle.y).getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
                 return true;
             }
         }
 
         for (int i = rectangle.height; i < 0; i++){
-            if(getChunk2(rectangle.x,rectangle.y).getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
+            if(getChunk(rectangle.x,rectangle.y).getTile(Math.floorMod((int)rectangle.getX(),10),Math.floorMod((int)rectangle.getY()+i,10)).equals("x")){
                 return true;
             }
         }
@@ -101,28 +142,28 @@ public class Maze {
         String[][] chunk;
         switch (direction){
             case 'w':
-                chunk = getChunk((int) Math.floor(x/10),(int) Math.floor((y-1)/10));
+                chunk = getChunkArr((int) Math.floor(x/10),(int) Math.floor((y-1)/10));
                 if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
                 }else if(y%1 == 0 && chunk[Math.floorMod((int) Math.floor(y-1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
                     return true;
                 }else{y -= 0.1; return false;}
             case 's':
-                chunk = getChunk((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
+                chunk = getChunkArr((int) Math.floor(x/10),(int) Math.floor((y+1)/10));
                 if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x),10)].equals("x")){
                     return true;
                 }else if(Math.abs(y%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+1),10)][Math.floorMod((int) Math.floor(x+0.4),10)].equals("x")){
                     return true;
                 }else{y += 0.1; return false;}
             case 'a':
-                chunk = getChunk((int) Math.floor((x-1)/10),(int) Math.floor(y/10));
+                chunk = getChunkArr((int) Math.floor((x-1)/10),(int) Math.floor(y/10));
                 if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
                     return true;
                 }else if(x%1 == 0 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x-1),10)].equals("x")){
                     return true;
                 }else{x -= 0.1; return false;}
             case 'd':
-                chunk = getChunk((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
+                chunk = getChunkArr((int) Math.floor((x+1)/10),(int) Math.floor(y/10));
                 if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){
                     return true;
                 }else if(Math.abs(x%1) == 0.5 && chunk[Math.floorMod((int) Math.floor(y+0.4),10)][Math.floorMod((int) Math.floor(x+1),10)].equals("x")){

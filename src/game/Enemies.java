@@ -36,12 +36,13 @@ public class Enemies {
             if(enemies.get(i).inView(maze)){
                 enemies.remove(i);
                 i--;
-            }
-            enemies.get(i).update(player, maze);
-            if(enemies.get(i).getHealth() <= 0){
-                player.addScore(10);
-                enemies.remove(i);
-                i--;
+            }else {
+                enemies.get(i).update(player, maze);
+                if (enemies.get(i).getHealth() <= 0) {
+                    player.addScore(10);
+                    enemies.remove(i);
+                    i--;
+                }
             }
             i++;
         }

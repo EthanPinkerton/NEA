@@ -14,7 +14,6 @@ public class Enemy {
     protected Vector vector = new Vector(0,0);
     private char direction;
     private boolean following = false;
-    private Rectangle rect = new Rectangle(0,0,0,0);
 
     public Enemy(double x, double y, double health, String file) {
         this.x = x;
@@ -40,7 +39,6 @@ public class Enemy {
             g2d.drawImage(image, grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
             g2d.setColor(Color.RED);
             g2d.fillRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale * (health / 10.0)), (int) (grid.getScale() * scale / 8.0));
-            g2d.fillRect(grid.getX(rect.x),grid.getY(rect.y),grid.getScale()*rect.width,grid.getScale()*rect.height);
             g2d.setColor(Color.BLACK);
             g2d.drawRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
         }
@@ -117,8 +115,7 @@ public class Enemy {
 
     private void seePlayer(double pX, double pY, Maze maze){
         if (Math.floor(x) == Math.floor(pX)) {
-            rect = new Rectangle((int) x, (int) y, 1,-2);
-            if (!maze.collision(new Rectangle((int) x, (int) y, 1,(int) (pY-y)))){
+            if (!maze.collision((int) x, (int) y, (int)(pY-y),true)){
                 following = true;
             }
 //            if (y < pY && y + 5 > pY) {
@@ -132,8 +129,7 @@ public class Enemy {
 //            }
         }
         if (Math.floor(y) == Math.floor(pY)) {
-            rect = new Rectangle((int) x,(int) y,(int) (pX-x),1);
-            if (!maze.collision(new Rectangle((int) x,(int) y,(int) (pX-x),1))){
+            if (!maze.collision((int) x,(int) y,(int)(pX-x),false)){
                 following = true;
             }
 //            if (x < pX && x + 5 > pX) {
@@ -153,10 +149,10 @@ public class Enemy {
             vector.setI(pX - x);
             vector.setJ(pY - y);
             if (vector.getMod() < 5) {
-                if(!maze.collision(new Rectangle((int) (x+0.04*vector.iDirection()),(int)y,1,1))) {
+                if(!maze.collision((int)(x+0.04*vector.iDirection()),(int)y,(int)(x+0.04*vector.iDirection()+scale),(int)(y+scale))) {
                     x += 0.04 * vector.iDirection();
                 }
-                if(!maze.collision(new Rectangle((int)x,(int) (y+0.04*vector.iDirection()),1,1))) {
+                if(!maze.collision((int)x,(int)(y+0.04*vector.jDirection()),(int)(x+scale),(int)(y+0.04*vector.jDirection()+scale))) {
                     y += 0.04 * vector.jDirection();
                 }
             }else {
