@@ -7,11 +7,11 @@ public class Seeder {
     protected final char[] seed;
     protected int index;
     protected int sum;
-    protected int[] stats = new int[4];
+    protected int[] stats = new int[5];
 
     public Seeder() {
         //this.seed = newSeed();
-        this.seed = "hsujla83gh".toCharArray();
+        this.seed = "newseed123".toCharArray();
         this.index = 3;
         this.sum = 1;
     }
@@ -36,15 +36,18 @@ public class Seeder {
     }
 
     public int three(int prompt){
-        return (seed[0]+prompt)%3;
+        sum += Math.pow((seed[0]*sum - prompt*(seed[1]-sum))/(1.0*seed[2]),2);
+        return (sum%3);
     }
 
     public int two(int prompt){
-        return (seed[1]*3+prompt*4)%2;
+        sum += seed[1] + prompt;
+        return sum%2;
     }
 
     public int five(int prompt){
-        return ((seed[2]-prompt+255)*23)%5;
+        sum += Math.sqrt(seed[2]+prompt*seed[1]+seed[0]*sum);
+        return sum%5;
     }
 
     public int four(int prompt){
@@ -63,6 +66,6 @@ public class Seeder {
     }
 
     public void printStats(){
-        System.out.println("0 - "+stats[0]+"\n1 - "+stats[1]+"\n2 - "+stats[2]+"\n3 - "+stats[3]);
+        System.out.println("0 - "+stats[0]+"\n1 - "+stats[1]+"\n2 - "+stats[2]+"\n3 - "+stats[3]+"\n4 - "+stats[4]);
     }
 }
