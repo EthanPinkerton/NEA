@@ -17,11 +17,12 @@ public class Game {
         jFrame.setTitle("Game");
         jFrame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         jFrame.setLocation(0, 0);
+        jFrame.setMinimumSize(new Dimension(800,600));
         jFrame.add(contents);
         contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         jFrame.setVisible(true);
 
-        Database.newGame(user, contents.getSeed());
+        //Database.newGame(user, contents.getSeed());
 
         ActionListener actionListener = new ActionListener() {
             @Override

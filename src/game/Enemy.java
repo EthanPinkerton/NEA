@@ -91,7 +91,7 @@ public class Enemy {
         if (following) {
             vector.setI(pX - x);
             vector.setJ(pY - y);
-            if (vector.getMod() < 5) {
+            if (vector.getMod() < 7) {
                 if (!maze.collision(x + 0.04 * vector.iDirection(), y, x + 0.04 * vector.iDirection() + scale, y + scale)) {
                     x += 0.04 * vector.iDirection();
                 }
