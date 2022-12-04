@@ -55,7 +55,7 @@ public class Maze {
     }
 
     public Chunk getChunk(int x, int y) {
-        return maze[(y / 10) - maze[0][0].getY()][(x / 10) - maze[0][0].getX()];
+        return maze[(int) Math.floor(y / 10.0) - maze[0][0].getY()][(int) Math.floor(x / 10.0) - maze[0][0].getX()];
     }
 
     public boolean inBounds(int x, int y) {
@@ -67,7 +67,10 @@ public class Maze {
         }
     }
 
-    public boolean collision(int x, int y, int length, boolean ud) {
+    public boolean collision(double dx, double dy, int length, boolean ud) {
+        int x = (int) Math.floor(dx);
+        int y = (int) Math.floor(dy);
+
         if (ud && length < 0) {
             for (int i = 0; i > length; i--) {
                 if (getChunk(x, (y + i)).getTile(Math.floorMod(x, 10), Math.floorMod(y + i, 10)).equals("x")) {
@@ -96,7 +99,12 @@ public class Maze {
         return false;
     }
 
-    public boolean collision(int x, int y, int width, int height) {
+    public boolean collision(double dx, double dy, double dWidth, double dHeight) {
+        int x = (int) Math.floor(dx);
+        int y = (int) Math.floor(dy);
+        int width = (int) Math.floor(dWidth);
+        int height = (int) Math.floor(dHeight);
+
         if (getChunk(x, y).getTile(Math.floorMod(x, 10), Math.floorMod(y, 10)).equals("x")) {
             return true;
         }

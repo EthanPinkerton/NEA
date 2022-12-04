@@ -92,10 +92,10 @@ public class Enemy {
             vector.setI(pX - x);
             vector.setJ(pY - y);
             if (vector.getMod() < 5) {
-                if (!maze.collision((int) (x + 0.04 * vector.iDirection()), (int) y, (int) (x + 0.04 * vector.iDirection() + scale), (int) (y + scale))) {
+                if (!maze.collision(x + 0.04 * vector.iDirection(), y, x + 0.04 * vector.iDirection() + scale, y + scale)) {
                     x += 0.04 * vector.iDirection();
                 }
-                if (!maze.collision((int) x, (int) (y + 0.04 * vector.jDirection()), (int) (x + scale), (int) (y + 0.04 * vector.jDirection() + scale))) {
+                if (!maze.collision(x, y + 0.04 * vector.jDirection(), x + scale, y + 0.04 * vector.jDirection() + scale)) {
                     y += 0.04 * vector.jDirection();
                 }
             } else {
@@ -104,28 +104,28 @@ public class Enemy {
         } else if (onScreen) {
             switch (direction) {
                 case 'w':
-                    if (!maze.collision((int) x, (int) (y - 0.02), (int) (x + scale), (int) (y + scale - 0.02))) {
+                    if (!maze.collision(x, y - 0.02, x + scale, y + scale - 0.02)) {
                         y -= 0.02;
                     } else {
                         direction = rChar();
                     }
                     break;
                 case 's':
-                    if (!maze.collision((int) x, (int) (y + 0.02), (int) (x + scale), (int) (y + scale + 0.02))) {
+                    if (!maze.collision(x, y + 0.02, x + scale, y + scale + 0.02)) {
                         y += 0.02;
                     } else {
                         direction = rChar();
                     }
                     break;
                 case 'a':
-                    if (!maze.collision((int) (x - 0.02), (int) y, (int) (x + scale - 0.02), (int) (y + scale))) {
+                    if (!maze.collision(x - 0.02, y, x + scale - 0.02, y + scale)) {
                         x -= 0.02;
                     } else {
                         direction = rChar();
                     }
                     break;
                 case 'd':
-                    if (!maze.collision((int) (x + 0.02), (int) y, (int) (x + scale + 0.02), (int) (y + scale))) {
+                    if (!maze.collision(x + 0.02, y, x + scale + 0.02, y + scale)) {
                         x += 0.02;
                     } else {
                         direction = rChar();
