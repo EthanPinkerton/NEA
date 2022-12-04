@@ -9,6 +9,7 @@ public class Contents extends JPanel {
     private final Player player = new Player(4.2, 4.2, 10, "player.png");
     private final KeyListener kl = new KeyListener();
     private final Maze maze = new Maze(5, 5);
+    private final EscapeMenu escapeMenu = new EscapeMenu();
 
     public Contents() {
         super.setDoubleBuffered(true);
@@ -30,11 +31,18 @@ public class Contents extends JPanel {
         }
         maze.draw(g2d, this, grid);
         player.draw(g2d, this, grid);
+        if (escapeMenu.isPaused()) {
+            escapeMenu.draw(g2d, grid);
+        }
+
     }
 
     public void update(int gameHeight, int gameWidth) {
-        maze.update(player);
+        escapeMenu.update(kl.isKeyEsc());
         grid.update(gameHeight, gameWidth, player);
-        player.update(kl, maze);
+        if (!escapeMenu.isPaused()) {
+            maze.update(player);
+            player.update(kl, maze);
+        }
     }
 }

@@ -4,7 +4,11 @@ import java.awt.event.KeyEvent;
 
 public class KeyListener implements java.awt.event.KeyListener {
 
-    protected boolean keyW, keyS, keyA, keyD, keyUp, keyDown, keyLeft, keyRight, keySpace, Key1, Key2, Key3, Key4;
+    protected boolean keyW, keyS, keyA, keyD, keyUp, keyDown, keyLeft, keyRight, keySpace, key1, key2, key3, key4, keyEsc;
+
+    public boolean isKeyEsc() {
+        return keyEsc;
+    }
 
     public boolean isKeyW() {
         return keyW;
@@ -43,19 +47,19 @@ public class KeyListener implements java.awt.event.KeyListener {
     }
 
     public boolean isKey1() {
-        return Key1;
+        return key1;
     }
 
     public boolean isKey2() {
-        return Key2;
+        return key2;
     }
 
     public boolean isKey3() {
-        return Key3;
+        return key3;
     }
 
     public boolean isKey4() {
-        return Key4;
+        return key4;
     }
 
     @Override
@@ -65,6 +69,10 @@ public class KeyListener implements java.awt.event.KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            keyEsc = true;
+            return;
+        }
         if (e.getKeyCode() == KeyEvent.VK_W) {
             keyW = true;
             return;
@@ -102,25 +110,29 @@ public class KeyListener implements java.awt.event.KeyListener {
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_1) {
-            Key1 = true;
+            key1 = true;
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {
-            Key2 = true;
+            key2 = true;
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_3) {
-            Key3 = true;
+            key3 = true;
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_4) {
-            Key4 = true;
+            key4 = true;
             return;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            keyEsc = false;
+            return;
+        }
         if (e.getKeyCode() == KeyEvent.VK_W) {
             keyW = false;
             return;
@@ -158,19 +170,19 @@ public class KeyListener implements java.awt.event.KeyListener {
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_1) {
-            Key1 = false;
+            key1 = false;
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {
-            Key2 = false;
+            key2 = false;
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_3) {
-            Key3 = false;
+            key3 = false;
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_4) {
-            Key4 = false;
+            key4 = false;
             return;
         }
     }

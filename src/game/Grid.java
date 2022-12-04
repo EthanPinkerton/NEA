@@ -32,6 +32,14 @@ public class Grid {
         }
     }
 
+    public int getHeight(){
+        return height;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
     public int getX(double x) {
         return (int) Math.round(width / 2.0 + (x * scale) - (camera.getX() * scale));
     }

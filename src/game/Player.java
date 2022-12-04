@@ -43,6 +43,7 @@ public class Player {
         g2d.scale(2, 2);
         g2d.setColor(Color.BLUE);
         g2d.drawString(Integer.toString(score), 5, 40);
+        g2d.scale(0.5,0.5);
     }
 
     public void update(KeyListener kl, Maze maze) {
