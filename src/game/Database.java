@@ -50,6 +50,18 @@ public class Database {
         }
     }
 
+    public static String[] getGames(String user){
+        try{
+            Statement stmt = connect();
+            String query = "select GameID,Seed,Ongoing from Game where Player='"+user+"'";
+            ResultSet resultSet = stmt.executeQuery(query);
+            String[] results = new String[1];
+        } catch (SQLException | NullPointerException e){
+            System.out.println(e);
+        }
+        return new String[]{""};
+    }
+
     public static int newGame(String user, String seed) {
         Statement stmt = connect();
         String query = "insert into Game (Player, Seed, Score, Ongoing, Health) values('" + user + "','" + seed + "',0,Yes,10)";
