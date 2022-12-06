@@ -27,7 +27,9 @@ public class MainMenu {
     protected ActionListener loadGameListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            menu.removeComponents(jFrame);
+            jFrame.repaint();
+            menu.loadGame(jFrame, username);
         }
     };
 
@@ -58,7 +60,7 @@ public class MainMenu {
         }
     };
 
-    protected ActionListener registerListener2 = new ActionListener() {
+    protected ActionListener registerListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (register.getUsername().length() < 3) {
@@ -76,11 +78,11 @@ public class MainMenu {
         }
     };
 
-    protected ActionListener registerListener = new ActionListener() {
+    protected ActionListener loginRegisterListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             login.removeComponents(jFrame);
-            register = new Register(jFrame, backListener, registerListener2);
+            register = new Register(jFrame, backListener, registerListener);
         }
     };
 
@@ -88,7 +90,7 @@ public class MainMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             register.removeComponents(jFrame);
-            login = new Login(jFrame, loginListener, registerListener);
+            login = new Login(jFrame, loginListener, loginRegisterListener);
         }
     };
 
@@ -125,7 +127,7 @@ public class MainMenu {
         jFrame.setMinimumSize(new Dimension(500, 500));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
-        login = new Login(jFrame, loginListener, registerListener);
+        login = new Login(jFrame, loginListener, loginRegisterListener);
     }
 
     public static void main(String[] args) {
