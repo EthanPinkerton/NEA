@@ -21,6 +21,10 @@ public class Contents extends JPanel {
         return maze.getSeed();
     }
 
+    public int getScore() {
+        return player.getScore();
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -37,12 +41,13 @@ public class Contents extends JPanel {
 
     }
 
-    public void update(int gameHeight, int gameWidth) {
+    public boolean update(int gameHeight, int gameWidth) {
         escapeMenu.update(kl.isKeyEsc());
         grid.update(gameHeight, gameWidth, player);
         if (!escapeMenu.isPaused()) {
             maze.update(player);
             player.update(kl, maze);
         }
+        return (player.getHealth() <= 0);
     }
 }

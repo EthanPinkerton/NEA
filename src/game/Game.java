@@ -9,6 +9,19 @@ public class Game {
 
     public JFrame jFrame;
     public Contents contents = new Contents();
+    private final int GameID;
+    private final ActionListener actionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (contents.update(jFrame.getHeight(), jFrame.getWidth())) {
+                contents.repaint();
+                t.stop();
+                Database.updateGame(GameID, contents.getScore(), "FALSE", 0);
+            }
+            contents.repaint();
+        }
+    };
+    private final Timer t = new Timer(17, actionListener);
 
     public Game(JFrame jFrame, String user) {
         this.jFrame = jFrame;
@@ -22,16 +35,8 @@ public class Game {
         contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         jFrame.setVisible(true);
 
-        System.out.println(Database.newGame(user, contents.getSeed()));
+        GameID = Database.newGame(user, contents.getSeed());
 
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contents.update(jFrame.getHeight(), jFrame.getWidth());
-                contents.repaint();
-            }
-        };
-        Timer t = new Timer(17, actionListener);
         t.start();
     }
 
