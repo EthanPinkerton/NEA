@@ -66,6 +66,22 @@ public class Database {
         return new String[]{""};
     }
 
+    public static String[] getGames() {
+        try {
+            Statement stmt = connect();
+            String query = "SELECT GameID,Score,Player,Ongoing FROM Game";
+            ResultSet resultSet = stmt.executeQuery(query);
+            String results = "";
+            while (resultSet.next()) {
+                results += resultSet.getString("GameID") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Player") + "-" + resultSet.getString("Ongoing") + ",";
+            }
+            return  results.split(",");
+        } catch (SQLException | NullPointerException e) {
+            System.out.println(e);
+            return new String[]{""};
+        }
+    }
+
     public static int newGame(String user, String seed) {
         Statement stmt = connect();
         String query = "INSERT INTO Game (Player, Seed, Score, Ongoing, Health) values('" + user + "','" + seed + "',0,TRUE,10)";

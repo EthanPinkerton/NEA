@@ -23,7 +23,7 @@ public class Game {
     };
     private final Timer t = new Timer(17, actionListener);
 
-    public Game(JFrame jFrame, String user) {
+    public Game(JFrame jFrame, String user, int GameID) {
         this.jFrame = jFrame;
         jFrame.setMinimumSize(new Dimension(800, 600));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,16 +31,25 @@ public class Game {
         jFrame.setTitle("Game");
         jFrame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         jFrame.setLocation(0, 0);
-        jFrame.add(contents);
-        contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
-        jFrame.setVisible(true);
 
-        GameID = Database.newGame(user, contents.getSeed());
+        if (GameID == -1) {
+            jFrame.add(contents);
+            contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+
+            this.GameID = Database.newGame(user, contents.getSeed());
+        } else {
+            // code for load game goes here
+            jFrame.add(contents);
+            contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
+
+            this.GameID = GameID;
+        }
 
         t.start();
+        jFrame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        new Game(new JFrame(), "test");
+        new Game(new JFrame(), "test", -1);
     }
 }

@@ -13,14 +13,25 @@ public class MainMenu {
     protected Register register;
     protected Menu menu;
     protected Game game;
-    protected JDialog displayError;
 
     protected ActionListener newGameListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
             jFrame.repaint();
-            game = new Game(jFrame, username);
+            game = new Game(jFrame, username, -1);
+        }
+    };
+
+    protected ActionListener gameButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton button = menu.getButton();
+            if (button != null) {
+                menu.removeLeaderboardComponents(jFrame);
+                jFrame.repaint();
+                game = new Game(jFrame, username, Integer.parseInt(button.getName().split("'")[1]));
+            }
         }
     };
 
@@ -29,7 +40,7 @@ public class MainMenu {
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
             jFrame.repaint();
-            menu.loadGame(jFrame, username);
+            menu.loadGame(jFrame, username, gameButton);
         }
     };
 
@@ -95,28 +106,7 @@ public class MainMenu {
     };
 
     public void displayError(String error) {
-        displayError = new JDialog();
-        displayError.setTitle("Error");
-        displayError.setLayout(null);
-        displayError.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width / 2, Toolkit.getDefaultToolkit().getScreenSize().height / 2, 300, 150);
-
-        JLabel label = new JLabel(error);
-        label.setBounds(50, 0, 200, 50);
-
-        JButton jbutton = new JButton("Ok");
-        jbutton.setBounds(110, 80, 70, 30);
-
-        ActionListener al = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                displayError.setVisible(false);
-            }
-        };
-
-        jbutton.addActionListener(al);
-        displayError.add(label);
-        displayError.add(jbutton);
-        displayError.setVisible(true);
+        JOptionPane.showMessageDialog(jFrame,error);
     }
 
     public MainMenu() {
