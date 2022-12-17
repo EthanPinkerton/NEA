@@ -14,16 +14,17 @@ public class MainMenu {
     protected Menu menu;
     protected Game game;
 
-    protected ActionListener newGameListener = new ActionListener() {
+    protected ActionListener newGameMenuButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
             jFrame.repaint();
+            jFrame.setVisible(false);
             game = new Game(jFrame, username, -1);
         }
     };
 
-    protected ActionListener gameButton = new ActionListener() {
+    protected ActionListener loadGameButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton button = menu.getButton();
@@ -35,16 +36,16 @@ public class MainMenu {
         }
     };
 
-    protected ActionListener loadGameListener = new ActionListener() {
+    protected ActionListener loadGameMenuButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
             jFrame.repaint();
-            menu.loadGame(jFrame, username, gameButton);
+            menu.loadGame(jFrame, username, loadGameButton);
         }
     };
 
-    protected ActionListener leaderboardListener = new ActionListener() {
+    protected ActionListener leaderboardMenuButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
@@ -53,7 +54,7 @@ public class MainMenu {
         }
     };
 
-    protected ActionListener loginListener = new ActionListener() {
+    protected ActionListener loginButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (Database.loginUser(login.getUsername(), login.getPassword())) {
@@ -67,13 +68,13 @@ public class MainMenu {
                     username = login.getUsername();
                     login.removeComponents(jFrame);
                     jFrame.repaint();
-                    menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);
+                    menu = new Menu(jFrame, newGameMenuButton, loadGameMenuButton, leaderboardMenuButton);
                     break;
             }
         }
     };
 
-    protected ActionListener registerListener = new ActionListener() {
+    protected ActionListener registerButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (register.getUsername().length() < 3 || register.getUsername().length() > 20) {
@@ -84,26 +85,26 @@ public class MainMenu {
                 username = register.getUsername();
                 register.removeComponents(jFrame);
                 jFrame.repaint();
-                menu = new Menu(jFrame, newGameListener, loadGameListener, leaderboardListener);
+                menu = new Menu(jFrame, newGameMenuButton, loadGameMenuButton, leaderboardMenuButton);
             } else {
                 displayError("Username is not unique");
             }
         }
     };
 
-    protected ActionListener loginRegisterListener = new ActionListener() {
+    protected ActionListener loginMenuRegisterButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             login.removeComponents(jFrame);
-            register = new Register(jFrame, backListener, registerListener);
+            register = new Register(jFrame, registerMenuBackButton, registerButton);
         }
     };
 
-    protected ActionListener backListener = new ActionListener() {
+    protected ActionListener registerMenuBackButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             register.removeComponents(jFrame);
-            login = new Login(jFrame, loginListener, loginRegisterListener);
+            login = new Login(jFrame, loginButton, loginMenuRegisterButton);
         }
     };
 
@@ -120,7 +121,7 @@ public class MainMenu {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
         Database.connect();
-        login = new Login(jFrame, loginListener, loginRegisterListener);
+        login = new Login(jFrame, loginButton, loginMenuRegisterButton);
     }
 
     public static void main(String[] args) {

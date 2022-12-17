@@ -9,7 +9,7 @@ public class Contents extends JPanel {
     private final Player player = new Player(4.2, 4.2, 10, "player.png");
     private final KeyListener kl = new KeyListener();
     private final Maze maze = new Maze(5, 5);
-    private final EscapeMenu escapeMenu = new EscapeMenu();
+    private final EscapeMenu escapeMenu = new EscapeMenu(this);
 
     public Contents() {
         super.setDoubleBuffered(true);
@@ -27,18 +27,18 @@ public class Contents extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2d = (Graphics2D) g;
-        if (player.getHealth() <= 0) {
-            g2d.drawImage(GetResource.get("Message.png"), 700, 500, this);
-            return;
-        }
-        maze.draw(g2d, this, grid);
-        player.draw(g2d, this, grid);
         if (escapeMenu.isPaused()) {
-            escapeMenu.draw(g2d, grid);
+            escapeMenu.draw(grid);
+        } else {
+            super.paint(g);
+            Graphics2D g2d = (Graphics2D) g;
+            if (player.getHealth() <= 0) {
+                g2d.drawImage(GetResource.get("Message.png"), 700, 500, this);
+                return;
+            }
+            maze.draw(g2d, this, grid);
+            player.draw(g2d, this, grid);
         }
-
     }
 
     public boolean update(int gameHeight, int gameWidth) {

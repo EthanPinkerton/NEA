@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 public class Game {
 
     public JFrame jFrame;
-    public Contents contents = new Contents();
+    public Contents contents;
     private final int GameID;
-    private final ActionListener actionListener = new ActionListener() {
+    private final ActionListener timerListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (contents.update(jFrame.getHeight(), jFrame.getWidth())) {
@@ -21,9 +21,10 @@ public class Game {
             contents.repaint();
         }
     };
-    private final Timer t = new Timer(17, actionListener);
+    private final Timer t = new Timer(17, timerListener);
 
     public Game(JFrame jFrame, String user, int GameID) {
+        contents = new Contents();
         this.jFrame = jFrame;
         jFrame.setMinimumSize(new Dimension(800, 600));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
