@@ -47,7 +47,9 @@ public class MainMenu {
     protected ActionListener leaderboardListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            menu.removeComponents(jFrame);
+            jFrame.repaint();
+            menu.loadLeaderboard(jFrame);
         }
     };
 
@@ -74,8 +76,8 @@ public class MainMenu {
     protected ActionListener registerListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (register.getUsername().length() < 3) {
-                displayError("Username must be more\n than 2 characters");
+            if (register.getUsername().length() < 3 || register.getUsername().length() > 20) {
+                displayError("Invalid username length");
             } else if (register.getPassword().length() < 5) {
                 displayError("Password must be longer\n than 5 characters");
             } else if (Database.addUser(register.getUsername(), register.getPassword()) == 1) {
@@ -117,6 +119,7 @@ public class MainMenu {
         jFrame.setMinimumSize(new Dimension(500, 500));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
+        Database.connect();
         login = new Login(jFrame, loginListener, loginRegisterListener);
     }
 
