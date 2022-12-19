@@ -35,11 +35,11 @@ public class Leaderboard {
         Score.setDisabledTextColor(Color.BLACK);
         Username.setDisabledTextColor(Color.BLACK);
         Ongoing.setDisabledTextColor(Color.BLACK);
-        Rank.setBounds(0, 0, 100, jFrame.getHeight());
-        ID.setBounds(100, 0, 100, jFrame.getHeight());
-        Score.setBounds(200, 0, 100, jFrame.getHeight());
-        Username.setBounds(300, 0, 100, jFrame.getHeight());
-        Ongoing.setBounds(400, 0, 100, jFrame.getHeight());
+        Rank.setBounds(0, 0, 50, jFrame.getHeight());
+        ID.setBounds(50, 0, 50, jFrame.getHeight());
+        Score.setBounds(100, 0, 100, jFrame.getHeight());
+        Username.setBounds(200, 0, 240, jFrame.getHeight());
+        Ongoing.setBounds(440, 0, 60, jFrame.getHeight());
         display();
     }
 
@@ -73,9 +73,12 @@ public class Leaderboard {
 
         for (int i = 1; i < games.length + 1; i++) {
             String[] contents = games[i - 1].split("-");
-            allGames[0][i] = String.valueOf(i);
-            for (int j = 1; j < contents.length; j++) {
-                allGames[j][i] = contents[j - 1];
+            for (int j = 0; j < contents.length + 1; j++) {
+                if (j == 0) {
+                    allGames[0][i] = String.valueOf(i);
+                } else {
+                    allGames[j][i] = contents[j - 1];
+                }
             }
         }
     }

@@ -69,7 +69,7 @@ public class Database {
     public static String[] getGames() {
         try {
             Statement stmt = connect();
-            String query = "SELECT GameID,Score,Player,Ongoing FROM Game";
+            String query = "SELECT GameID,Score,Player,Ongoing FROM Game ORDER BY Score DESC";
             ResultSet resultSet = stmt.executeQuery(query);
             String results = "";
             while (resultSet.next()) {
