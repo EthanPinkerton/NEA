@@ -2,22 +2,40 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class EscapeMenu {
     private final JPanel panel;
     protected boolean paused;
     private int counter;
     private final JButton backButton;
+    private final JButton resumeButton;
     private final JLabel label;
 
-    public EscapeMenu(JPanel mainPanel) {
+    public EscapeMenu(JFrame jFrame, ActionListener quitButton) {
         panel = new JPanel();
         panel.setVisible(false);
         panel.setBackground(Color.GRAY);
-        mainPanel.add(panel);
+        jFrame.add(panel);
+
         backButton = new JButton("Quit");
+        backButton.addActionListener(quitButton);
         panel.add(backButton);
+
+        resumeButton = new JButton("Resume");
+        ActionListener resume = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                paused = false;
+                counter = 0;
+            }
+        };
+        resumeButton.addActionListener(resume);
+        panel.add(resumeButton);
+
         label = new JLabel("Paused");
+        label.setFont(new Font("",Font.PLAIN,30));
         panel.add(label);
 
         paused = false;
@@ -25,16 +43,10 @@ public class EscapeMenu {
     }
 
     public void draw(Grid grid) {
-//        g2d.setColor(Color.GRAY);
-//        g2d.fillRect(grid.getWidth() / 3, grid.getHeight() / 4, grid.getWidth() / 3, grid.getHeight() / 2);
-//        g2d.setColor(Color.BLACK);
-//        g2d.scale(2, 2);
-//        g2d.drawRect(grid.getWidth() / 6, grid.getHeight() / 8, grid.getWidth() / 6, grid.getHeight() / 4);
-//        g2d.scale(2.5, 2.5);
-//        g2d.drawString("PAUSED", grid.getWidth() / 10 - 22, grid.getHeight() / 10 + 5);
-        panel.setBounds(grid.getWidth() / 3, grid.getHeight() / 4, grid.getWidth() / 3, grid.getHeight() / 2);
-        label.setBounds(panel.getWidth() / 2 - 50, panel.getHeight() / 2, 100, 20);
-        backButton.setBounds(panel.getWidth() / 2 - 20, panel.getHeight() / 2 + 80, panel.getWidth() / 10, panel.getHeight() / 10);
+        panel.setBounds(2 * grid.getWidth() / 5, grid.getHeight() / 3, grid.getWidth() / 5, grid.getHeight() / 3);
+        label.setBounds(panel.getWidth() / 2 - 60, 10, 200, 50);
+        resumeButton.setBounds(panel.getWidth() / 4, 2 * panel.getHeight() / 7, panel.getWidth() / 2, panel.getHeight() / 5);
+        backButton.setBounds(panel.getWidth() / 4, 3 * panel.getHeight() / 5, panel.getWidth() / 2, panel.getHeight() / 5);
     }
 
     public boolean isPaused() {

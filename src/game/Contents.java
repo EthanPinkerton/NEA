@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Contents extends JPanel {
 
@@ -9,12 +10,13 @@ public class Contents extends JPanel {
     private final Player player = new Player(4.2, 4.2, 10, "player.png");
     private final KeyListener kl = new KeyListener();
     private final Maze maze = new Maze(5, 5);
-    private final EscapeMenu escapeMenu = new EscapeMenu(this);
+    private final EscapeMenu escapeMenu;
 
-    public Contents() {
+    public Contents(JFrame jFrame, ActionListener quitButton) {
         super.setDoubleBuffered(true);
         super.addKeyListener(kl);
         super.setFocusable(true);
+        escapeMenu = new EscapeMenu(jFrame, quitButton);
     }
 
     public String getSeed() {
@@ -23,6 +25,10 @@ public class Contents extends JPanel {
 
     public int getScore() {
         return player.getScore();
+    }
+
+    public double getHealth() {
+        return player.getHealth();
     }
 
     @Override
