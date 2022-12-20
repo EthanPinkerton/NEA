@@ -10,8 +10,8 @@ public class Seeder {
     protected int[] stats = new int[5];
 
     public Seeder() {
-        //this.seed = newSeed();
-        this.seed = "newseed123".toCharArray();
+        this.seed = newSeed();
+        //this.seed = "newseed123".toCharArray();
         this.index = 3;
         this.sum = 1;
     }

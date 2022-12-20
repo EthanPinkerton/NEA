@@ -146,7 +146,7 @@ public class Leaderboard {
     private String getColumn(int index) {
         String rString = allGames[index][0] + "\n\n";
         int len = Math.min(allGames[index].length - 1 - page * 25, 25);
-        if (displayOngoing.equals("n") && displayUsername.equals("n")) {
+        if (displayOngoing.equals("t") && displayUsername.equals("t")) {
             for (int i = 1; i < len + 1; i++) {
                 rString += allGames[index][i + page * 25] + "\n";
             }
