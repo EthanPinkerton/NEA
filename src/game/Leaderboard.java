@@ -36,13 +36,18 @@ public class Leaderboard {
 
     public Leaderboard(JFrame jFrame, ActionListener backListener) {
         panel = new JPanel();
-        JButton previous = new JButton("Previous");
-        JButton next = new JButton("Next");
-        JButton back = new JButton("Back");
         panel.setBounds(0, 0, jFrame.getWidth(), jFrame.getHeight());
+        format(backListener);
         jFrame.add(panel);
         page = 0;
         getGames();
+        display();
+    }
+
+    private void format(ActionListener backListener) {
+        JButton previous = new JButton("Previous");
+        JButton next = new JButton("Next");
+        JButton back = new JButton("Back");
         panel.setLayout(null);
         panel.add(Rank);
         panel.add(ID);
@@ -67,16 +72,15 @@ public class Leaderboard {
         Score.setBounds(100, 0, 100, 441);
         Username.setBounds(200, 0, 240, 441);
         Ongoing.setBounds(440, 0, 60, 441);
-        back.setBounds(0,442,100,20);
-        previous.setBounds(300,442,100,20);
-        next.setBounds(400,442,100,20);
+        back.setBounds(0, 442, 100, 20);
+        previous.setBounds(300, 442, 100, 20);
+        next.setBounds(400, 442, 100, 20);
         back.addActionListener(backListener);
         next.addActionListener(nextListener);
         previous.addActionListener(previousListener);
-        display();
     }
 
-    public void removePanel(JFrame jFrame){
+    public void removePanel(JFrame jFrame) {
         jFrame.remove(panel);
     }
 
@@ -114,13 +118,13 @@ public class Leaderboard {
             for (int j = 0; j < contents.length + 1; j++) {
                 if (j == 0) {
                     allGames[0][i] = String.valueOf(i);
-                }else if (j == 4){
-                    if (contents[j - 1].equals("TRUE")){
+                } else if (j == 4) {
+                    if (contents[j - 1].equals("TRUE")) {
                         allGames[j][i] = "Yes";
-                    }else if (contents[j - 1].equals("FALSE")){
+                    } else if (contents[j - 1].equals("FALSE")) {
                         allGames[j][i] = "No";
                     }
-                }else {
+                } else {
                     allGames[j][i] = contents[j - 1];
                 }
             }

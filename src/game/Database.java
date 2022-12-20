@@ -75,7 +75,7 @@ public class Database {
             while (resultSet.next()) {
                 results += resultSet.getString("GameID") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Player") + "-" + resultSet.getString("Ongoing") + ",";
             }
-            return  results.split(",");
+            return results.split(",");
         } catch (SQLException | NullPointerException e) {
             System.out.println(e);
             return new String[]{""};

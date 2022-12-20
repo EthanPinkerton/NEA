@@ -118,7 +118,7 @@ public class MainMenu {
     };
 
     public void displayError(String error) {
-        JOptionPane.showMessageDialog(jFrame,error);
+        JOptionPane.showMessageDialog(jFrame, error);
     }
 
     public MainMenu() {

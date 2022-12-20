@@ -55,7 +55,7 @@ public class Menu {
         }
     }
 
-    public void removeLeaderboardPanel(JFrame jFrame){
+    public void removeLeaderboardPanel(JFrame jFrame) {
         leaderboard.removePanel(jFrame);
     }
 
