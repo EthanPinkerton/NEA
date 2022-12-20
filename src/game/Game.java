@@ -10,7 +10,15 @@ public class Game {
     public JFrame jFrame;
     public Contents contents;
     private final int GameID;
-
+    private final ActionListener quitButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            t.stop();
+            Database.updateGame(GameID, contents.getScore(), "TRUE", contents.getHealth());
+            jFrame.remove(contents);
+            jFrame.repaint();
+        }
+    };
     private final ActionListener timerListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -25,16 +33,6 @@ public class Game {
     private final Timer t = new Timer(17, timerListener);
 
     public Game(JFrame jFrame, String user, int GameID) {
-        ActionListener quitButton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                t.stop();
-                Database.updateGame(GameID, contents.getScore(), "TRUE", contents.getHealth());
-                jFrame.remove(contents);
-                //jFrame.repaint();
-            }
-        };
-
         this.jFrame = jFrame;
         jFrame.setMinimumSize(new Dimension(800, 600));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +40,7 @@ public class Game {
         jFrame.setTitle("Game");
         jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame.setLocation(0, 0);
+        jFrame.setResizable(true);
 
         contents = new Contents(jFrame, quitButton);
         if (GameID == -1) {

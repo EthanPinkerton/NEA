@@ -50,7 +50,16 @@ public class MainMenu {
         public void actionPerformed(ActionEvent e) {
             menu.removeComponents(jFrame);
             jFrame.repaint();
-            menu.loadLeaderboard(jFrame);
+            menu.loadLeaderboard(jFrame, leaderboardBackButton);
+        }
+    };
+
+    protected ActionListener leaderboardBackButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            menu.removeLeaderboardPanel(jFrame);
+            jFrame.repaint();
+            menu = new Menu(jFrame, newGameMenuButton, loadGameMenuButton, leaderboardMenuButton);
         }
     };
 
@@ -119,6 +128,7 @@ public class MainMenu {
         jFrame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 250, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 250);
         jFrame.setMinimumSize(new Dimension(500, 500));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setResizable(false);
         jFrame.setVisible(true);
         Database.connect();
         login = new Login(jFrame, loginButton, loginMenuRegisterButton);

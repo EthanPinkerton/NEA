@@ -55,8 +55,12 @@ public class Menu {
         }
     }
 
-    public void loadLeaderboard(JFrame jFrame) {
-        leaderboard = new Leaderboard(jFrame);
+    public void removeLeaderboardPanel(JFrame jFrame){
+        leaderboard.removePanel(jFrame);
+    }
+
+    public void loadLeaderboard(JFrame jFrame, ActionListener backButton) {
+        leaderboard = new Leaderboard(jFrame, backButton);
     }
 
     public void removeComponents(JFrame jFrame) {
