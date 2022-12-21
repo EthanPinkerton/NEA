@@ -49,10 +49,10 @@ public class Leaderboard {
                     }
                     break;
                 case "id":
-                    displaySearch(allGames[1],text[1]);
+                    displaySearch(allGames[1], text[1]);
                     break;
                 case "score":
-                    displaySearch(allGames[2],text[1]);
+                    displaySearch(allGames[2], text[1]);
                     break;
                 case "username":
                     displayUsername = text[1];

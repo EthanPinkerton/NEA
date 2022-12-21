@@ -8,13 +8,13 @@ public class Database {
         printGames();
     }
 
-    public static Statement connect() {
+    public static Statement connect() throws NullPointerException {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");//Loading Driver
             Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + GetResource.getFile("Game1.accdb"));//Establishing Connection
             return conn.createStatement();
         } catch (SQLException | ClassNotFoundException e) {
-            return null;
+            throw (new NullPointerException());
         }
     }
 
@@ -27,7 +27,6 @@ public class Database {
         try {
             return stmt.executeUpdate(query);
         } catch (SQLException e) {
-            System.out.println(e);
             return 0;
         }
     }
@@ -44,8 +43,7 @@ public class Database {
                 return 1;
             }
             return 0;
-        } catch (SQLException | NullPointerException e) {
-            System.out.println(e);
+        } catch (SQLException e) {
             return 0;
         }
     }
@@ -60,10 +58,9 @@ public class Database {
                 results += resultSet.getString("GameID") + "-" + resultSet.getString("Seed") + "-" + resultSet.getString("Score") + ",";
             }
             return results.split(",");
-        } catch (SQLException | NullPointerException e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            return new String[]{""};
         }
-        return new String[]{""};
     }
 
     public static String[] getGames() {
@@ -76,8 +73,7 @@ public class Database {
                 results += resultSet.getString("GameID") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Player") + "-" + resultSet.getString("Ongoing") + ",";
             }
             return results.split(",");
-        } catch (SQLException | NullPointerException e) {
-            System.out.println(e);
+        } catch (SQLException e) {
             return new String[]{""};
         }
     }
@@ -94,20 +90,17 @@ public class Database {
             } else {
                 return 0;
             }
-        } catch (SQLException | NullPointerException e) {
-            System.out.println(e);
+        } catch (SQLException e) {
             return 0;
         }
     }
 
-    public static int updateGame(int id, int score, String ongoing, double health) {
+    public static void updateGame(int id, int score, String ongoing, double health) {
         Statement stmt = connect();
         String query = "UPDATE Game SET Score='" + score + "', Ongoing='" + ongoing + "', Health='" + health + "' WHERE GameID='" + id + "'";
         try {
-            return stmt.executeUpdate(query);
-        } catch (SQLException | NullPointerException e) {
-            System.out.println(e);
-            return 0;
+            stmt.executeUpdate(query);
+        } catch (SQLException ignored) {
         }
     }
 
@@ -119,7 +112,18 @@ public class Database {
             String q3 = "DELETE FROM Players WHERE Username='" + Username + "';";
             return stmt.executeUpdate(q3);
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public static int delete0Games() {
+        try {
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");//Loading Driver
+            Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + GetResource.getFile("Game1.accdb"));//Establishing Connection
+            Statement stmt = conn.createStatement();
+            String q3 = "DELETE FROM Game WHERE Score=0;";
+            return stmt.executeUpdate(q3);
+        } catch (SQLException | ClassNotFoundException e) {
             return 0;
         }
     }
