@@ -49,6 +49,10 @@ public class EscapeMenu {
         backButton.setBounds(panel.getWidth() / 4, 3 * panel.getHeight() / 5, panel.getWidth() / 2, panel.getHeight() / 5);
     }
 
+    public void removePanel(JFrame jFrame){
+        jFrame.remove(panel);
+    }
+
     public boolean isPaused() {
         return paused;
     }

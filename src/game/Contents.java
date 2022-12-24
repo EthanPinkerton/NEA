@@ -31,6 +31,10 @@ public class Contents extends JPanel {
         return player.getHealth();
     }
 
+    public void removeEscapeMenu(JFrame jFrame){
+        escapeMenu.removePanel(jFrame);
+    }
+
     @Override
     public void paint(Graphics g) {
         if (escapeMenu.isPaused()) {

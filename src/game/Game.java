@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class Game {
 
@@ -15,6 +16,7 @@ public class Game {
         public void actionPerformed(ActionEvent e) {
             t.stop();
             Database.updateGame(GameID, contents.getScore(), "TRUE", contents.getHealth());
+            contents.removeEscapeMenu(jFrame);
             jFrame.remove(contents);
             jFrame.repaint();
         }
@@ -24,6 +26,7 @@ public class Game {
         public void actionPerformed(ActionEvent e) {
             if (contents.update(jFrame.getHeight(), jFrame.getWidth())) {
                 contents.repaint();
+                contents.removeEscapeMenu(jFrame);
                 t.stop();
                 Database.updateGame(GameID, contents.getScore(), "FALSE", 0);
             }
