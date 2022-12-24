@@ -1,9 +1,12 @@
 package game;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login {
+
+    protected JFrame jFrame;
     protected JTextField username = new JTextField();
     protected JPasswordField password = new JPasswordField();
     protected JButton login = new JButton("Submit");
@@ -11,7 +14,36 @@ public class Login {
     protected JLabel ULabel = new JLabel("Enter Username:");
     protected JLabel PLabel = new JLabel("Enter Password:");
 
-    public Login(JFrame jFrame, ActionListener lAl, ActionListener rAl) {
+    protected ActionListener loginButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (Database.loginUser(getUsername(), getPassword())) {
+                case 0:
+                    MainMenu.displayError(jFrame, "Username not found");
+                    break;
+                case 1:
+                    MainMenu.displayError(jFrame,"Password doesn't match");
+                    break;
+                case 2:
+                    String u = getUsername();
+                    removeComponents(jFrame);
+                    jFrame.repaint();
+                    new Menu(jFrame, u);
+                    break;
+            }
+        }
+    };
+
+    protected ActionListener registerButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            removeComponents(jFrame);
+            new Register(jFrame);
+        }
+    };
+
+    public Login(JFrame jFrame) {
+        this.jFrame = jFrame;
         jFrame.setTitle("Login");
         jFrame.add(username);
         jFrame.add(login);
@@ -20,8 +52,8 @@ public class Login {
         jFrame.add(PLabel);
         jFrame.add(register);
         format(jFrame);
-        login.addActionListener(lAl);
-        register.addActionListener(rAl);
+        login.addActionListener(loginButton);
+        register.addActionListener(registerButton);
     }
 
     private void format(JFrame jFrame) {

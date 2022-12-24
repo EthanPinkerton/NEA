@@ -1,34 +1,88 @@
 package game;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu {
 
+    protected JFrame jFrame;
+    protected String username;
     protected JButton newGame = new JButton("New Game");
     protected JButton loadGame = new JButton("Load game");
     protected JButton leaderboardButton = new JButton("Leaderboard");
     protected JButton[] loadGameButtons;
     protected Leaderboard leaderboard;
 
-    public Menu(JFrame jFrame, ActionListener ngAl, ActionListener lgAl, ActionListener lAl) {
+    protected ActionListener newGameButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            removeComponents();
+            jFrame.repaint();
+            jFrame.setVisible(false);
+            new Game(jFrame, username, -1);
+        }
+    };
+
+    protected ActionListener loadGameMenuButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            removeComponents();
+            jFrame.repaint();
+            loadGame();
+        }
+    };
+
+    protected ActionListener loadGameButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton button = getButton();
+            if (button != null) {
+                removeLeaderboardComponents();
+                jFrame.repaint();
+                new Game(jFrame, username, Integer.parseInt(button.getName().split("'")[1]));
+            }
+        }
+    };
+
+    protected ActionListener leaderboardMenuButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            removeComponents();
+            jFrame.repaint();
+            loadLeaderboard();
+        }
+    };
+
+    protected ActionListener leaderboardBackButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            removeLeaderboardPanel();
+            jFrame.repaint();
+            new Menu(jFrame, username);
+        }
+    };
+
+    public Menu(JFrame jFrame, String username) {
+        this.username = username;
+        this.jFrame = jFrame;
         jFrame.setTitle("Main menu");
         jFrame.add(newGame);
         jFrame.add(loadGame);
         jFrame.add(leaderboardButton);
-        format(jFrame);
-        newGame.addActionListener(ngAl);
-        loadGame.addActionListener(lgAl);
-        leaderboardButton.addActionListener(lAl);
+        format();
+        newGame.addActionListener(newGameButton);
+        loadGame.addActionListener(loadGameMenuButton);
+        leaderboardButton.addActionListener(leaderboardMenuButton);
     }
 
-    private void format(JFrame jFrame) {
+    private void format() {
         newGame.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 125, 200, 50);
         loadGame.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 25, 200, 50);
         leaderboardButton.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 + 75, 200, 50);
     }
 
-    public void loadGame(JFrame jFrame, String username, ActionListener al) {
+    public void loadGame() {
         String[] games = Database.loadGames(username);
         loadGameButtons = new JButton[games.length];
         for (int i = 0; i < loadGameButtons.length; i++) {
@@ -36,7 +90,7 @@ public class Menu {
             loadGameButtons[i] = new JButton(i + ". ID '" + content[0] + "' Seed '" + content[1] + "' Score '" + content[2] + "'");
             loadGameButtons[i].setBounds(jFrame.getWidth() / 2 - 200, 10 + 50 * i, 400, 40);
             jFrame.add(loadGameButtons[i]);
-            loadGameButtons[i].addActionListener(al);
+            loadGameButtons[i].addActionListener(loadGameButton);
         }
     }
 
@@ -49,21 +103,21 @@ public class Menu {
         return null;
     }
 
-    public void removeLeaderboardComponents(JFrame jFrame) {
+    public void removeLeaderboardComponents() {
         for (JButton button : loadGameButtons) {
             jFrame.remove(button);
         }
     }
 
-    public void removeLeaderboardPanel(JFrame jFrame) {
+    public void removeLeaderboardPanel() {
         leaderboard.removePanel(jFrame);
     }
 
-    public void loadLeaderboard(JFrame jFrame, ActionListener backButton) {
-        leaderboard = new Leaderboard(jFrame, backButton);
+    public void loadLeaderboard() {
+        leaderboard = new Leaderboard(jFrame, leaderboardBackButton);
     }
 
-    public void removeComponents(JFrame jFrame) {
+    public void removeComponents() {
         jFrame.remove(newGame);
         jFrame.remove(loadGame);
         jFrame.remove(leaderboardButton);
