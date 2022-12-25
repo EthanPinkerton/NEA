@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class Game {
 
     public JFrame jFrame;
+    public String username;
     public Contents contents;
     private final int GameID;
     private final ActionListener quitButton = new ActionListener() {
@@ -19,6 +19,16 @@ public class Game {
             contents.removeEscapeMenu(jFrame);
             jFrame.remove(contents);
             jFrame.repaint();
+            new Menu(GetResource.formatJFrame(jFrame), username);
+        }
+    };
+    private final ActionListener menuButton = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            contents.removeEscapeMenu(jFrame);
+            jFrame.remove(contents);
+            jFrame.repaint();
+            new Menu(GetResource.formatJFrame(jFrame), username);
         }
     };
     private final ActionListener timerListener = new ActionListener() {
@@ -26,8 +36,8 @@ public class Game {
         public void actionPerformed(ActionEvent e) {
             if (contents.update(jFrame.getHeight(), jFrame.getWidth())) {
                 contents.repaint();
-                contents.removeEscapeMenu(jFrame);
                 t.stop();
+                contents.deathScreen(menuButton);
                 Database.updateGame(GameID, contents.getScore(), "FALSE", 0);
             }
             contents.repaint();
@@ -35,8 +45,9 @@ public class Game {
     };
     private final Timer t = new Timer(17, timerListener);
 
-    public Game(JFrame jFrame, String user, int GameID) {
-        this.jFrame = jFrame;
+    public Game(JFrame frame, String user, int GameID) {
+        this.jFrame = frame;
+        this.username = user;
         jFrame.setMinimumSize(new Dimension(800, 600));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(null);

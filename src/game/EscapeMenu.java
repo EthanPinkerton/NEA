@@ -12,15 +12,17 @@ public class EscapeMenu {
     private final JButton backButton;
     private final JButton resumeButton;
     private final JLabel label;
+    private final ActionListener quitButton;
 
     public EscapeMenu(JFrame jFrame, ActionListener quitButton) {
+        this.quitButton = quitButton;
         panel = new JPanel();
         panel.setVisible(false);
         panel.setBackground(Color.GRAY);
         jFrame.add(panel);
 
         backButton = new JButton("Quit");
-        backButton.addActionListener(quitButton);
+        backButton.addActionListener(this.quitButton);
         panel.add(backButton);
 
         resumeButton = new JButton("Resume");
@@ -35,7 +37,7 @@ public class EscapeMenu {
         panel.add(resumeButton);
 
         label = new JLabel("Paused");
-        label.setFont(new Font("",Font.PLAIN,30));
+        label.setFont(new Font("", Font.PLAIN, 30));
         panel.add(label);
 
         paused = false;
@@ -49,7 +51,17 @@ public class EscapeMenu {
         backButton.setBounds(panel.getWidth() / 4, 3 * panel.getHeight() / 5, panel.getWidth() / 2, panel.getHeight() / 5);
     }
 
-    public void removePanel(JFrame jFrame){
+    public void deathMenu(Grid grid, ActionListener menuButton) {
+        panel.setBounds(2 * grid.getWidth() / 5, grid.getHeight() / 3, grid.getWidth() / 5, grid.getHeight() / 3);
+        label.setText("You died");
+        resumeButton.setVisible(false);
+        backButton.removeActionListener(quitButton);
+        backButton.addActionListener(menuButton);
+        backButton.setBounds(panel.getWidth() / 4, 2 * panel.getHeight() / 7, panel.getWidth() / 2, panel.getHeight() / 5);
+        panel.setVisible(true);
+    }
+
+    public void removePanel(JFrame jFrame) {
         jFrame.remove(panel);
     }
 

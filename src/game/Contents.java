@@ -31,8 +31,12 @@ public class Contents extends JPanel {
         return player.getHealth();
     }
 
-    public void removeEscapeMenu(JFrame jFrame){
+    public void removeEscapeMenu(JFrame jFrame) {
         escapeMenu.removePanel(jFrame);
+    }
+
+    public void deathScreen(ActionListener menuButton){
+        escapeMenu.deathMenu(grid,menuButton);
     }
 
     @Override
@@ -42,10 +46,6 @@ public class Contents extends JPanel {
         } else {
             super.paint(g);
             Graphics2D g2d = (Graphics2D) g;
-            if (player.getHealth() <= 0) {
-                g2d.drawImage(GetResource.get("Message.png"), 700, 500, this);
-                return;
-            }
             maze.draw(g2d, this, grid);
             player.draw(g2d, this, grid);
         }
