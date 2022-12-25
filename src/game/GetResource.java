@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class GetResource {
+public final class GetResource {
     public static Image get(String file) {
         try {
             return new ImageIcon(Objects.requireNonNull(GetResource.class.getResource("res/" + file))).getImage();
@@ -19,5 +19,21 @@ public class GetResource {
         } catch (NullPointerException e) {
             return "";
         }
+    }
+
+    public static void displayError(JFrame jFrame, String error) {
+        JOptionPane.showMessageDialog(jFrame, error);
+    }
+
+    public static JFrame formatJFrame(JFrame jFrame) {
+        jFrame.setVisible(false);
+        jFrame.setLayout(null);
+        jFrame.setMinimumSize(new Dimension(500,500));
+        jFrame.setSize(500, 500);
+        jFrame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 250, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 250);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setResizable(false);
+        jFrame.setVisible(true);
+        return jFrame;
     }
 }

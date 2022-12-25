@@ -59,27 +59,27 @@ public class Menu {
         public void actionPerformed(ActionEvent e) {
             removeLeaderboardPanel();
             jFrame.repaint();
-            new Menu(jFrame, username);
+            formatComponents();
         }
     };
 
     public Menu(JFrame jFrame, String username) {
         this.username = username;
         this.jFrame = jFrame;
+        formatComponents();
+    }
+
+    private void formatComponents() {
         jFrame.setTitle("Main menu");
         jFrame.add(newGame);
         jFrame.add(loadGame);
         jFrame.add(leaderboardButton);
-        format();
-        newGame.addActionListener(newGameButton);
-        loadGame.addActionListener(loadGameMenuButton);
-        leaderboardButton.addActionListener(leaderboardMenuButton);
-    }
-
-    private void format() {
         newGame.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 125, 200, 50);
         loadGame.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 25, 200, 50);
         leaderboardButton.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 + 75, 200, 50);
+        newGame.addActionListener(newGameButton);
+        loadGame.addActionListener(loadGameMenuButton);
+        leaderboardButton.addActionListener(leaderboardMenuButton);
     }
 
     public void loadGame() {

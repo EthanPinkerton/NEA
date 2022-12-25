@@ -19,14 +19,14 @@ public class Login {
         public void actionPerformed(ActionEvent e) {
             switch (Database.loginUser(getUsername(), getPassword())) {
                 case 0:
-                    MainMenu.displayError(jFrame, "Username not found");
+                    GetResource.displayError(jFrame, "Username not found");
                     break;
                 case 1:
-                    MainMenu.displayError(jFrame,"Password doesn't match");
+                    GetResource.displayError(jFrame, "Password doesn't match");
                     break;
                 case 2:
                     String u = getUsername();
-                    removeComponents(jFrame);
+                    removeComponents();
                     jFrame.repaint();
                     new Menu(jFrame, u);
                     break;
@@ -37,7 +37,7 @@ public class Login {
     protected ActionListener registerButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            removeComponents(jFrame);
+            removeComponents();
             new Register(jFrame);
         }
     };
@@ -51,12 +51,12 @@ public class Login {
         jFrame.add(password);
         jFrame.add(PLabel);
         jFrame.add(register);
-        format(jFrame);
+        formatComponents();
         login.addActionListener(loginButton);
         register.addActionListener(registerButton);
     }
 
-    private void format(JFrame jFrame) {
+    private void formatComponents() {
         username.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 30, 200, 30);
         password.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2, 200, 30);
         login.setBounds(jFrame.getWidth() / 2 + 5, jFrame.getHeight() / 2 + 40, 90, 20);
@@ -65,7 +65,7 @@ public class Login {
         PLabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2, 100, 30);
     }
 
-    public void removeComponents(JFrame jFrame) {
+    public void removeComponents() {
         jFrame.remove(username);
         jFrame.remove(password);
         jFrame.remove(login);
@@ -80,5 +80,10 @@ public class Login {
 
     public String getPassword() {
         return String.valueOf(password.getPassword());
+    }
+
+    public static void main(String[] args) {
+        new Login(GetResource.formatJFrame(new JFrame()));
+        Database.connect();
     }
 }
