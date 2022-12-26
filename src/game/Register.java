@@ -61,6 +61,7 @@ public class Register {
         PLabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2, 100, 30);
         back.addActionListener(backButton);
         register.addActionListener(registerButton);
+        password.addActionListener(registerButton);
     }
 
     public void removeComponents() {

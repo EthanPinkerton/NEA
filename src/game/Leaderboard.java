@@ -30,7 +30,7 @@ public class Leaderboard {
     private final ActionListener nextListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (page != (allGames[0].length - 1) / 25) {
+            if (page != (allGames[0].length - 1) / 20) {
                 page += 1;
                 display();
             }
@@ -44,7 +44,7 @@ public class Leaderboard {
             switch (text[0]) {
                 case "rank":
                     if (Integer.parseInt(text[1]) > 0 && Integer.parseInt(text[1]) < allGames[0].length) {
-                        page = (Integer.parseInt(text[1]) - 1) / 25;
+                        page = (Integer.parseInt(text[1]) - 1) / 20;
                         display();
                     }
                     break;
@@ -70,6 +70,7 @@ public class Leaderboard {
 
     public Leaderboard(JFrame jFrame, ActionListener backListener) {
         panel = new JPanel();
+        panel.setBackground(Color.WHITE);
         panel.setBounds(0, 0, jFrame.getWidth(), jFrame.getHeight());
         format(backListener);
         jFrame.add(panel);
@@ -104,16 +105,17 @@ public class Leaderboard {
         Score.setDisabledTextColor(Color.BLACK);
         Username.setDisabledTextColor(Color.BLACK);
         Ongoing.setDisabledTextColor(Color.BLACK);
-        Rank.setBounds(0, 0, 50, 441);
-        ID.setBounds(50, 0, 50, 441);
-        Score.setBounds(100, 0, 100, 441);
-        Username.setBounds(200, 0, 240, 441);
-        Ongoing.setBounds(440, 0, 60, 441);
-        searchBar.setBounds(70, 442, 140, 20);
-        search.setBounds(210, 442, 90, 20);
-        back.setBounds(0, 442, 70, 20);
-        previous.setBounds(300, 442, 100, 20);
-        next.setBounds(400, 442, 100, 20);
+        Rank.setBounds(0, 0, 50, 350);
+        ID.setBounds(50, 0, 50, 350);
+        Score.setBounds(100, 0, 100, 350);
+        Username.setBounds(200, 0, 240, 350);
+        Ongoing.setBounds(440, 0, 60, 350);
+        searchBar.setBounds(0, 392, 400, 30);
+        search.setBounds(400, 392, 100, 30);
+        back.setBounds(210, 443, 80, 20);
+        previous.setBounds(0, 443, 100, 20);
+        next.setBounds(400, 443, 100, 20);
+        searchBar.addActionListener(searchListener);
         search.addActionListener(searchListener);
         back.addActionListener(backListener);
         next.addActionListener(nextListener);
@@ -123,7 +125,7 @@ public class Leaderboard {
     public void displaySearch(String[] array, String item) {
         for (int i = 0; i < array.length; i++) {
             if (array[i].equals(item)) {
-                page = i / 25;
+                page = i / 20;
                 display();
                 return;
             }
@@ -145,15 +147,15 @@ public class Leaderboard {
 
     private String getColumn(int index) {
         String rString = allGames[index][0] + "\n\n";
-        int len = Math.min(allGames[index].length - 1 - page * 25, 25);
+        int len = Math.min(allGames[index].length - 1 - page * 20, 20);
         if (displayOngoing.equals("t") && displayUsername.equals("t")) {
             for (int i = 1; i < len + 1; i++) {
-                rString += allGames[index][i + page * 25] + "\n";
+                rString += allGames[index][i + page * 20] + "\n";
             }
         } else {
-            int i = page * 25;
+            int i = page * 20;
             int count = 0;
-            while (count < page * 25 + 25 && i < allGames[0].length) {
+            while (count < page * 20 + 20 && i < allGames[0].length) {
                 if ((displayUsername.equals("t") || allGames[3][i].toLowerCase().equals(displayUsername)) && (displayOngoing.equals("t") || allGames[4][i].toLowerCase().equals(displayOngoing))) {
                     rString += allGames[index][i] + "\n";
                     count++;

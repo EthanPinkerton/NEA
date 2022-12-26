@@ -54,6 +54,7 @@ public class Login {
         formatComponents();
         login.addActionListener(loginButton);
         register.addActionListener(registerButton);
+        password.addActionListener(loginButton);
     }
 
     private void formatComponents() {
