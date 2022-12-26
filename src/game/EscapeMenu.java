@@ -12,27 +12,26 @@ public class EscapeMenu {
     private final JButton backButton;
     private final JButton resumeButton;
     private final JLabel label;
-    private final ActionListener quitButton;
+    private final ActionListener resume = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            paused = false;
+            counter = 0;
+        }
+    };
 
     public EscapeMenu(JFrame jFrame, ActionListener quitButton) {
-        this.quitButton = quitButton;
         panel = new JPanel();
         panel.setVisible(false);
+        panel.setLayout(null);
         panel.setBackground(Color.GRAY);
         jFrame.add(panel);
 
-        backButton = new JButton("Quit");
-        backButton.addActionListener(this.quitButton);
+        backButton = new JButton("Save and Exit");
+        backButton.addActionListener(quitButton);
         panel.add(backButton);
 
         resumeButton = new JButton("Resume");
-        ActionListener resume = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                paused = false;
-                counter = 0;
-            }
-        };
         resumeButton.addActionListener(resume);
         panel.add(resumeButton);
 
@@ -52,12 +51,15 @@ public class EscapeMenu {
     }
 
     public void deathMenu(Grid grid, ActionListener menuButton) {
-        panel.setBounds(2 * grid.getWidth() / 5, grid.getHeight() / 3, grid.getWidth() / 5, grid.getHeight() / 3);
         label.setText("You died");
-        resumeButton.setVisible(false);
-        backButton.removeActionListener(quitButton);
-        backButton.addActionListener(menuButton);
-        backButton.setBounds(panel.getWidth() / 4, 2 * panel.getHeight() / 7, panel.getWidth() / 2, panel.getHeight() / 5);
+        backButton.setVisible(false);
+        resumeButton.setText("Exit");
+        resumeButton.removeActionListener(resume);
+        resumeButton.addActionListener(menuButton);
+        panel.repaint();
+        panel.setBounds(2 * grid.getWidth() / 5, grid.getHeight() / 3, grid.getWidth() / 5, grid.getHeight() / 3);
+        label.setBounds(panel.getWidth() / 2 - 60, 10, 200, 50);
+        resumeButton.setBounds(panel.getWidth() / 4, panel.getHeight() / 3, panel.getWidth() / 2, panel.getHeight() / 5);
         panel.setVisible(true);
     }
 
