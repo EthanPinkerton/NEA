@@ -1,6 +1,5 @@
 package game;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class Seeder {
@@ -9,16 +8,19 @@ public class Seeder {
     protected int sum;
     protected int[] stats = new int[5];
 
-    public Seeder() {
-        this.seed = newSeed();
-        //this.seed = "newseed123".toCharArray();
+    public Seeder(String seed) {
+        if (seed.equals("new")) {
+            this.seed = newSeed();
+        } else {
+            this.seed = seed.toCharArray();
+        }
         this.index = 3;
         this.sum = 1;
     }
 
     private char[] newSeed() {
         Random random = new Random();
-        char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
         char[] newSeed = new char[10];
         for (int i = 0; i < newSeed.length; i++) {
             newSeed[i] = chars[random.nextInt(chars.length)];

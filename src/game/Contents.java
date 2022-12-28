@@ -6,17 +6,30 @@ import java.awt.event.ActionListener;
 
 public class Contents extends JPanel {
 
-    private final Grid grid = new Grid(128);
-    private final Player player = new Player(4.2, 4.2, 10, "player.png");
-    private final KeyListener kl = new KeyListener();
-    private final Maze maze = new Maze(5, 5);
+    private Grid grid;
+    private Player player;
+    private final KeyListener kl;
+    private Maze maze;
     private final EscapeMenu escapeMenu;
 
     public Contents(JFrame jFrame, ActionListener quitButton) {
+        kl = new KeyListener();
+        escapeMenu = new EscapeMenu(jFrame, quitButton);
         super.setDoubleBuffered(true);
         super.addKeyListener(kl);
         super.setFocusable(true);
-        escapeMenu = new EscapeMenu(jFrame, quitButton);
+    }
+
+    public void createVariables(){
+        player = new Player(4.2, 4.2, 10, "player.png");
+        maze = new Maze(0, 0, "new");
+        grid = new Grid(128, 4.2, 4.2);
+    }
+
+    public void setVariables(String seed, double x, double y, double health){
+        player = new Player(x, y, health, "player.png");
+        maze = new Maze(x, y, seed);
+        grid = new Grid(128, x,y);
     }
 
     public String getSeed() {

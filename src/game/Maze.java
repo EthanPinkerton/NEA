@@ -6,16 +6,16 @@ import java.awt.image.ImageObserver;
 public class Maze {
 
     private final Seeder seed;
-    protected int h, w;
+    protected final int h, w;
     protected int xOffset, yOffset;
     protected Chunk[][] maze;
     protected Enemies enemies;
     protected Items items;
 
-    public Maze(int height, int width) {
-        this.seed = new Seeder();
-        this.h = height;
-        this.w = width;
+    public Maze(double x, double y, String seed) {
+        this.seed = new Seeder(seed);
+        this.h = 5;
+        this.w = 5;
         this.xOffset = -2;
         this.yOffset = -2;
         this.maze = new Chunk[h][w];
@@ -24,14 +24,14 @@ public class Maze {
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                this.maze[j][i] = new Chunk(seed, i - 2, j - 2);
+                this.maze[j][i] = new Chunk(this.seed, (int) (x / 10) + i - 2, (int) (y / 10) + j - 2);
                 if (!(i - 2 == 0 && j - 2 == 0)) {
                     enemies.fillChunk(i - 2, j - 2);
                     items.fillChunk(i - 2, j - 2);
                 }
             }
         }
-        seed.printStats();
+        this.seed.printStats();
     }
 
     public String getSeed() {

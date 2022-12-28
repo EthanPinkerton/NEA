@@ -3,13 +3,14 @@ package game;
 public class Grid {
 
     protected int scale;
-    private final Camera camera = new Camera(4.2, 4.2);
+    private final Camera camera;
     protected int height, width;
 
-    public Grid(int scale) {
+    public Grid(int scale, double x, double y) {
         this.scale = scale;
         height = 1080;
         width = 1920;
+        camera  = new Camera(x, y);
     }
 
     public int getScale() {

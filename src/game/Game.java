@@ -58,12 +58,13 @@ public class Game {
 
         contents = new Contents(jFrame, quitButton);
         if (GameID == -1) {
+            contents.createVariables();
             jFrame.add(contents);
             contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
 
             this.GameID = Database.newGame(user, contents.getSeed());
         } else {
-            // code for load game goes here
+            contents.setVariables("newseed123", 100, 100, 5.5);// code for load game goes here
             jFrame.add(contents);
             contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
 

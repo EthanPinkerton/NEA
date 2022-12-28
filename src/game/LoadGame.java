@@ -1,14 +1,13 @@
 package game;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
 public class LoadGame {
     protected JPanel panel;
-    private JButton back;
+    private final JButton back;
     private final JScrollBar scrollBar;
     private int lastValue;
     private final JButton[] loadGameButtons;
