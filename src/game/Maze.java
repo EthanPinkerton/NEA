@@ -37,10 +37,6 @@ public class Maze {
         return seed.getSeed();
     }
 
-    public String[][] getChunkArr(int x, int y) {
-        return maze[y - maze[0][0].getY()][x - maze[0][0].getX()].getChunk();
-    }
-
     public String getTile(double x, double y) {
         try {
             return maze[(int) Math.floor(y / 10.0) - maze[0][0].getY()][(int) Math.floor(x / 10.0) - maze[0][0].getX()].getTile(Math.floorMod((int) x, 10), Math.floorMod((int) y, 10));

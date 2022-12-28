@@ -59,46 +59,6 @@ public class Projectile {
                     x += 0.1;
                     return false;
                 }
-//            case 'w':
-//                chunk = maze.getChunkArr((int) Math.floor(x / 10), (int) Math.floor((y - 1) / 10));
-//                if (y % 1 == 0 && chunk[Math.floorMod((int) Math.floor(y - 1), 10)][Math.floorMod((int) Math.floor(x), 10)].equals("x")) {
-//                    return true;
-//                } else if (y % 1 == 0 && chunk[Math.floorMod((int) Math.floor(y - 1), 10)][Math.floorMod((int) Math.floor(x + scale - 0.05), 10)].equals("x")) {
-//                    return true;
-//                } else {
-//                    y -= 0.1;
-//                    return false;
-//                }
-//            case 's':
-//                chunk = maze.getChunkArr((int) Math.floor(x / 10), (int) Math.floor((y + 1) / 10));
-//                if (Math.round(Math.abs(y % 1) * 10) / 10.0 == Math.round((1 - scale) * 10) / 10.0 && chunk[Math.floorMod((int) Math.floor(y + 1), 10)][Math.floorMod((int) Math.floor(x), 10)].equals("x")) {
-//                    return true;
-//                } else if (Math.round(Math.abs(y % 1) * 10) / 10.0 == Math.round((1 - scale) * 10) / 10.0 && chunk[Math.floorMod((int) Math.floor(y + 1), 10)][Math.floorMod((int) Math.floor(x + scale - 0.05), 10)].equals("x")) {
-//                    return true;
-//                } else {
-//                    y += 0.1;
-//                    return false;
-//                }
-//            case 'a':
-//                chunk = maze.getChunkArr((int) Math.floor((x - 1) / 10), (int) Math.floor(y / 10));
-//                if (x % 1 == 0 && chunk[Math.floorMod((int) Math.floor(y), 10)][Math.floorMod((int) Math.floor(x - 1), 10)].equals("x")) {
-//                    return true;
-//                } else if (x % 1 == 0 && chunk[Math.floorMod((int) Math.floor(y + scale - 0.05), 10)][Math.floorMod((int) Math.floor(x - 1), 10)].equals("x")) {
-//                    return true;
-//                } else {
-//                    x -= 0.1;
-//                    return false;
-//                }
-//            case 'd':
-//                chunk = maze.getChunkArr((int) Math.floor((x + 1) / 10), (int) Math.floor(y / 10));
-//                if (Math.round(Math.abs(x % 1) * 10) / 10.0 == Math.round((1 - scale) * 10) / 10.0 && chunk[Math.floorMod((int) Math.floor(y), 10)][Math.floorMod((int) Math.floor(x + 1), 10)].equals("x")) {
-//                    return true;
-//                } else if (Math.round(Math.abs(x % 1) * 10) / 10.0 == Math.round((1 - scale) * 10) / 10.0 && chunk[Math.floorMod((int) Math.floor(y + scale - 0.05), 10)][Math.floorMod((int) Math.floor(x + 1), 10)].equals("x")) {
-//                    return true;
-//                } else {
-//                    x += 0.1;
-//                    return false;
-//                }
         }
         return false;
     }
