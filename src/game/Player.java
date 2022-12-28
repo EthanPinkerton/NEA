@@ -18,7 +18,7 @@ public class Player {
     protected int pDelay;
     protected int score;
 
-    public Player(double x, double y, double health, String file) {
+    public Player(double x, double y, double health, int score, String file) {
         this.x = x;
         this.y = y;
         this.healthBar = new HealthBar(health);
@@ -30,7 +30,7 @@ public class Player {
         scale = 0.75;
         speed = 0.05;
         pDelay = 10;
-        score = 0;
+        this.score = score;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {

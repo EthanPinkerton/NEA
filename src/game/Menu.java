@@ -36,7 +36,12 @@ public class Menu {
     protected ActionListener loadGameButton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+            JButton button = (JButton) e.getSource();
             gameLoader.removePanel(jFrame);
+            jFrame.repaint();
+            jFrame.setVisible(false);
+            int gameID = Integer.parseInt(button.getText().split(":")[1].split(" ")[0]);
+            new Game(jFrame, username, gameID);
         }
     };
 

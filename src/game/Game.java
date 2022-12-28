@@ -64,11 +64,11 @@ public class Game {
 
             this.GameID = Database.newGame(user, contents.getSeed());
         } else {
-            contents.setVariables("newseed123", 100, 100, 5.5);// code for load game goes here
+            this.GameID = GameID;
+            String[] gameStuffs = Database.getGameStuffs(this.GameID);
+            contents.setVariables(gameStuffs[0], 4.2, 4.2, Integer.parseInt(gameStuffs[1]), Double.parseDouble(gameStuffs[2]));
             jFrame.add(contents);
             contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
-
-            this.GameID = GameID;
         }
 
         t.start();

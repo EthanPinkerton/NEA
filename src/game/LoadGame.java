@@ -32,7 +32,7 @@ public class LoadGame {
         loadGameButtons = new JButton[games.length];
         for (int i = 0; i < loadGameButtons.length; i++) {
             String[] content = games[i].split("-");
-            loadGameButtons[i] = new JButton(i + ". ID '" + content[0] + "' Seed '" + content[1] + "' Score '" + content[2] + "'");
+            loadGameButtons[i] = new JButton(i + ". ID:" + content[0] + " Seed:" + content[1] + " Score:" + content[2]);
             loadGameButtons[i].setBounds(panel.getWidth() / 2 - 200, 30 + 50 * i, 400, 40);
             panel.add(loadGameButtons[i]);
             loadGameButtons[i].addActionListener(loadGameButton);

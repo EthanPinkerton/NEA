@@ -20,16 +20,16 @@ public class Contents extends JPanel {
         super.setFocusable(true);
     }
 
-    public void createVariables(){
-        player = new Player(4.2, 4.2, 10, "player.png");
+    public void createVariables() {
+        player = new Player(4.2, 4.2, 10, 0, "player.png");
         maze = new Maze(0, 0, "new");
         grid = new Grid(128, 4.2, 4.2);
     }
 
-    public void setVariables(String seed, double x, double y, double health){
-        player = new Player(x, y, health, "player.png");
+    public void setVariables(String seed, double x, double y, int score, double health) {
+        player = new Player(x, y, health, score, "player.png");
         maze = new Maze(x, y, seed);
-        grid = new Grid(128, x,y);
+        grid = new Grid(128, x, y);
     }
 
     public String getSeed() {
@@ -48,8 +48,8 @@ public class Contents extends JPanel {
         escapeMenu.removePanel(jFrame);
     }
 
-    public void deathScreen(ActionListener menuButton){
-        escapeMenu.deathMenu(grid,menuButton);
+    public void deathScreen(ActionListener menuButton) {
+        escapeMenu.deathMenu(grid, menuButton);
     }
 
     @Override

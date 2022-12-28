@@ -63,6 +63,22 @@ public class Database {
         }
     }
 
+    public static String[] getGameStuffs(int id) {
+        try {
+            Statement stmt = connect();
+            String query = "SELECT Seed,Score,Health FROM Game WHERE GameID=" + id;
+            ResultSet resultSet = stmt.executeQuery(query);
+            if (resultSet.next()) {
+                String results = resultSet.getString("Seed") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Health");
+                return results.split("-");
+            } else {
+                return new String[]{""};
+            }
+        } catch (SQLException e) {
+            return new String[]{""};
+        }
+    }
+
     public static String[] getGames() {
         try {
             Statement stmt = connect();

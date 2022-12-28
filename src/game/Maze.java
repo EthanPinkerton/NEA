@@ -16,8 +16,8 @@ public class Maze {
         this.seed = new Seeder(seed);
         this.h = 5;
         this.w = 5;
-        this.xOffset = -2;
-        this.yOffset = -2;
+        this.xOffset = -2 + (int) (x / 10);
+        this.yOffset = -2 + (int) (y / 10);
         this.maze = new Chunk[h][w];
         this.enemies = new Enemies();
         this.items = new Items();
@@ -31,7 +31,6 @@ public class Maze {
                 }
             }
         }
-        this.seed.printStats();
     }
 
     public String getSeed() {
