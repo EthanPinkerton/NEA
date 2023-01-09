@@ -16,7 +16,7 @@ public class Item {
         this.y = y;
         this.scale = 0.25;
         this.type = type;
-        this.image = GetResource.get(file);
+        this.image = GetResource.getImage(file);
         collected = false;
     }
 

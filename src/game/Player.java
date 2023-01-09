@@ -24,7 +24,7 @@ public class Player {
         this.healthBar = new HealthBar(health);
         this.direction = 'd';
         this.keyPress = 0;
-        this.image = GetResource.get(file);
+        this.image = GetResource.getImage(file);
         projectiles = new ArrayList<>();
         inventory = new Inventory();
         scale = 0.75;

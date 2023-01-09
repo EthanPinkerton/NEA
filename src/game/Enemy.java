@@ -20,7 +20,7 @@ public class Enemy {
         this.x = x;
         this.y = y;
         this.health = health;
-        this.image = GetResource.get(file);
+        this.image = GetResource.getImage(file);
         playerVisible = false;
         direction = rChar();
         onScreen = false;

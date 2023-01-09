@@ -36,6 +36,14 @@ public class Contents extends JPanel {
         return maze.getSeed();
     }
 
+    public double getPlayerX(){
+        return player.getX();
+    }
+
+    public double getPlayerY(){
+        return player.getY();
+    }
+
     public int getScore() {
         return player.getScore();
     }

@@ -66,10 +66,10 @@ public class Database {
     public static String[] getGameStuffs(int id) {
         try {
             Statement stmt = connect();
-            String query = "SELECT Seed,Score,Health FROM Game WHERE GameID=" + id;
+            String query = "SELECT Seed,Score,Health,PlayerX,PlayerY FROM Game WHERE GameID=" + id;
             ResultSet resultSet = stmt.executeQuery(query);
             if (resultSet.next()) {
-                String results = resultSet.getString("Seed") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Health");
+                String results = resultSet.getString("Seed") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Health") + "-" + resultSet.getString("PlayerX") + "-" + resultSet.getString("PlayerY");
                 return results.split("-");
             } else {
                 return new String[]{""};
@@ -96,8 +96,8 @@ public class Database {
 
     public static int newGame(String user, String seed) {
         Statement stmt = connect();
-        String query = "INSERT INTO Game (Player, Seed, Score, Ongoing, Health) values('" + user + "','" + seed + "',0,TRUE,10)";
-        String getIDQuery = "SELECT GameID FROM Game WHERE Player='" + user + "' AND Seed='" + seed + "' AND Score=0 AND Ongoing=TRUE AND Health=10";
+        String query = "INSERT INTO Game (Player, Seed, Score, Ongoing, Health, PlayerX, PlayerY) values('" + user + "','" + seed + "',0,TRUE,10,4.2,4.2)";
+        String getIDQuery = "SELECT GameID FROM Game WHERE Player='" + user + "' AND Seed='" + seed + "' AND Score=0 AND Ongoing=TRUE AND Health=10 AND PlayerX=4.2 AND PlayerY=4.2";
         try {
             stmt.executeUpdate(query);
             ResultSet resultSet = stmt.executeQuery(getIDQuery);
@@ -111,9 +111,9 @@ public class Database {
         }
     }
 
-    public static void updateGame(int id, int score, String ongoing, double health) {
+    public static void updateGame(int id, int score, String ongoing, double health, double playerX, double playerY) {
         Statement stmt = connect();
-        String query = "UPDATE Game SET Score='" + score + "', Ongoing='" + ongoing + "', Health='" + health + "' WHERE GameID='" + id + "'";
+        String query = "UPDATE Game SET Score='" + score + "', Ongoing='" + ongoing + "', Health='" + health + "', PlayerX=" + playerX + ", PlayerY=" + playerY + " WHERE GameID='" + id + "'";
         try {
             stmt.executeUpdate(query);
         } catch (SQLException ignored) {

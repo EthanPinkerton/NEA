@@ -15,10 +15,10 @@ public class Inventory {
         teleport = 1;
         speed = 1;
         bullets = 1;
-        imageB = GetResource.get("bomb.jpg");
-        imageT = GetResource.get("teleport.jpeg");
-        imageS = GetResource.get("speed.jpg");
-        imageP = GetResource.get("bullet.jpg");
+        imageB = GetResource.getImage("bomb.jpg");
+        imageT = GetResource.getImage("teleport.jpeg");
+        imageS = GetResource.getImage("speed.jpg");
+        imageP = GetResource.getImage("bullet.jpg");
         keyPress = 0;
     }
 

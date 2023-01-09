@@ -9,8 +9,8 @@ public class Chunk {
 
     protected String[][] chunk;
     protected int x, y;
-    private final Image block = GetResource.get("placeholder1.png");
-    private final Image space = GetResource.get("placeholder2.png");
+    private final Image block = GetResource.getImage("placeholder1.png");
+    private final Image space = GetResource.getImage("placeholder2.png");
 
     public Chunk(Seeder seed, int x, int y) {
         this.x = x;

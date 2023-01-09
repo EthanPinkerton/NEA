@@ -15,10 +15,11 @@ public class Game {
         @Override
         public void actionPerformed(ActionEvent e) {
             t.stop();
-            Database.updateGame(GameID, contents.getScore(), "TRUE", contents.getHealth());
+            Database.updateGame(GameID, contents.getScore(), "TRUE", contents.getHealth(), contents.getPlayerX(), contents.getPlayerY());
             contents.removeEscapeMenu(jFrame);
             jFrame.remove(contents);
             jFrame.repaint();
+            jFrame.setVisible(false);
             new Menu(GetResource.formatJFrame(jFrame), username);
         }
     };
@@ -38,7 +39,7 @@ public class Game {
                 contents.repaint();
                 t.stop();
                 contents.deathScreen(menuButton);
-                Database.updateGame(GameID, contents.getScore(), "FALSE", 0);
+                Database.updateGame(GameID, contents.getScore(), "FALSE", 0, 4.2, 4.2);
             }
             contents.repaint();
         }
@@ -66,7 +67,7 @@ public class Game {
         } else {
             this.GameID = GameID;
             String[] gameStuffs = Database.getGameStuffs(this.GameID);
-            contents.setVariables(gameStuffs[0], 4.2, 4.2, Integer.parseInt(gameStuffs[1]), Double.parseDouble(gameStuffs[2]));
+            contents.setVariables(gameStuffs[0], Double.parseDouble(gameStuffs[3]), Double.parseDouble(gameStuffs[4]), Integer.parseInt(gameStuffs[1]), Double.parseDouble(gameStuffs[2]));
             jFrame.add(contents);
             contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         }
