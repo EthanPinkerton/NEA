@@ -138,7 +138,10 @@ public class Database {
         try {
             ResultSet resultSet = selectQuery("SELECT * FROM Game;");
             while (resultSet.next()) {
-                String title = resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " " + resultSet.getString(4);
+                String title = "";
+                for (int i = 0; i < 6; i++) {
+                    title += resultSet.getString(i+1) + " ";
+                }
                 System.out.println(title);
             }
         } catch (SQLException e) {
