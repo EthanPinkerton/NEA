@@ -1,5 +1,7 @@
 package game;
 
+import org.hsqldb.result.ResultLob;
+
 import java.sql.*;
 
 public class Database {
@@ -52,7 +54,8 @@ public class Database {
                 }
                 return 1;
             }
-        } catch (SQLException ignored) {}
+        } catch (SQLException ignored) {
+        }
         return 0;
     }
 
@@ -71,10 +74,9 @@ public class Database {
 
     public static String[] getGameStuffs(int id) {
         try {
-            ResultSet resultSet = selectQuery("SELECT Seed,Score,Health FROM Game WHERE GameID=" + id);
+            ResultSet resultSet = selectQuery("SELECT Seed,Score,Health,PlayerX,PlayerY FROM Game WHERE GameID=" + id);
             if (resultSet.next()) {
-                String results = resultSet.getString("Seed") + "-" + resultSet.getString("Score") + "-" + resultSet.getString("Health");
-                return results.split("-");
+                return new String[]{resultSet.getString("Seed"),resultSet.getString("Score"),resultSet.getString("Health"),resultSet.getString("PlayerX"),resultSet.getString("PlayerY")};
             } else {
                 return new String[]{""};
             }
@@ -110,8 +112,8 @@ public class Database {
         }
     }
 
-    public static void updateGame(int id, int score, String ongoing, double health) {
-        updateQuery("UPDATE Game SET Score='" + score + "', Ongoing='" + ongoing + "', Health='" + health + "' WHERE GameID='" + id + "'");
+    public static void updateGame(int id, int score, String ongoing, double health, double x, double y) {
+        updateQuery("UPDATE Game SET Score='" + score + "', Ongoing='" + ongoing + "', Health=" + health + ", PlayerX=" + x + ", PlayerY=" + y + " WHERE GameID='" + id + "'");
     }
 
     public static int deleteUser(String Username) {
@@ -140,7 +142,7 @@ public class Database {
             while (resultSet.next()) {
                 String title = "";
                 for (int i = 0; i < 6; i++) {
-                    title += resultSet.getString(i+1) + " ";
+                    title += resultSet.getString(i + 1) + " ";
                 }
                 System.out.println(title);
             }

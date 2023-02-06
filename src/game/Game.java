@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class Game {
 
@@ -49,7 +50,7 @@ public class Game {
     public Game(JFrame frame, String user, int GameID) {
         this.jFrame = frame;
         this.username = user;
-        jFrame.setMinimumSize(new Dimension(800, 600));
+        //jFrame.setMinimumSize(new Dimension(800, 600));
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(null);
         jFrame.setTitle("Game");
@@ -67,6 +68,7 @@ public class Game {
         } else {
             this.GameID = GameID;
             String[] gameStuffs = Database.getGameStuffs(this.GameID);
+            System.out.println(Arrays.toString(gameStuffs));
             contents.setVariables(gameStuffs[0], Double.parseDouble(gameStuffs[3]), Double.parseDouble(gameStuffs[4]), Integer.parseInt(gameStuffs[1]), Double.parseDouble(gameStuffs[2]));
             jFrame.add(contents);
             contents.setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);

@@ -26,7 +26,8 @@ public class LoadGame {
     public LoadGame(JFrame jFrame, String username, ActionListener loadGameButton, ActionListener backButton) {
         panel = new JPanel();
         panel.setLayout(null);
-        panel.setBounds(0, 0, jFrame.getWidth(), jFrame.getHeight());
+        //panel.setBounds(0, 0, jFrame.getWidth(), jFrame.getHeight());
+        panel.setBounds(0,0,500,500);
         panel.setVisible(true);
         String[] games = Database.loadGames(username);
         loadGameButtons = new JButton[games.length];
@@ -41,7 +42,8 @@ public class LoadGame {
         int max = Math.max(loadGameButtons[loadGameButtons.length - 1].getY() + 60 - 464, 10) / 10;
 
         scrollBar = new JScrollBar(JScrollBar.VERTICAL, 0, 1, 0, max);
-        scrollBar.setBounds(jFrame.getWidth() - 15, 0, 18, jFrame.getHeight() - 36);
+        //scrollBar.setBounds(jFrame.getWidth() - 15, 0, 18, jFrame.getHeight() - 36);
+        scrollBar.setBounds(480,0,18,500 - 36);
         scrollBar.addAdjustmentListener(adjustmentListener);
         panel.add(scrollBar);
         lastValue = 0;
