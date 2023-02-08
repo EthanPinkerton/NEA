@@ -40,7 +40,7 @@ public class Game {
                 contents.repaint();
                 t.stop();
                 contents.deathScreen(menuButton);
-                Database.updateGame(GameID, contents.getScore(), "FALSE", 0, 4.2, 4.2);
+                Database.updateGame(GameID, contents.getScore(), "FALSE", 0, contents.getPlayerX(), contents.getPlayerY());
             }
             contents.repaint();
         }

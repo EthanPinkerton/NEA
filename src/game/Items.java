@@ -14,7 +14,7 @@ public class Items {
 
     public void fillChunk(int chunkX, int chunkY) {
         Random random = new Random();
-        for (int i = 0; i < random.nextInt(3) + 1; i++) {
+        for (int i = 0; i < random.nextInt(4) + 1; i++) {
             char type = randType();
             items.add(new Item(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, type, getFile(type)));
         }

@@ -11,6 +11,7 @@ public class Contents extends JPanel {
     private final KeyListener kl;
     private Maze maze;
     private final EscapeMenu escapeMenu;
+    private int time;
 
     public Contents(JFrame jFrame, ActionListener quitButton) {
         kl = new KeyListener();
@@ -24,12 +25,14 @@ public class Contents extends JPanel {
         player = new Player(4.2, 4.2, 10, 0, "player.png");
         maze = new Maze(0, 0, "new");
         grid = new Grid(128, 4.2, 4.2);
+        time = 0;
     }
 
     public void setVariables(String seed, double x, double y, int score, double health) {
         player = new Player(x, y, health, score, "player.png");
         maze = new Maze(x, y, seed);
         grid = new Grid(128, x, y);
+        time = 0;
     }
 
     public String getSeed() {
@@ -76,7 +79,8 @@ public class Contents extends JPanel {
         escapeMenu.update(kl.isKeyEsc());
         grid.update(gameHeight, gameWidth, player);
         if (!escapeMenu.isPaused()) {
-            maze.update(player);
+            time += 1;
+            maze.update(player,time);
             player.update(kl, maze);
         }
         return (player.getHealth() <= 0);
