@@ -12,29 +12,40 @@ public class Player {
     private final ArrayList<Projectile> projectiles;
     private int keyPress;
     private final double scale;
+    private final double xScale;
+    private final double yScale;
     private final HealthBar healthBar;
     private final Inventory inventory;
     protected double speed;
     protected int pDelay;
     protected int score;
+    private boolean damage;
 
-    public Player(double x, double y, double health, int score, String file) {
+    public Player(double x, double y, double health, int score) {
         this.x = x;
         this.y = y;
         this.healthBar = new HealthBar(health);
         this.direction = 'd';
         this.keyPress = 0;
-        this.image = GetResource.getImage(file);
+        this.image = GetResource.getImage("player.png");
         projectiles = new ArrayList<>();
         inventory = new Inventory();
         scale = 0.75;
+        xScale = 0.5;
+        yScale = 0.7;
         speed = 0.05;
         pDelay = 10;
         this.score = score;
+        damage = false;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
-        g2d.drawImage(image, grid.getX(x), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+        if (damage) {
+            g2d.drawImage(GetResource.getImage("dsbuffer.png"), grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+            damage = false;
+        } else {
+            g2d.drawImage(image, grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+        }
         for (Projectile projectile : projectiles) {
             projectile.draw(g2d, IO, grid);
         }
@@ -132,13 +143,13 @@ public class Player {
         y = Math.round(y * 100) / 100.0;
         switch (key) {
             case 'w':
-                return maze.collision(x, y - speed, x + scale, y + scale - speed);
+                return maze.collision(x, y - speed, x + xScale, y + yScale - speed);
             case 's':
-                return maze.collision(x, y + speed, x + scale, y + scale + speed);
+                return maze.collision(x, y + speed, x + xScale, y + yScale + speed);
             case 'a':
-                return maze.collision(x - speed, y, x + scale - speed, y + scale);
+                return maze.collision(x - speed, y, x + xScale - speed, y + yScale);
             case 'd':
-                return maze.collision(x + speed, y, x + scale + speed, y + scale);
+                return maze.collision(x + speed, y, x + xScale + speed, y + yScale);
         }
         return false;
     }
@@ -165,11 +176,12 @@ public class Player {
     }
 
     public boolean intersect(Rectangle rec) {
-        return rec.intersects((int) (x * 100), (int) (y * 100), (int) (scale * 100), (int) (scale * 100));
+        return rec.intersects((int) (x * 100), (int) (y * 100), (int) (xScale * 100), (int) (yScale * 100));
     }
 
     public void damage(double damage) {
         healthBar.damage(damage);
+        this.damage = true;
     }
 
     public void removeProjectile(int i) {

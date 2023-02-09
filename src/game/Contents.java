@@ -22,14 +22,14 @@ public class Contents extends JPanel {
     }
 
     public void createVariables() {
-        player = new Player(4.2, 4.2, 10, 0, "player.png");
+        player = new Player(4.2, 4.2, 10, 0);
         maze = new Maze(0, 0, "new");
         grid = new Grid(128, 4.2, 4.2);
         time = 0;
     }
 
     public void setVariables(String seed, double x, double y, int score, double health) {
-        player = new Player(x, y, health, score, "player.png");
+        player = new Player(x, y, health, score);
         maze = new Maze(x, y, seed);
         grid = new Grid(128, x, y);
         time = 0;
@@ -39,11 +39,11 @@ public class Contents extends JPanel {
         return maze.getSeed();
     }
 
-    public double getPlayerX(){
+    public double getPlayerX() {
         return player.getX();
     }
 
-    public double getPlayerY(){
+    public double getPlayerY() {
         return player.getY();
     }
 
@@ -80,7 +80,7 @@ public class Contents extends JPanel {
         grid.update(gameHeight, gameWidth, player);
         if (!escapeMenu.isPaused()) {
             time += 1;
-            maze.update(player,time);
+            maze.update(player, time);
             player.update(kl, maze);
         }
         return (player.getHealth() <= 0);

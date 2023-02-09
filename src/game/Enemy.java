@@ -15,6 +15,7 @@ public class Enemy {
     private char direction;
     private boolean following = false;
     private boolean onScreen;
+    private int hitTimer;
 
     public Enemy(double x, double y, double health, String file) {
         this.x = x;
@@ -24,6 +25,7 @@ public class Enemy {
         playerVisible = false;
         direction = rChar();
         onScreen = false;
+        hitTimer = 0;
     }
 
     private char rChar() {
@@ -37,13 +39,13 @@ public class Enemy {
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
-        if (grid.onScreen(x - 0.05, y - 0.1)) {
+        if (grid.onScreen(x, y)) {
             onScreen = true;
-            g2d.drawImage(image, grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+            g2d.drawImage(image, grid.getX(x), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
             g2d.setColor(Color.RED);
-            g2d.fillRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale * (health / 10.0)), (int) (grid.getScale() * scale / 8.0));
+            g2d.fillRect(grid.getX(x), grid.getY(y), (int) (grid.getScale() * scale * (health / 10.0)), (int) (grid.getScale() * scale / 8.0));
             g2d.setColor(Color.BLACK);
-            g2d.drawRect(grid.getX(x - 0.05), grid.getY(y - 0.1), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
+            g2d.drawRect(grid.getX(x), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale / 8.0));
         } else {
             onScreen = false;
         }
@@ -93,10 +95,18 @@ public class Enemy {
             vector.setJ(pY - y);
             if (vector.getMod() < 7) {
                 if (!maze.collision(x + 0.04 * vector.iDirection(), y, x + 0.04 * vector.iDirection() + scale, y + scale)) {
-                    x += 0.04 * vector.iDirection();
+                    if (Math.abs(vector.getI()) < 0.04) {
+                        x += 0.01 * vector.iDirection();
+                    } else {
+                        x += 0.04 * vector.iDirection();
+                    }
                 }
                 if (!maze.collision(x, y + 0.04 * vector.jDirection(), x + scale, y + 0.04 * vector.jDirection() + scale)) {
-                    y += 0.04 * vector.jDirection();
+                    if (Math.abs(vector.getJ()) < 0.04) {
+                        y += 0.01 * vector.jDirection();
+                    } else {
+                        y += 0.04 * vector.jDirection();
+                    }
                 }
             } else {
                 following = false;
@@ -136,11 +146,17 @@ public class Enemy {
     }
 
     public void update(Player player, Maze maze) {
+        if (hitTimer != 0) {
+            hitTimer -= 1;
+        }
         x = Math.round(x * 100.0) / 100.0;
         y = Math.round(y * 100.0) / 100.0;
         checkProjectiles(player);
         if (checkPlayer(player)) {
-            player.damage(0.1);
+            if (hitTimer == 0) {
+                player.damage(0.7);
+                hitTimer = 16;
+            }
             return;
         }
         seePlayer(player.getX(), player.getY(), maze);
