@@ -15,7 +15,6 @@ public class Enemies {
     public void fillChunk(int chunkX, int chunkY, int time) {
         Random random = new Random();
         int numb = random.nextInt(3 + time/2000) + 2;
-        System.out.println(numb + " " + time);
         for (int i = 0; i < numb; i++) {
             enemies.add(new Enemy(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "enemy.png"));
         }

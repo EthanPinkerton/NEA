@@ -78,12 +78,12 @@ public class Enemy {
 
     private void seePlayer(double pX, double pY, Maze maze) {
         if (Math.floor(x) == Math.floor(pX)) {
-            if (!maze.collision((int) x, (int) y, (int) (pY - y), true)) {
+            if (!maze.collision(x, y, (int) (pY - y), true)) {
                 following = true;
             }
         }
         if (Math.floor(y) == Math.floor(pY)) {
-            if (!maze.collision((int) x, (int) y, (int) (pX - x), false)) {
+            if (!maze.collision(x, y, (int) (pX - x), false)) {
                 following = true;
             }
         }
