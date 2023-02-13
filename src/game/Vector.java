@@ -34,6 +34,20 @@ public class Vector {
         }
     }
 
+    public char direction() {
+        if (Math.abs(i) <= 1 && j >= 0) {
+            return 'w';
+        } else if (Math.abs(i) <= 1 && j < 0) {
+            return 's';
+        } else if (Math.abs(j) <= 1 && i >= 0) {
+            return 'a';
+        } else if (Math.abs(j) <= 1 && i < 0) {
+            return 'd';
+        } else {
+            return 'n';
+        }
+    }
+
     public double getI() {
         return i;
     }

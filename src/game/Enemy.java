@@ -9,11 +9,10 @@ public class Enemy {
     protected double x, y;
     protected Image image;
     protected double health;
-    private final double scale = 0.4;
-    protected boolean playerVisible;
+    protected final double scale = 0.4;
     protected Vector vector = new Vector(0, 0);
     private char direction;
-    private boolean following = false;
+    protected boolean following;
     private boolean onScreen;
     private int hitTimer;
 
@@ -22,7 +21,7 @@ public class Enemy {
         this.y = y;
         this.health = health;
         this.image = GetResource.getImage(file);
-        playerVisible = false;
+        following = false;
         direction = rChar();
         onScreen = false;
         hitTimer = 0;
@@ -71,9 +70,13 @@ public class Enemy {
         }
     }
 
-    private boolean checkPlayer(Player player) {
+    protected boolean checkPlayer(Player player) {
         Rectangle rec = new Rectangle((int) (x * 100), (int) (y * 100), (int) (scale * 100), (int) (scale * 100));
-        return player.intersect(rec);
+        if (player.intersect(rec)) {
+            attack(player);
+            return true;
+        }
+        return false;
     }
 
     private void seePlayer(double pX, double pY, Maze maze) {
@@ -145,6 +148,13 @@ public class Enemy {
         }
     }
 
+    protected void attack(Player player) {
+        if (hitTimer == 0) {
+            player.damage(0.7);
+            hitTimer = 16;
+        }
+    }
+
     public void update(Player player, Maze maze) {
         if (hitTimer != 0) {
             hitTimer -= 1;
@@ -153,10 +163,6 @@ public class Enemy {
         y = Math.round(y * 100.0) / 100.0;
         checkProjectiles(player);
         if (checkPlayer(player)) {
-            if (hitTimer == 0) {
-                player.damage(0.7);
-                hitTimer = 16;
-            }
             return;
         }
         seePlayer(player.getX(), player.getY(), maze);
