@@ -144,9 +144,11 @@ abstract class Enemy {
         }
     }
 
-    abstract boolean checkPlayer(Player player, Maze maze);
+     abstract boolean checkPlayer(Player player, Maze maze);
 
     abstract void attack(Player player);
+
+    abstract char getType();
 
     public void update(Player player, Maze maze) {
         if (hitTimer != 0) {

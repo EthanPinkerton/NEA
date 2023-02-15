@@ -61,6 +61,10 @@ public class Ranged extends Enemy {
                 hitTimer = 22;
             }
         }
+    }
 
+    @Override
+    public char getType() {
+        return 'r';
     }
 }

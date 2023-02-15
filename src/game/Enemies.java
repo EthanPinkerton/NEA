@@ -19,7 +19,7 @@ public class Enemies {
             if (random.nextInt(3) < 2) {
                 enemies.add(new Melee(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "enemy.png"));
             } else {
-                enemies.add(new Ranged(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "enemy.png"));
+                enemies.add(new Ranged(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "ranged.png"));
             }
         }
     }
@@ -39,7 +39,11 @@ public class Enemies {
             } else {
                 enemies.get(i).update(player, maze);
                 if (enemies.get(i).getHealth() <= 0) {
-                    player.addScore(10);
+                    if (enemies.get(i).getType() == 'm') {
+                        player.addScore(10);
+                    } else if (enemies.get(i).getType() == 'r') {
+                        player.addScore(20);
+                    }
                     enemies.remove(i);
                     i--;
                 }

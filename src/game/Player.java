@@ -41,7 +41,7 @@ public class Player {
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
         if (damageImage != 0) {
-            g2d.drawImage(GetResource.getImage("dsbuffer.png"), grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+            g2d.drawImage(GetResource.getImage("playerHit.png"), grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
             damageImage -= 1;
         } else {
             g2d.drawImage(image, grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);

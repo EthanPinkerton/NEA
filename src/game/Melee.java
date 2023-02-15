@@ -32,4 +32,9 @@ public class Melee extends Enemy {
             hitTimer = 16;
         }
     }
+
+    @Override
+    public char getType() {
+        return 'm';
+    }
 }
