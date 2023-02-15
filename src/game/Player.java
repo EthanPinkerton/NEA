@@ -19,7 +19,7 @@ public class Player {
     protected double speed;
     protected int pDelay;
     protected int score;
-    private boolean damage;
+    private int damageImage;
 
     public Player(double x, double y, double health, int score) {
         this.x = x;
@@ -36,13 +36,13 @@ public class Player {
         speed = 0.05;
         pDelay = 10;
         this.score = score;
-        damage = false;
+        damageImage = 0;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
-        if (damage) {
+        if (damageImage != 0) {
             g2d.drawImage(GetResource.getImage("dsbuffer.png"), grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
-            damage = false;
+            damageImage -= 1;
         } else {
             g2d.drawImage(image, grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
         }
@@ -181,7 +181,7 @@ public class Player {
 
     public void damage(double damage) {
         healthBar.damage(damage);
-        this.damage = true;
+        damageImage = 3;
     }
 
     public void removeProjectile(int i) {
