@@ -30,9 +30,9 @@ public class Player {
         this.image = GetResource.getImage("player.png");
         projectiles = new ArrayList<>();
         inventory = new Inventory();
-        scale = 0.75;
-        xScale = 0.5;
-        yScale = 0.7;
+        scale = 0.57;
+        xScale = 0.37;
+        yScale = 0.5;
         speed = 0.05;
         pDelay = 10;
         this.score = score;
@@ -104,23 +104,23 @@ public class Player {
             }
         }
         if (kl.isKeyUp() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 'w', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 'w', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeyDown() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 's', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 's', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeyLeft() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 'a', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 'a', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeyRight() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 'd', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 'd', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeySpace() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", direction, scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", direction, scale / 2));
             keyPress = pDelay;
         }
     }
