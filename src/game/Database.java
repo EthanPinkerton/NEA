@@ -141,7 +141,7 @@ public class Database {
             ResultSet resultSet = selectQuery("SELECT * FROM Game;");
             while (resultSet.next()) {
                 String title = "";
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 8; i++) {
                     title += resultSet.getString(i + 1) + " ";
                 }
                 System.out.println(title);
