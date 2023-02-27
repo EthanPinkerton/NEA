@@ -22,6 +22,10 @@ public class Projectile {
         g2d.drawImage(bullet, grid.getX(x), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
     }
 
+    public Rectangle getRectangle() {
+        return new Rectangle((int) (x * 100), (int) (y * 100), (int) (scale * 100), (int) (scale * 100));
+    }
+
     public boolean intersect(Rectangle rec) {
         return rec.intersects((int) (x * 100), (int) (y * 100), (int) (scale * 100), (int) (scale * 100));
     }

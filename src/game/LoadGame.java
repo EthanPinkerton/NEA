@@ -46,6 +46,8 @@ public class LoadGame {
         scrollBar.setBounds(480,0,18,500 - 36);
         scrollBar.addAdjustmentListener(adjustmentListener);
         panel.add(scrollBar);
+        scrollBar.setVisible(true);
+        scrollBar.repaint();
         lastValue = 0;
 
         back = new JButton("Back");

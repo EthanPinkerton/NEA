@@ -14,10 +14,13 @@ public class Enemies {
 
     public void fillChunk(int chunkX, int chunkY, int time) {
         Random random = new Random();
-        int numb = random.nextInt(3 + time/2000) + 2;
-        System.out.println(numb + " " + time);
+        int numb = random.nextInt(3 + time / 5000) + 2;
         for (int i = 0; i < numb; i++) {
-            enemies.add(new Enemy(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "enemy.png"));
+            if (random.nextInt(3) < 2) {
+                enemies.add(new Melee(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "enemy.png"));
+            } else {
+                enemies.add(new Ranged(chunkX * 10 + random.nextInt(5) * 2 + 0.3, chunkY * 10 + random.nextInt(5) * 2 + 0.3, 10, "ranged.png"));
+            }
         }
     }
 
@@ -36,7 +39,11 @@ public class Enemies {
             } else {
                 enemies.get(i).update(player, maze);
                 if (enemies.get(i).getHealth() <= 0) {
-                    player.addScore(10);
+                    if (enemies.get(i).getType() == 'm') {
+                        player.addScore(10);
+                    } else if (enemies.get(i).getType() == 'r') {
+                        player.addScore(20);
+                    }
                     enemies.remove(i);
                     i--;
                 }

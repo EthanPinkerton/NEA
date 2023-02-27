@@ -19,7 +19,7 @@ public class Player {
     protected double speed;
     protected int pDelay;
     protected int score;
-    private boolean damage;
+    private int damageImage;
 
     public Player(double x, double y, double health, int score) {
         this.x = x;
@@ -30,19 +30,19 @@ public class Player {
         this.image = GetResource.getImage("player.png");
         projectiles = new ArrayList<>();
         inventory = new Inventory();
-        scale = 0.75;
-        xScale = 0.5;
-        yScale = 0.7;
+        scale = 0.57;
+        xScale = 0.37;
+        yScale = 0.5;
         speed = 0.05;
         pDelay = 10;
         this.score = score;
-        damage = false;
+        damageImage = 0;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
-        if (damage) {
-            g2d.drawImage(GetResource.getImage("dsbuffer.png"), grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
-            damage = false;
+        if (damageImage != 0) {
+            g2d.drawImage(GetResource.getImage("playerHit.png"), grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
+            damageImage -= 1;
         } else {
             g2d.drawImage(image, grid.getX(x - 0.1), grid.getY(y), (int) (grid.getScale() * scale), (int) (grid.getScale() * scale), IO);
         }
@@ -104,23 +104,23 @@ public class Player {
             }
         }
         if (kl.isKeyUp() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 'w', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 'w', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeyDown() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 's', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 's', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeyLeft() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 'a', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 'a', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeyRight() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", 'd', scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", 'd', scale / 2));
             keyPress = pDelay;
         }
         if (kl.isKeySpace() && keyPress == 0) {
-            projectiles.add(new Projectile(x + scale / 4, y + scale / 4, "bullet.png", direction, scale / 2));
+            projectiles.add(new Projectile(x + xScale / 4, y + yScale / 4, "bullet.png", direction, scale / 2));
             keyPress = pDelay;
         }
     }
@@ -181,7 +181,7 @@ public class Player {
 
     public void damage(double damage) {
         healthBar.damage(damage);
-        this.damage = true;
+        damageImage = 3;
     }
 
     public void removeProjectile(int i) {
