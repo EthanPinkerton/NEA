@@ -7,7 +7,7 @@ import java.util.Objects;
 public final class GetResource {
     public static Image getImage(String file) {
         try {
-            return new ImageIcon(getFile("res/" + file)).getImage();
+            return new ImageIcon(getFile(file)).getImage();
         } catch (NullPointerException e) {
             return new ImageIcon().getImage();
         }
