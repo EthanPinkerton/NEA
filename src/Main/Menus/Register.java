@@ -24,7 +24,7 @@ public class Register {
                 GetResource.displayError(jFrame, "Invalid username length");
             } else if (getPassword().length() < 5) {
                 GetResource.displayError(jFrame, "Password must be longer\n than 5 characters");
-            } else if (Database.addUser(getUsername(), getPassword()) == 1) {
+            } else if (Database.addUser(getUsername(), getPassword().hashCode()) == 1) {
                 String u = getUsername();
                 removeComponents();
                 jFrame.repaint();

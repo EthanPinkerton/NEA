@@ -41,15 +41,15 @@ public class Database {
         }
     }
 
-    public static int addUser(String username, String password) {
+    public static int addUser(String username, int password) {
         return updateQuery("INSERT INTO Players (Username, Password) values('" + username + "','" + password + "');");
     }
 
     public static int loginUser(String username, String password) {
-        ResultSet resultSet = selectQuery("SELECT Password FROM Players WHERE Username='" + username + "';");
         try {
+            ResultSet resultSet = selectQuery("SELECT Password FROM Players WHERE Username='" + username + "';");
             if (resultSet.next()) {
-                if (resultSet.getString("Password").equals(password)) {
+                if (resultSet.getString("Password").equals(String.valueOf(password.hashCode()))) {
                     return 2;
                 }
                 return 1;
