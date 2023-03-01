@@ -52,8 +52,7 @@ public class Items {
     public void update(Player player) {
         int i = 0;
         while (i < items.size()) {
-            items.get(i).update(player);
-            if (items.get(i).isCollected()) {
+            if (items.get(i).update(player)) {
                 items.remove(i);
                 i--;
             }
