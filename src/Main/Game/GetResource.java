@@ -31,7 +31,7 @@ public final class GetResource {
         jFrame.setMinimumSize(new Dimension(500, 500));
         jFrame.setSize(500, 500);
         //jFrame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 250, Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 250);
-        jFrame.setLocation(200, 200);
+        jFrame.setLocation(700, 300);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setResizable(false);
         jFrame.setVisible(true);

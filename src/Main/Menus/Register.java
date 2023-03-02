@@ -4,6 +4,7 @@ import Main.Database;
 import Main.Game.GetResource;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,6 +17,7 @@ public class Register {
     protected JButton register = new JButton("Submit");
     protected JLabel ULabel = new JLabel("Enter Username:");
     protected JLabel PLabel = new JLabel("Enter Password:");
+    private JLabel registerLabel = new JLabel("Register");
 
     protected ActionListener registerButton = new ActionListener() {
         @Override
@@ -39,6 +41,7 @@ public class Register {
         @Override
         public void actionPerformed(ActionEvent e) {
             removeComponents();
+            jFrame.repaint();
             new Login(jFrame);
         }
     };
@@ -56,12 +59,15 @@ public class Register {
         jFrame.add(password);
         jFrame.add(PLabel);
         jFrame.add(register);
-        username.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2 - 30, 200, 30);
-        password.setBounds(jFrame.getWidth() / 2 - 100, jFrame.getHeight() / 2, 200, 30);
-        back.setBounds(jFrame.getWidth() / 2 - 95, jFrame.getHeight() / 2 + 40, 90, 20);
-        register.setBounds(jFrame.getWidth() / 2 + 5, jFrame.getHeight() / 2 + 40, 90, 20);
-        ULabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2 - 30, 100, 30);
-        PLabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2, 100, 30);
+        jFrame.add(registerLabel);
+        username.setBounds(jFrame.getWidth() / 2 - 70, jFrame.getHeight() / 2 - 30, 200, 30);
+        password.setBounds(jFrame.getWidth() / 2 - 70, jFrame.getHeight() / 2, 200, 30);
+        back.setBounds(jFrame.getWidth() / 2 - 105, jFrame.getHeight() / 2 + 40, 100, 20);
+        register.setBounds(jFrame.getWidth() / 2 + 5, jFrame.getHeight() / 2 + 40, 100, 20);
+        ULabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2 - 30, 130, 30);
+        PLabel.setBounds(jFrame.getWidth() / 2 - 200, jFrame.getHeight() / 2, 130, 30);
+        registerLabel.setBounds(jFrame.getWidth() / 2 - 70,jFrame.getHeight() / 2 - 150,140,35);
+        registerLabel.setFont(new Font("",Font.PLAIN,30));
         back.addActionListener(backButton);
         register.addActionListener(registerButton);
         password.addActionListener(registerButton);
@@ -74,6 +80,7 @@ public class Register {
         jFrame.remove(register);
         jFrame.remove(ULabel);
         jFrame.remove(PLabel);
+        jFrame.remove(registerLabel);
     }
 
     public String getUsername() {

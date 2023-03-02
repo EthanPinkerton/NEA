@@ -20,6 +20,7 @@ public class Leaderboard {
     private String displayUsername = "t";
     private String displayOngoing = "t";
     private int page;
+    private int highlightLine;
 
     private final ActionListener previousListener = new ActionListener() {
         @Override
@@ -80,6 +81,7 @@ public class Leaderboard {
         format(backListener);
         jFrame.add(panel);
         page = 0;
+        highlightLine = -1;
         getGames();
         display();
     }
@@ -128,7 +130,8 @@ public class Leaderboard {
     }
 
     public void displaySearch(String[] array, String item) {
-        page = search(array, item, array.length / 2) / 20;
+        highlightLine = search(array, item, array.length / 2);
+        page = highlightLine / 20;
         display();
     }
 
@@ -208,7 +211,11 @@ public class Leaderboard {
         int len = Math.min(allGames[index].length - 1 - page * 20, 20);
         if (displayOngoing.equals("t") && displayUsername.equals("t")) {
             for (int i = 1; i < len + 1; i++) {
-                rString += allGames[index][i + page * 20] + "\n";
+                if (i == highlightLine) {
+                    rString += allGames[index][i + page * 20] + "\n^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
+                } else {
+                    rString += allGames[index][i + page * 20] + "\n";
+                }
             }
         } else {
             int i = page * 20;
