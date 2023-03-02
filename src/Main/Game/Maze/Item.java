@@ -13,7 +13,6 @@ public class Item {
     protected double x, y;
     protected Image image;
     protected double scale;
-    protected boolean collected;
 
     public Item(double x, double y, char type, String file) {
         this.x = x;
@@ -21,7 +20,6 @@ public class Item {
         this.scale = 0.25;
         this.type = type;
         this.image = GetResource.getImage(file);
-        collected = false;
     }
 
     public void draw(Graphics2D g2d, ImageObserver IO, Grid grid) {
@@ -30,15 +28,12 @@ public class Item {
         }
     }
 
-    public void update(Player player) {
+    public boolean update(Player player) {
         Rectangle rec = new Rectangle((int) (x * 100), (int) (y * 100), (int) (scale * 100), (int) (scale * 100));
         if (player.intersect(rec)) {
             player.addItem(type);
-            collected = true;
+            return true;
         }
-    }
-
-    public boolean isCollected() {
-        return collected;
+        return false;
     }
 }
